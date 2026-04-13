@@ -3640,5 +3640,51 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 
+<!-- Floating 후기 버튼 -->
+<div id="floatingReviewBtn" onclick="openReviewModal()" style="
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: white;
+  padding: 14px 22px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(200,75,47,0.45);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  user-select: none;
+" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(200,75,47,0.55)'"
+   onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(200,75,47,0.45)'">
+  <span style="font-size:1.2rem;">🧾</span>
+  <span>후기 남기기</span>
+</div>
+
+<script>
+// 스크롤 내리면 버튼 표시
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('floatingReviewBtn');
+  if (window.scrollY > 300) {
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+    btn.style.transform = 'translateY(0)';
+  } else {
+    btn.style.opacity = '0';
+    btn.style.pointerEvents = 'none';
+    btn.style.transform = 'translateY(10px)';
+  }
+});
+// 초기 숨김
+document.getElementById('floatingReviewBtn').style.opacity = '0';
+document.getElementById('floatingReviewBtn').style.pointerEvents = 'none';
+document.getElementById('floatingReviewBtn').style.transition = 'all 0.3s';
+</script>
+
 </body>
 </html>
