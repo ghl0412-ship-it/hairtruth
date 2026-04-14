@@ -796,42 +796,13 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
     <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;">
       <div style="padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
         <div style="font-weight:700;font-size:0.95rem;">내 치료 기록</div>
-        <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:var(--teal);color:white;padding:7px 16px;border-radius:6px;font-size:0.8rem;text-decoration:none;font-weight:600;">+ 기록 추가</a>
+        <button onclick="openTimelineModal()" style="background:var(--teal);color:white;padding:7px 16px;border-radius:6px;font-size:0.8rem;border:none;cursor:pointer;font-weight:600;font-family:'Noto Sans KR',sans-serif;">+ 기록 추가</button>
       </div>
-      <!-- 샘플 타임라인 -->
-      <div style="padding:24px;position:relative;">
+      <!-- 타임라인 목록 -->
+      <div style="padding:24px;position:relative;" id="timelineList">
         <div style="position:absolute;left:44px;top:24px;bottom:24px;width:2px;background:var(--line);"></div>
-        <div style="display:flex;flex-direction:column;gap:24px;">
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:42px;height:42px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;">1월</div>
-            <div style="background:var(--teal-light);border:1px solid rgba(42,107,110,0.2);border-radius:10px;padding:14px 16px;flex:1;">
-              <div style="font-size:0.82rem;font-weight:700;color:var(--teal);margin-bottom:4px;">치료 시작</div>
-              <div style="font-size:0.8rem;color:var(--mid);">피나스테리드 제네릭 복용 시작 (월 8,000원)</div>
-              <div style="font-size:0.72rem;color:#aaa;margin-top:6px;">🧾 영수증 인증 완료</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:42px;height:42px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;">3월</div>
-            <div style="background:#fdf6e3;border:1px solid rgba(184,147,42,0.2);border-radius:10px;padding:14px 16px;flex:1;">
-              <div style="font-size:0.82rem;font-weight:700;color:var(--gold);margin-bottom:4px;">두피 PRP 추가</div>
-              <div style="font-size:0.8rem;color:var(--mid);">피부과에서 PRP 1회 시술 (12만원)</div>
-              <div style="font-size:0.72rem;color:#aaa;margin-top:6px;">🧾 영수증 인증 완료</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="width:42px;height:42px;border-radius:50%;background:var(--verified);display:flex;align-items:center;justify-content:center;color:white;font-size:0.8rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;">6월</div>
-            <div style="background:var(--verified-bg);border:1px solid rgba(42,122,75,0.2);border-radius:10px;padding:14px 16px;flex:1;">
-              <div style="font-size:0.82rem;font-weight:700;color:var(--verified);margin-bottom:4px;">효과 확인</div>
-              <div style="font-size:0.8rem;color:var(--mid);">탈모 진행 멈춤. 잔모 굵기 개선 확인</div>
-              <div style="font-size:0.72rem;color:#aaa;margin-top:6px;">📸 비교 사진 첨부</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:16px;align-items:flex-start;opacity:0.4;">
-            <div style="width:42px;height:42px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:0.75rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;border:2px dashed #ccc;">+</div>
-            <div style="background:#f5f5f5;border:1px dashed #ddd;border-radius:10px;padding:14px 16px;flex:1;">
-              <div style="font-size:0.82rem;color:#aaa;">다음 기록을 추가해보세요</div>
-            </div>
-          </div>
+        <div style="display:flex;flex-direction:column;gap:24px;" id="timelineItems">
+          <!-- JS로 렌더링 -->
         </div>
       </div>
     </div>
@@ -2154,10 +2125,12 @@ function getCurrentUser() {
 
 function setSession(user) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+  setTimeout(() => renderTimeline(), 100);
 }
 
 function clearSession() {
   localStorage.removeItem(SESSION_KEY);
+  setTimeout(() => renderTimeline(), 100);
 }
 
 function hashPw(pw) {
@@ -2312,10 +2285,193 @@ function renderAdminReviewCard(r, isApproved) {
 }
 
 function switchAdminTab(idx) {
-  for(let i=0;i<4;i++){
-    document.getElementById('adminContent'+i).style.display = i===idx?'block':'none';
+  for(let i=0;i<6;i++){
+    const content = document.getElementById('adminContent'+i);
     const tab = document.getElementById('adminTab'+i);
+    if(content) content.style.display = i===idx?'block':'none';
     if(tab){ tab.style.color = i===idx?'white':'#aaa'; tab.style.borderBottomColor = i===idx?'var(--accent-soft)':'transparent'; }
+  }
+  if(idx===4) renderHospitalList();
+  if(idx===5) renderVisitorStats();
+}
+
+/* ── 병원 관리 ── */
+const HOSPITALS_KEY = 'ht_admin_hospitals';
+
+function getAdminHospitals() {
+  try { return JSON.parse(localStorage.getItem(HOSPITALS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function openHospitalForm(id) {
+  document.getElementById('hospitalForm').style.display = 'block';
+  document.getElementById('hosp_editId').value = '';
+  document.getElementById('hospitalFormTitle').textContent = '🏥 병원 추가';
+  ['name','type','region','phone','treatment','price','memo'].forEach(f => {
+    const el = document.getElementById('hosp_'+f);
+    if(el) el.value = f==='type' ? 'clinic' : '';
+  });
+  if(id) {
+    const h = getAdminHospitals().find(h=>h.id===id);
+    if(!h) return;
+    document.getElementById('hospitalFormTitle').textContent = '✏️ 병원 수정';
+    document.getElementById('hosp_editId').value = id;
+    document.getElementById('hosp_name').value      = h.name||'';
+    document.getElementById('hosp_type').value      = h.type||'clinic';
+    document.getElementById('hosp_region').value    = h.region||'';
+    document.getElementById('hosp_phone').value     = h.phone||'';
+    document.getElementById('hosp_treatment').value = h.treatment||'';
+    document.getElementById('hosp_price').value     = h.price||'';
+    document.getElementById('hosp_memo').value      = h.memo||'';
+  }
+}
+
+function closeHospitalForm() {
+  document.getElementById('hospitalForm').style.display = 'none';
+}
+
+function saveHospital() {
+  const name = document.getElementById('hosp_name').value.trim();
+  if(!name){ alert('병원명을 입력해주세요.'); return; }
+  const hospitals = getAdminHospitals();
+  const editId = document.getElementById('hosp_editId').value;
+  const data = {
+    name,
+    type:      document.getElementById('hosp_type').value,
+    region:    document.getElementById('hosp_region').value.trim(),
+    phone:     document.getElementById('hosp_phone').value.trim(),
+    treatment: document.getElementById('hosp_treatment').value.trim(),
+    price:     document.getElementById('hosp_price').value.trim(),
+    memo:      document.getElementById('hosp_memo').value.trim(),
+  };
+  if(editId) {
+    const idx = hospitals.findIndex(h=>h.id==editId);
+    if(idx>-1) hospitals[idx] = {...hospitals[idx], ...data};
+  } else {
+    hospitals.push({...data, id: Date.now(), createdAt: new Date().toISOString().split('T')[0]});
+  }
+  localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+  closeHospitalForm();
+  renderHospitalList();
+}
+
+function deleteHospital(id) {
+  if(!confirm('이 병원을 삭제할까요?')) return;
+  const hospitals = getAdminHospitals().filter(h=>h.id!==id);
+  localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+  renderHospitalList();
+}
+
+function renderHospitalList() {
+  const container = document.getElementById('hospitalList');
+  if(!container) return;
+  const hospitals = getAdminHospitals();
+  const typeLabel = {clinic:'탈모클리닉',derm:'피부과',hanbang:'한의원',scalp:'두피샵',pharmacy:'약국'};
+  const typeColor = {clinic:'var(--teal)',derm:'var(--accent)',hanbang:'var(--verified)',scalp:'var(--gold)',pharmacy:'#7b5ea7'};
+  if(hospitals.length===0){
+    container.innerHTML = `<div style="text-align:center;padding:40px;color:#aaa;background:#f7f8fa;border-radius:12px;"><div style="font-size:2rem;margin-bottom:8px;">🏥</div><div style="font-size:0.85rem;">등록된 병원이 없어요.<br>위 + 병원 추가 버튼으로 추가해보세요!</div></div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div style="font-size:0.8rem;color:#aaa;margin-bottom:10px;">총 ${hospitals.length}개 병원 등록됨</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${hospitals.map(h=>`
+        <div style="background:white;border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:0.9rem;">${h.name}</span>
+              <span style="background:${typeColor[h.type]||'#888'};color:white;padding:2px 8px;border-radius:10px;font-size:0.7rem;">${typeLabel[h.type]||h.type}</span>
+            </div>
+            <div style="font-size:0.78rem;color:#888;display:flex;gap:12px;flex-wrap:wrap;">
+              ${h.region?`<span>📍 ${h.region}</span>`:''}
+              ${h.phone?`<span>📞 ${h.phone}</span>`:''}
+              ${h.treatment?`<span>💉 ${h.treatment}</span>`:''}
+              ${h.price?`<span>💰 ${h.price}</span>`:''}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">
+            <button onclick="openHospitalForm(${h.id})" style="background:var(--teal);color:white;border:none;padding:7px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">수정</button>
+            <button onclick="deleteHospital(${h.id})" style="background:#fee;color:var(--accent);border:1px solid #fcc;padding:7px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">삭제</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+/* ── 방문자 통계 ── */
+function renderVisitorStats() {
+  const users   = getUsers();
+  const reviews = getReviews();
+  const approved = reviews.filter(r=>r.status==='approved');
+  const pending  = reviews.filter(r=>r.status==='pending');
+
+  // 목표 달성률
+  const goal = 30;
+  const pct  = Math.min(100, Math.round(approved.length/goal*100));
+
+  // 상단 통계 카드
+  const statsEl = document.getElementById('visitorStats');
+  if(statsEl) statsEl.innerHTML = [
+    { label:'가입 회원',  value: users.length+'명',    color:'var(--teal)',    icon:'👥' },
+    { label:'승인된 후기', value: approved.length+'건', color:'var(--verified)', icon:'✅' },
+    { label:'대기 후기',  value: pending.length+'건',  color:'var(--accent)',  icon:'⏳' },
+    { label:'목표 달성률', value: pct+'%',              color:'var(--gold)',    icon:'🎯' },
+    { label:'등록 병원',  value: getAdminHospitals().length+'개', color:'#7b5ea7', icon:'🏥' },
+    { label:'후기 30건까지', value: Math.max(0,goal-approved.length)+'건 남음', color:'#2c7bb6', icon:'🚀' },
+  ].map(s=>`
+    <div style="background:white;border:1.5px solid ${s.color}33;border-radius:12px;padding:16px;text-align:center;">
+      <div style="font-size:1.4rem;margin-bottom:6px;">${s.icon}</div>
+      <div style="font-size:1.3rem;font-weight:700;color:${s.color};">${s.value}</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:4px;">${s.label}</div>
+    </div>`).join('');
+
+  // 목표 달성 프로그레스바
+  const chartEl = document.getElementById('reviewChart');
+  const labelsEl = document.getElementById('reviewChartLabels');
+  if(chartEl) {
+    // 월별 후기 집계
+    const monthly = {};
+    reviews.forEach(r => {
+      if(!r.date && !r.createdAt) return;
+      const d = new Date(r.date || r.createdAt);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      monthly[key] = (monthly[key]||0) + 1;
+    });
+    const keys = Object.keys(monthly).sort().slice(-6);
+    if(keys.length===0) {
+      chartEl.innerHTML = `<div style="color:#aaa;font-size:0.82rem;padding:20px;">아직 후기 데이터가 없어요.</div>`;
+      if(labelsEl) labelsEl.innerHTML='';
+    } else {
+      const max = Math.max(...keys.map(k=>monthly[k]),1);
+      chartEl.innerHTML = keys.map(k=>{
+        const h = Math.max(8, Math.round(monthly[k]/max*100));
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;">
+          <span style="font-size:0.7rem;color:var(--teal);font-weight:700;">${monthly[k]}</span>
+          <div style="width:100%;height:${h}px;background:var(--teal);border-radius:4px 4px 0 0;opacity:0.8;"></div>
+        </div>`;
+      }).join('');
+      if(labelsEl) labelsEl.innerHTML = keys.map(k=>`<div style="flex:1;text-align:center;font-size:0.7rem;color:#aaa;">${k.slice(5)}월</div>`).join('');
+    }
+  }
+
+  // 시술별 비율
+  const treatEl = document.getElementById('treatmentStats');
+  if(treatEl && approved.length>0) {
+    const tmap = {};
+    approved.forEach(r=>{ if(r.treatment){ const k=r.treatment.slice(0,10); tmap[k]=(tmap[k]||0)+1; }});
+    const sorted = Object.entries(tmap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const total = sorted.reduce((s,e)=>s+e[1],0);
+    treatEl.innerHTML = sorted.map(([k,v])=>{
+      const pct2 = Math.round(v/total*100);
+      return `<div style="margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+          <span>${k}</span><span style="color:var(--teal);font-weight:600;">${v}건 (${pct2}%)</span>
+        </div>
+        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${pct2}%;background:var(--teal);border-radius:4px;transition:width 0.5s;"></div>
+        </div>
+      </div>`;
+    }).join('');
+  } else if(treatEl) {
+    treatEl.innerHTML = `<div style="color:#aaa;font-size:0.82rem;">승인된 후기가 없어요.</div>`;
   }
 }
 
@@ -3460,6 +3616,8 @@ document.addEventListener('DOMContentLoaded', function() {
       <button class="admin-tab" id="adminTab1" onclick="switchAdminTab(1)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">⏳ 대기 후기 <span id="pendingBadge" style="background:var(--accent);color:white;padding:1px 6px;border-radius:10px;font-size:0.7rem;margin-left:4px;">0</span></button>
       <button class="admin-tab" id="adminTab2" onclick="switchAdminTab(2)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">✅ 승인된 후기</button>
       <button class="admin-tab" id="adminTab3" onclick="switchAdminTab(3)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">👥 회원 관리</button>
+      <button class="admin-tab" id="adminTab4" onclick="switchAdminTab(4)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">🏥 병원 관리</button>
+      <button class="admin-tab" id="adminTab5" onclick="switchAdminTab(5)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">📈 방문자 통계</button>
     </div>
 
     <!-- 탭 콘텐츠 -->
@@ -3492,6 +3650,91 @@ document.addEventListener('DOMContentLoaded', function() {
       <!-- 회원 관리 탭 -->
       <div id="adminContent3" style="display:none;">
         <div id="userList"></div>
+      </div>
+
+      <!-- 병원 관리 탭 -->
+      <div id="adminContent4" style="display:none;">
+        <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:0.85rem;color:var(--mid);">병원·한의원·두피샵 정보를 직접 추가하고 관리하세요.</div>
+          <button onclick="openHospitalForm()" style="background:var(--teal);color:white;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">+ 병원 추가</button>
+        </div>
+
+        <!-- 병원 추가/수정 폼 -->
+        <div id="hospitalForm" style="display:none;background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;border:1.5px solid var(--line);">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;" id="hospitalFormTitle">🏥 병원 추가</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">병원명 *</label>
+              <input id="hosp_name" type="text" placeholder="예: 연세 피부과의원" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">유형 *</label>
+              <select id="hosp_type" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;background:white;">
+                <option value="clinic">탈모클리닉</option>
+                <option value="derm">피부과</option>
+                <option value="hanbang">한의원</option>
+                <option value="scalp">두피관리샵</option>
+                <option value="pharmacy">약국</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">지역 *</label>
+              <input id="hosp_region" type="text" placeholder="예: 서울 강남구" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">전화번호</label>
+              <input id="hosp_phone" type="text" placeholder="예: 02-1234-5678" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">주요 시술</label>
+              <input id="hosp_treatment" type="text" placeholder="예: 피나스테리드, 두피 PRP" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">가격대</label>
+              <input id="hosp_price" type="text" placeholder="예: 8,000원~15만원" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">메모</label>
+            <input id="hosp_memo" type="text" placeholder="관리자 메모 (사이트에 표시 안 됨)" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+          </div>
+          <input type="hidden" id="hosp_editId">
+          <div style="display:flex;gap:8px;">
+            <button onclick="saveHospital()" style="background:var(--teal);color:white;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">💾 저장</button>
+            <button onclick="closeHospitalForm()" style="background:#eee;color:#666;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;">취소</button>
+          </div>
+        </div>
+
+        <!-- 병원 목록 -->
+        <div id="hospitalList"></div>
+      </div>
+
+      <!-- 방문자 통계 탭 -->
+      <div id="adminContent5" style="display:none;">
+        <!-- 내부 통계 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;" id="visitorStats"></div>
+
+        <!-- 후기 추이 차트 -->
+        <div style="background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;">📊 월별 후기 등록 추이</div>
+          <div id="reviewChart" style="display:flex;align-items:flex-end;gap:8px;height:120px;padding:0 4px;"></div>
+          <div id="reviewChartLabels" style="display:flex;gap:8px;margin-top:8px;padding:0 4px;"></div>
+        </div>
+
+        <!-- 시술별 후기 비율 -->
+        <div style="background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;">💉 시술별 후기 비율</div>
+          <div id="treatmentStats"></div>
+        </div>
+
+        <!-- 구글 애널리틱스 바로가기 -->
+        <div style="background:var(--ink);border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="color:white;font-weight:700;font-size:0.9rem;margin-bottom:4px;">📈 구글 애널리틱스 상세 통계</div>
+            <div style="color:#aaa;font-size:0.8rem;">실시간 방문자·유입경로·기기 등 상세 데이터</div>
+          </div>
+          <a href="https://analytics.google.com" target="_blank" style="background:var(--teal);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;">GA 바로가기 →</a>
+        </div>
       </div>
 
     </div>
@@ -3639,6 +3882,186 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </div>
 </div>
+
+<!-- 타임라인 기록 모달 -->
+<div id="timelineModal" class="modal-overlay" onclick="if(event.target===this)closeTimelineModal()">
+  <div class="modal-box" style="max-width:480px;width:100%;">
+    <div class="modal-header">
+      <div class="modal-title">📅 치료 기록 추가</div>
+      <button class="modal-close" onclick="closeTimelineModal()">✕</button>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
+      <div class="form-group">
+        <label>날짜 <span style="color:var(--accent)">*</span></label>
+        <input type="date" id="tl_date" style="width:100%;">
+      </div>
+      <div class="form-group">
+        <label>치료 단계 <span style="color:var(--accent)">*</span></label>
+        <select id="tl_stage" style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;background:white;">
+          <option value="">선택해주세요</option>
+          <option value="치료 시작">🌱 치료 시작</option>
+          <option value="약물 변경">💊 약물 변경</option>
+          <option value="시술 추가">💉 시술 추가</option>
+          <option value="효과 확인">✅ 효과 확인</option>
+          <option value="중간 점검">📊 중간 점검</option>
+          <option value="모발이식">✂️ 모발이식</option>
+          <option value="기타">📝 기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>치료 내용 <span style="color:var(--accent)">*</span></label>
+        <input type="text" id="tl_content" placeholder="예: 피나스테리드 제네릭 복용 시작 (월 8,000원)" style="width:100%;">
+      </div>
+      <div class="form-group">
+        <label>지출 비용 (선택)</label>
+        <input type="text" id="tl_cost" placeholder="예: 8,000원 / 12만원" style="width:100%;">
+      </div>
+      <div class="form-group">
+        <label>메모 (선택)</label>
+        <textarea id="tl_memo" placeholder="치료 후 느낀 점, 부작용, 변화 등을 자유롭게 적어주세요." style="width:100%;height:80px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:0.88rem;resize:vertical;"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--teal-light);border-radius:8px;">
+        <input type="checkbox" id="tl_receipt" style="width:18px;height:18px;cursor:pointer;">
+        <label for="tl_receipt" style="font-size:0.85rem;cursor:pointer;">🧾 영수증 인증 완료</label>
+      </div>
+      <div id="tl_msg" style="font-size:0.8rem;min-height:20px;"></div>
+      <button onclick="saveTimeline()" style="width:100%;padding:13px;background:var(--teal);color:white;border:none;border-radius:8px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
+        ✅ 기록 저장
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── 타임라인 ── */
+function openTimelineModal() {
+  const user = getCurrentUser();
+  if (!user) {
+    alert('로그인 후 치료 기록을 추가할 수 있어요! 😊');
+    openAuthModal('login');
+    return;
+  }
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('tl_date').value = today;
+  document.getElementById('tl_stage').value = '';
+  document.getElementById('tl_content').value = '';
+  document.getElementById('tl_cost').value = '';
+  document.getElementById('tl_memo').value = '';
+  document.getElementById('tl_receipt').checked = false;
+  document.getElementById('tl_msg').textContent = '';
+  document.getElementById('timelineModal').classList.add('open');
+}
+
+function closeTimelineModal() {
+  document.getElementById('timelineModal').classList.remove('open');
+}
+
+function getTimelineKey() {
+  const user = getCurrentUser();
+  return user ? `ht_timeline_${user.id}` : null;
+}
+
+function saveTimeline() {
+  const user = getCurrentUser();
+  if (!user) { alert('로그인이 필요해요!'); return; }
+
+  const date    = document.getElementById('tl_date').value.trim();
+  const stage   = document.getElementById('tl_stage').value;
+  const content = document.getElementById('tl_content').value.trim();
+  const cost    = document.getElementById('tl_cost').value.trim();
+  const memo    = document.getElementById('tl_memo').value.trim();
+  const receipt = document.getElementById('tl_receipt').checked;
+  const msg     = document.getElementById('tl_msg');
+
+  if (!date)    { msg.textContent = '❌ 날짜를 선택해주세요.'; msg.style.color='var(--accent)'; return; }
+  if (!stage)   { msg.textContent = '❌ 치료 단계를 선택해주세요.'; msg.style.color='var(--accent)'; return; }
+  if (!content) { msg.textContent = '❌ 치료 내용을 입력해주세요.'; msg.style.color='var(--accent)'; return; }
+
+  const key = getTimelineKey();
+  const entries = JSON.parse(localStorage.getItem(key) || '[]');
+  entries.push({ date, stage, content, cost, memo, receipt, id: Date.now() });
+  entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+  localStorage.setItem(key, JSON.stringify(entries));
+
+  msg.textContent = '✅ 기록이 저장됐어요!';
+  msg.style.color = 'var(--verified)';
+  setTimeout(() => { closeTimelineModal(); renderTimeline(); }, 800);
+}
+
+function deleteTimeline(id) {
+  if (!confirm('이 기록을 삭제할까요?')) return;
+  const key = getTimelineKey();
+  if (!key) return;
+  const entries = JSON.parse(localStorage.getItem(key) || '[]').filter(e => e.id !== id);
+  localStorage.setItem(key, JSON.stringify(entries));
+  renderTimeline();
+}
+
+function renderTimeline() {
+  const container = document.getElementById('timelineItems');
+  if (!container) return;
+
+  const user = getCurrentUser();
+
+  // 비로그인 상태
+  if (!user) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px 0;color:#aaa;">
+        <div style="font-size:2rem;margin-bottom:12px;">🔒</div>
+        <div style="font-size:0.88rem;margin-bottom:16px;">로그인하면 나만의 치료 기록을<br>작성하고 관리할 수 있어요!</div>
+        <button onclick="openAuthModal('login')" style="background:var(--teal);color:white;border:none;padding:10px 24px;border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">로그인하기</button>
+      </div>`;
+    return;
+  }
+
+  const key = getTimelineKey();
+  const entries = JSON.parse(localStorage.getItem(key) || '[]');
+
+  const colorMap = {
+    '치료 시작':'var(--teal)','약물 변경':'var(--accent)','시술 추가':'var(--gold)',
+    '효과 확인':'var(--verified)','중간 점검':'#7b5ea7','모발이식':'#2c7bb6','기타':'#888'
+  };
+  const bgMap = {
+    '치료 시작':'var(--teal-light)','약물 변경':'rgba(200,75,47,0.08)','시술 추가':'#fdf6e3',
+    '효과 확인':'var(--verified-bg)','중간 점검':'#f3eeff','모발이식':'#e8f4fb','기타':'#f5f5f5'
+  };
+
+  if (entries.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px 0;color:#aaa;">
+        <div style="font-size:2rem;margin-bottom:12px;">📋</div>
+        <div style="font-size:0.88rem;">아직 기록이 없어요.<br>+ 기록 추가 버튼을 눌러 첫 기록을 남겨보세요!</div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = entries.map(e => {
+    const d = new Date(e.date);
+    const monthLabel = `${d.getMonth()+1}월`;
+    const color = colorMap[e.stage] || '#888';
+    const bg    = bgMap[e.stage]    || '#f5f5f5';
+    return `<div style="display:flex;gap:16px;align-items:flex-start;">
+      <div style="width:42px;height:42px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;color:white;font-size:0.78rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;">${monthLabel}</div>
+      <div style="background:${bg};border:1px solid ${color}33;border-radius:10px;padding:14px 16px;flex:1;">
+        <div style="font-size:0.82rem;font-weight:700;color:${color};margin-bottom:4px;">${e.stage}</div>
+        <div style="font-size:0.8rem;color:var(--mid);">${e.content}</div>
+        ${e.cost ? `<div style="font-size:0.78rem;color:var(--mid);margin-top:4px;">💰 ${e.cost}</div>` : ''}
+        ${e.memo ? `<div style="font-size:0.77rem;color:#888;margin-top:5px;line-height:1.5;">${e.memo}</div>` : ''}
+        <div style="font-size:0.72rem;color:#aaa;margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+          <span>${e.date}${e.receipt ? ' · 🧾 영수증 인증' : ''}</span>
+          <button onclick="deleteTimeline(${e.id})" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:0.75rem;padding:2px 6px;">삭제</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('') + `
+    <div style="display:flex;gap:16px;align-items:flex-start;opacity:0.4;">
+      <div style="width:42px;height:42px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:1rem;flex-shrink:0;position:relative;z-index:1;border:2px dashed #ccc;">+</div>
+      <div style="background:#f5f5f5;border:1px dashed #ddd;border-radius:10px;padding:14px 16px;flex:1;"><div style="font-size:0.82rem;color:#aaa;">다음 기록을 추가해보세요</div></div>
+    </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', function() { renderTimeline(); });
+</script>
 
 <!-- Floating 후기 버튼 -->
 <div id="floatingReviewBtn" onclick="openReviewModal()" style="
