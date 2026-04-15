@@ -359,6 +359,15 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px solid var(--accent-soft); }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+/* 독립 페이지에서 ht-page 숨김 해제 */
+.ht-page { display: block !important; }
+.ht-page.active { display: block !important; }
+/* 모달만 숨김 유지 */
+.modal-overlay { display: none !important; }
+.modal-overlay.open { display: flex !important; }
+</style>
 </head>
 <body>
 <div class="notif-banner" id="nb">
@@ -3407,17 +3416,6 @@ renderReviews = function() {
   }, 150);
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const hash = location.hash;
-  if (hash.startsWith('#/')) {
-    const parts = hash.slice(2).split('/');
-    const page = parts[0];
-    const id = parts[1];
-    if (PAGES.includes(page)) { navigate(page, id ? { id } : null); return; }
-  }
-  navigate('home');
-  history.replaceState({ page: 'home' }, '', location.pathname);
-});
 </script>
 
 
