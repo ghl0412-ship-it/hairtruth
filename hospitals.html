@@ -2,12 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="naver-site-verification" content="b8cba84b3f635f6add33efc51ef47979f31ca9a1" />
+<meta name="naver-site-verification" content="b8cba84b3f635f6add33efc51ef47979f31ca9a1"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0L14PBQVW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T0L14PBQVW');</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>병원 찾기 — 헤어트루스</title>
-<meta name="description" content="탈모 병원 실제 가격을 영수증으로 인증해 공개하는 플랫폼. 광고 없이 실제 후기만 모읍니다.">
+<meta name="description" content="탈모 병원 실제 가격을 영수증으로 인증해 공개하는 플랫폼.">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1a1a1a;--cream:#f5f0e8;--warm:#f0e8d5;--accent:#c84b2f;--accent-soft:#e8a090;--teal:#2a6b6e;--teal-light:#e0f0f0;--gold:#b8932a;--mid:#6b6355;--line:#d4ccc0;--white:#fefefe;--verified:#2a7a4b;--verified-bg:#e8f5ee;}
@@ -358,26 +358,14 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 /* 네비 활성 상태 */
 nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px solid var(--accent-soft); }
 </style>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<style>
-/* 독립 페이지에서 ht-page 숨김 해제 */
-.ht-page { display: block !important; }
-.ht-page.active { display: block !important; }
-/* 모달만 숨김 유지 */
-.modal-overlay { display: none !important; }
-.modal-overlay.open { display: flex !important; }
-</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-
-<!-- 알림 배너 -->
 <div class="notif-banner" id="nb">
-  <span class="notif-badge">이벤트</span>
-  <p>🧾 <strong>영수증 인증</strong> 기반 탈모 병원·한의원·두피샵 후기 플랫폼 — <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--accent-soft);text-decoration:underline">채팅방 참여하기 →</a></p>
+  <span class="notif-badge">알림</span>
+  <p>🧾 <strong>영수증 인증</strong> 기반 탈모 병원 정보 플랫폼 — <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--accent-soft)">채팅방 참여하기 →</a></p>
   <button class="notif-close" onclick="document.getElementById('nb').style.display='none'">✕</button>
 </div>
-
 <header>
   <div class="logo" onclick="location.href='index.html'" style="cursor:pointer;">헤어<span>트루스</span></div>
   <nav>
@@ -397,7 +385,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <a href="hospitals.html">병원 찾기</a>
   <a href="ranking.html">병원 랭킹</a>
   <a href="price.html">비급여 가격표</a>
-  <a href="guide.html">탈모 치료 가이드</a>
+  <a href="guide.html">치료 가이드</a>
   <a href="reviews.html">후기</a>
   <a href="qa.html">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
@@ -812,72 +800,598 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 
 
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="logo">헤어<span style="color:var(--accent-soft)">트루스</span></span>
-      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>모든 후기는 실제 방문자의 영수증으로 검증됩니다.</p>
-      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
-        <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:#FEE500;color:#3C1E1E;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">💬 카카오 채팅방</a>
-        <a href="https://instagram.com/hairtruth_kr" target="_blank" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">📷 @hairtruth_kr</a>
+<div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeModal('authModal')">
+  <div class="modal-box auth-modal">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    <div class="auth-header">
+      <div class="auth-logo">헤어<span>트루스</span></div>
+      <p style="font-size:0.8rem;color:var(--mid);margin-top:4px">영수증 인증 탈모 병원 정보 플랫폼</p>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">로그인</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">회원가입</button>
       </div>
-      <div class="disclaimer">⚠️ 본 사이트의 정보는 의학적 조언을 대체하지 않습니다. 진료 관련 결정은 반드시 의료 전문가와 상담하세요.</div>
     </div>
-    <div class="footer-col">
-      <h4>서비스</h4>
-      <a href="#search">병원 찾기</a>
-      <a href="#ranking">병원 랭킹</a>
-      <a href="#price">비급여 가격표</a>
-      <a href="#heatmap">지역별 가격 비교</a>
-      <a href="#compare">한방 vs 양방 비교</a>
-    </div>
-    <div class="footer-col">
-      <h4>정보</h4>
-      <a href="#guide">탈모 치료 가이드</a>
-      <a href="#timeline">치료 타임라인</a>
-      <a href="#qa">Q&A 커뮤니티</a>
-      <a href="#" onclick="openDiag();return false;">탈모 자가진단</a>
-    </div>
-    <div class="footer-col">
-      <h4>채널</h4>
-      <a href="https://open.kakao.com/o/gSX50zki" target="_blank">카카오 오픈채팅</a>
-      <a href="https://instagram.com/hairtruth_kr" target="_blank">인스타그램</a>
-      <a href="#">네이버 블로그</a>
-      <a href="#">제휴·파트너십 문의</a>
+    <div class="auth-body">
+
+      <!-- 혜택 안내 -->
+      <div class="auth-benefit">
+        <strong>🧾 회원 혜택</strong>
+        영수증 후기 작성 · 병원 즐겨찾기 · 맞춤 가격 알림 · Q&A 참여
+      </div>
+
+      <!-- 에러 메시지 -->
+      <div id="authError" style="display:none;background:#fef3f0;border:1px solid #f5c6bc;color:#c84b2f;padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:12px;"></div>
+      <!-- 성공 메시지 -->
+      <div id="authSuccess" style="display:none;background:var(--verified-bg);border:1px solid #a8d8bc;color:var(--verified);padding:10px 14px;border-radius:8px;font-size:0.82rem;margin-bottom:12px;"></div>
+
+      <!-- 로그인 폼 -->
+      <div id="loginForm">
+        <div class="auth-form">
+          <div class="form-group">
+            <label>아이디 또는 이메일</label>
+            <input type="text" id="login_email" placeholder="아이디 또는 이메일 입력" onkeydown="if(event.key==='Enter')doLogin()">
+          </div>
+          <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" id="login_pw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()">
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-top:-6px">
+            <a href="#" onclick="showForgotPw();return false;" style="font-size:0.75rem;color:var(--teal);text-decoration:none">비밀번호 찾기</a>
+          </div>
+          <button class="auth-submit" onclick="doLogin()">로그인</button>
+        </div>
+        <div class="auth-footer" style="margin-top:16px;">
+          계정이 없으신가요? <a href="#" onclick="switchAuthTab('register');return false">회원가입 →</a>
+        </div>
+      </div>
+
+      <!-- 회원가입 폼 -->
+      <div id="registerForm" style="display:none;">
+        <div class="auth-form">
+
+          <!-- 아이디 -->
+          <div class="form-group">
+            <label>아이디 <span style="color:var(--accent)">*</span> <span style="font-size:0.7rem;color:#aaa;">영문·숫자 5~15자</span></label>
+            <input type="text" id="reg_name" placeholder="영문 소문자·숫자 조합 (5~15자)" maxlength="15" oninput="checkId(this)">
+            <div id="reg_name_msg" style="font-size:0.72rem;margin-top:4px;"></div>
+          </div>
+
+          <!-- 이메일 -->
+          <div class="form-group">
+            <label>이메일 <span style="color:var(--accent)">*</span></label>
+            <input type="email" id="reg_email" placeholder="example@email.com"
+              oninput="checkEmail(this)"
+              style="width:100%;box-sizing:border-box;">
+            <div id="reg_email_msg" style="font-size:0.72rem;margin-top:4px;"></div>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="form-group">
+            <label>비밀번호 <span style="color:var(--accent)">*</span> <span style="font-size:0.7rem;color:#aaa;">8자 이상, 영문+숫자+특수문자</span></label>
+            <div style="position:relative;">
+              <input type="password" id="reg_pw" placeholder="비밀번호 입력" style="width:100%;box-sizing:border-box;" oninput="checkPw(this)">
+              <button type="button" onclick="togglePw('reg_pw', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aaa;font-size:0.8rem;">보기</button>
+            </div>
+            <!-- 비밀번호 강도 바 -->
+            <div style="margin-top:6px;">
+              <div style="height:4px;background:#eee;border-radius:4px;overflow:hidden;">
+                <div id="pwStrengthBar" style="height:100%;width:0%;border-radius:4px;transition:all 0.3s;"></div>
+              </div>
+              <div id="pwStrengthMsg" style="font-size:0.72rem;margin-top:4px;color:#aaa;"></div>
+            </div>
+          </div>
+
+          <!-- 비밀번호 확인 -->
+          <div class="form-group">
+            <label>비밀번호 확인 <span style="color:var(--accent)">*</span></label>
+            <div style="position:relative;">
+              <input type="password" id="reg_pw2" placeholder="비밀번호 재입력" style="width:100%;box-sizing:border-box;" oninput="checkPw2(this)">
+              <button type="button" onclick="togglePw('reg_pw2', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aaa;font-size:0.8rem;">보기</button>
+            </div>
+            <div id="reg_pw2_msg" style="font-size:0.72rem;margin-top:4px;"></div>
+          </div>
+
+          <!-- 성별 -->
+          <div class="form-group">
+            <label>성별 <span style="font-size:0.7rem;color:#aaa;">(선택)</span></label>
+            <div style="display:flex;gap:10px;">
+              <label style="flex:1;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.88rem;" id="genderM">
+                <input type="radio" name="reg_gender" value="남성" onchange="selectGender('남성')" style="accent-color:var(--teal)"> 남성
+              </label>
+              <label style="flex:1;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.88rem;" id="genderF">
+                <input type="radio" name="reg_gender" value="여성" onchange="selectGender('여성')" style="accent-color:var(--teal)"> 여성
+              </label>
+              <label style="flex:1;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.88rem;" id="genderN">
+                <input type="radio" name="reg_gender" value="" onchange="selectGender('')" style="accent-color:var(--teal)" checked> 선택 안 함
+              </label>
+            </div>
+          </div>
+
+          <!-- 거주 지역 -->
+          <div class="form-group">
+            <label>거주 지역 <span style="font-size:0.7rem;color:#aaa;">(선택)</span></label>
+            <div style="display:flex;gap:8px;">
+              <select id="reg_sido" onchange="updateSigungu('reg_sido','reg_sigungu')" style="flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+                <option value="">시/도 선택</option>
+              </select>
+              <select id="reg_sigungu" style="flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+                <option value="">시/군/구 선택</option>
+              </select>
+              <input type="hidden" id="reg_region">
+            </div>
+          </div>
+
+          <!-- 약관 동의 -->
+          <div style="background:var(--cream);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.82rem;">
+              <input type="checkbox" id="agreeAll" onchange="toggleAllAgree(this)" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
+              <span style="font-weight:700;">전체 동의</span>
+            </label>
+            <div style="height:1px;background:var(--line);"></div>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
+              <input type="checkbox" id="agreeTerms" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
+              <span>[필수] <a href="#" style="color:var(--teal)">이용약관</a> 동의</span>
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
+              <input type="checkbox" id="agreePrivacy" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
+              <span>[필수] <a href="#" style="color:var(--teal)">개인정보 처리방침</a> 동의</span>
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
+              <input type="checkbox" id="agreeMarketing" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
+              <span>[선택] 탈모 정보·이벤트 알림 수신 동의</span>
+            </label>
+          </div>
+
+          <button class="auth-submit" onclick="doRegister()">가입하기</button>
+        </div>
+        <div class="auth-footer" style="margin-top:16px;">
+          이미 계정이 있으신가요? <a href="#" onclick="switchAuthTab('login');return false">로그인 →</a>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 헤어트루스. All rights reserved.</span>
-    <span>광고비 미수취 플랫폼 · 영수증 인증 후기만 게재</span>
+</div>
+<div class="modal-overlay" id="reviewModal" onclick="if(event.target===this)closeReviewModal()">
+  <div class="modal-box" style="max-width:560px;">
+    <button class="modal-close" onclick="closeReviewModal()">✕</button>
+    <div style="background:var(--teal);padding:28px 32px;border-radius:16px 16px 0 0;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:rgba(255,255,255,0.6);margin-bottom:6px;">RECEIPT REVIEW</div>
+      <h2 style="font-family:'Noto Serif KR',serif;font-size:1.3rem;color:white;margin-bottom:4px;">영수증 인증 후기 작성</h2>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.7);">🧾 영수증 인증 후기만 게재됩니다</p>
+    </div>
+    <div style="padding:28px 32px;overflow-y:auto;max-height:70vh;" id="reviewForm">
+
+      <!-- 병원 정보 -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">병원·한의원·두피샵명 <span style="color:var(--accent)">*</span></label>
+        <input id="rv_hospital" type="text" placeholder="예: 연세 피부과의원, 하얀피부과" style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box;">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+        <div>
+          <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">기관 유형 <span style="color:var(--accent)">*</span></label>
+          <select id="rv_type" style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+            <option value="derm">피부과</option>
+            <option value="clinic">탈모클리닉</option>
+            <option value="hanbang">한의원</option>
+            <option value="scalp">두피관리샵</option>
+            <option value="pharmacy">약국</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">지역</label>
+          <div style="display:flex;gap:8px;">
+            <select id="rv_sido" onchange="updateSigungu('rv_sido','rv_sigungu')" style="flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+              <option value="">시/도 선택</option>
+            </select>
+            <select id="rv_sigungu" style="flex:1;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+              <option value="">시/군/구 선택</option>
+            </select>
+            <input type="hidden" id="rv_region">
+          </div>
+        </div>
+      </div>
+
+      <!-- 시술 정보 -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">시술·약 이름 <span style="color:var(--accent)">*</span></label>
+        <input id="rv_treatment" type="text" placeholder="예: 피나스테리드 제네릭 처방, 두피 PRP 1회" style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box;">
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">실제 지불 금액 <span style="color:var(--accent)">*</span></label>
+        <input id="rv_amount" type="text" placeholder="예: 8,500원 / 15만원 / 380만원" style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box;">
+      </div>
+
+      <!-- 별점 -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:10px;">만족도 별점 <span style="color:var(--accent)">*</span></label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="display:flex;gap:4px;" id="starRow">
+            <label style="cursor:pointer;font-size:1.8rem;color:#ddd;" class="rv-star"><input type="radio" name="rv_rating" value="1" style="display:none">★</label>
+            <label style="cursor:pointer;font-size:1.8rem;color:#ddd;" class="rv-star"><input type="radio" name="rv_rating" value="2" style="display:none">★</label>
+            <label style="cursor:pointer;font-size:1.8rem;color:#ddd;" class="rv-star"><input type="radio" name="rv_rating" value="3" style="display:none">★</label>
+            <label style="cursor:pointer;font-size:1.8rem;color:#ddd;" class="rv-star"><input type="radio" name="rv_rating" value="4" style="display:none">★</label>
+            <label style="cursor:pointer;font-size:1.8rem;color:#ddd;" class="rv-star"><input type="radio" name="rv_rating" value="5" style="display:none">★</label>
+          </div>
+          <span style="font-size:0.78rem;color:var(--mid)">별점을 선택하세요</span>
+        </div>
+      </div>
+
+      <!-- 후기 내용 -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">후기 내용 <span style="color:var(--accent)">*</span></label>
+        <textarea id="rv_content" rows="5" placeholder="예시) 피나스테리드 3개월 복용 중인데 빠지는 양이 눈에 띄게 줄었어요. 의사 선생님이 제네릭으로 처방해주셔서 가격도 부담 없었습니다. 대기는 30분 정도 걸렸지만 친절하게 설명해주셔서 만족했어요." style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;outline:none;resize:vertical;box-sizing:border-box;" oninput="checkContentQuality(this)"></textarea>
+        <!-- 실시간 품질 안내 -->
+        <div id="contentQualityMsg" style="margin-top:6px;font-size:0.72rem;"></div>
+        <div style="margin-top:6px;background:#f0f7ff;border-radius:6px;padding:8px 10px;font-size:0.72rem;color:#555;line-height:1.6;">
+          💡 <strong>이런 내용을 포함하면 AI 검증 점수가 높아져요</strong><br>
+          ✔ 탈모약 이름 (피나스테리드, 미녹시딜 등) · 시술명 (PRP, 메조 등)<br>
+          ✔ 효과가 어떠했는지 (좋았다/별로였다) · 가격이 합리적이었는지<br>
+          ✔ 병원 환경, 의사 설명, 대기 시간 등 구체적 경험
+        </div>
+      </div>
+
+      <!-- 영수증 사진 업로드 -->
+      <div style="margin-bottom:18px;">
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">영수증 사진 첨부 <span style="color:var(--teal);font-size:0.72rem">(권장 — 신뢰도 인증)</span></label>
+        <div id="rv_upload_area" onclick="document.getElementById('rv_receipt').click()" style="border:2px dashed var(--line);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);" onmouseover="this.style.borderColor='var(--teal)';this.style.background='var(--teal-light)'" onmouseout="this.style.borderColor='var(--line)';this.style.background='var(--cream)'">
+          <div style="font-size:2rem;margin-bottom:8px;">🧾</div>
+          <div style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:4px;">영수증 사진을 클릭해서 올려주세요</div>
+          <div style="font-size:0.75rem;color:var(--mid);">JPG, PNG, HEIC 지원 · 최대 10MB</div>
+          <input type="file" id="rv_receipt" accept="image/*" style="display:none" onchange="handleReceiptUpload(this)">
+        </div>
+        <!-- 미리보기 -->
+        <div id="rv_preview" style="display:none;margin-top:10px;position:relative;">
+          <img id="rv_preview_img" style="width:100%;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid var(--line);background:#f5f5f5;">
+          <button onclick="clearReceipt()" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;">✕</button>
+          <div style="background:var(--verified-bg);color:var(--verified);padding:6px 10px;border-radius:6px;font-size:0.75rem;font-weight:600;margin-top:6px;text-align:center;">✅ 영수증 사진 첨부 완료 — 인증된 후기로 등록됩니다!</div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--mid);margin-top:6px;">💡 영수증의 병원명·금액만 보이면 됩니다. 개인정보(이름·주민번호)는 가려주세요.</div>
+      </div>
+
+      <!-- 작성자 정보 (선택) -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;">
+        <div>
+          <label style="font-size:0.75rem;color:var(--mid);display:block;margin-bottom:5px;">닉네임 (선택)</label>
+          <input id="rv_nickname" type="text" placeholder="익명" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;outline:none;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:0.75rem;color:var(--mid);display:block;margin-bottom:5px;">성별 (선택)</label>
+          <select id="rv_gender" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+            <option value="">선택안함</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.75rem;color:var(--mid);display:block;margin-bottom:5px;">연령대 (선택)</label>
+          <select id="rv_age" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;outline:none;background:white;">
+            <option value="">선택안함</option>
+            <option value="20대">20대</option>
+            <option value="30대">30대</option>
+            <option value="40대">40대</option>
+            <option value="50대+">50대+</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 안내 문구 -->
+      <div style="background:var(--teal-light);border-radius:8px;padding:12px 14px;font-size:0.76rem;color:var(--teal);line-height:1.7;margin-bottom:20px;">
+        🔒 <strong>개인정보 안내:</strong> 입력하신 정보는 이 기기에만 저장됩니다. 서버로 전송되지 않습니다.<br>
+        🧾 영수증 인증 후기는 검토 후 플랫폼에 게재됩니다.
+      </div>
+
+      <button onclick="submitReview()" style="width:100%;background:var(--teal);color:white;padding:14px;border-radius:8px;border:none;cursor:pointer;font-size:0.95rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;transition:background 0.2s;">🧾 후기 등록하기</button>
+
+      <div style="text-align:center;margin-top:12px;">
+        <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="font-size:0.78rem;color:var(--mid);text-decoration:none;">또는 카카오 채팅방으로 영수증 인증하기 →</a>
+      </div>
+
+    </div>
   </div>
-</footer>
+</div>
+<div class="modal-overlay" id="diagModal">
+  <div class="modal-box diag-modal">
+    <button class="modal-close" onclick="closeModal('diagModal')">✕</button>
+    <div class="diag-header">
+      <div class="diag-header-label">Self Diagnosis</div>
+      <h2>탈모 자가진단 테스트</h2>
+      <p>7가지 질문으로 나의 탈모 유형과 맞춤 치료법을 알아보세요</p>
+      <div class="diag-progress" id="diagProgress">
+        <div class="diag-prog-step active" data-i="0"></div>
+        <div class="diag-prog-step" data-i="1"></div>
+        <div class="diag-prog-step" data-i="2"></div>
+        <div class="diag-prog-step" data-i="3"></div>
+        <div class="diag-prog-step" data-i="4"></div>
+        <div class="diag-prog-step" data-i="5"></div>
+        <div class="diag-prog-step" data-i="6"></div>
+      </div>
+    </div>
+    <div class="diag-body">
 
+      <!-- Q1 -->
+      <div class="diag-step active" data-step="0">
+        <div class="diag-q-num">Q1 / 7</div>
+        <div class="diag-question">성별이 어떻게 되시나요?</div>
+        <div class="diag-q-sub">성별에 따라 탈모 유형과 권장 치료법이 달라집니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="male"><span class="diag-option-icon">👨</span>남성</button>
+          <button class="diag-option" data-val="female"><span class="diag-option-icon">👩</span>여성</button>
+        </div>
+        <div class="diag-nav"><div></div><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
 
+      <!-- Q2 -->
+      <div class="diag-step" data-step="1">
+        <div class="diag-q-num">Q2 / 7</div>
+        <div class="diag-question">현재 연령대는?</div>
+        <div class="diag-q-sub">탈모는 연령에 따라 원인과 진행 패턴이 다릅니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="20s"><span class="diag-option-icon">🧑</span>20대</button>
+          <button class="diag-option" data-val="30s"><span class="diag-option-icon">🧑</span>30대</button>
+          <button class="diag-option" data-val="40s"><span class="diag-option-icon">🧔</span>40대</button>
+          <button class="diag-option" data-val="50p"><span class="diag-option-icon">🧓</span>50대 이상</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
 
+      <!-- Q3 -->
+      <div class="diag-step" data-step="2">
+        <div class="diag-q-num">Q3 / 7</div>
+        <div class="diag-question">탈모가 주로 어디서 시작되었나요?</div>
+        <div class="diag-q-sub">탈모 패턴은 원인 파악에 가장 중요한 단서입니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="frontal"><span class="diag-option-icon">⬆️</span>이마 앞쪽 (M자형)</button>
+          <button class="diag-option" data-val="crown"><span class="diag-option-icon">🎯</span>정수리 중앙</button>
+          <button class="diag-option" data-val="diffuse"><span class="diag-option-icon">🌐</span>전체적으로 고르게 빠짐</button>
+          <button class="diag-option" data-val="patch"><span class="diag-option-icon">⭕</span>특정 부위가 원형으로 빠짐</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
 
-<div id="floatingReviewBtn" onclick="openReviewModal()" style="
-  position:fixed;bottom:28px;right:28px;z-index:999;
-  display:flex;align-items:center;gap:10px;
-  background:var(--accent);color:white;padding:14px 22px;
-  border-radius:50px;cursor:pointer;
-  box-shadow:0 4px 20px rgba(200,75,47,0.45);
-  font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;
-  transition:all 0.2s;opacity:0;pointer-events:none;
-" onmouseover="this.style.transform='translateY(-3px)'"
-   onmouseout="this.style.transform='translateY(0)'">
-  <span style="font-size:1.2rem;">🧾</span><span>후기 남기기</span>
+      <!-- Q4 -->
+      <div class="diag-step" data-step="3">
+        <div class="diag-q-num">Q4 / 7</div>
+        <div class="diag-question">탈모가 진행된 기간은 얼마나 되었나요?</div>
+        <div class="diag-q-sub">진행 기간은 치료 방법 선택에 영향을 줍니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="6m"><span class="diag-option-icon">🌱</span>6개월 미만</button>
+          <button class="diag-option" data-val="1y"><span class="diag-option-icon">📅</span>6개월 ~ 1년</button>
+          <button class="diag-option" data-val="3y"><span class="diag-option-icon">📆</span>1년 ~ 3년</button>
+          <button class="diag-option" data-val="3yp"><span class="diag-option-icon">⏳</span>3년 이상</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="diag-step" data-step="4">
+        <div class="diag-q-num">Q5 / 7</div>
+        <div class="diag-question">가족 중 탈모가 있는 분이 계신가요?</div>
+        <div class="diag-q-sub">유전성 탈모(안드로겐성)는 치료 접근법이 다릅니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="yes_father"><span class="diag-option-icon">👨‍👦</span>아버지 또는 형제</button>
+          <button class="diag-option" data-val="yes_mother"><span class="diag-option-icon">👩‍👧</span>어머니 또는 외가</button>
+          <button class="diag-option" data-val="yes_both"><span class="diag-option-icon">👨‍👩‍👦</span>양가 모두</button>
+          <button class="diag-option" data-val="no"><span class="diag-option-icon">❌</span>없음 / 모름</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="diag-step" data-step="5">
+        <div class="diag-q-num">Q6 / 7</div>
+        <div class="diag-question">최근 6개월간 아래 상황이 있었나요?</div>
+        <div class="diag-q-sub">탈모의 원인 파악을 위한 생활 요인 확인입니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="stress"><span class="diag-option-icon">😰</span>극심한 스트레스 또는 정신적 충격</button>
+          <button class="diag-option" data-val="diet"><span class="diag-option-icon">🥗</span>급격한 다이어트 / 영양 불균형</button>
+          <button class="diag-option" data-val="postpartum"><span class="diag-option-icon">🤱</span>출산 (산후 탈모)</button>
+          <button class="diag-option" data-val="none"><span class="diag-option-icon">😊</span>특별한 이유 없음</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="nextDiag()">다음 →</button></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="diag-step" data-step="6">
+        <div class="diag-q-num">Q7 / 7</div>
+        <div class="diag-question">치료에 투자할 수 있는 예산은?</div>
+        <div class="diag-q-sub">예산에 맞는 현실적인 치료 옵션을 추천해 드립니다.</div>
+        <div class="diag-options">
+          <button class="diag-option" data-val="budget_low"><span class="diag-option-icon">💊</span>월 10만원 이하 (약물·관리 위주)</button>
+          <button class="diag-option" data-val="budget_mid"><span class="diag-option-icon">💉</span>50~100만원 (주사·시술)</button>
+          <button class="diag-option" data-val="budget_high"><span class="diag-option-icon">🏥</span>200만원 이상 (수술 가능)</button>
+          <button class="diag-option" data-val="budget_any"><span class="diag-option-icon">💰</span>효과만 있다면 예산 무관</button>
+        </div>
+        <div class="diag-nav"><button class="diag-back" onclick="prevDiag()">← 이전</button><button class="diag-next" disabled onclick="showDiagResult()">결과 보기 →</button></div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="diag-result" id="diagResult">
+        <div class="result-badge">✓ 분석 완료</div>
+        <div class="result-type" id="resultType"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        <h4 style="font-size:0.88rem;font-weight:700;margin-bottom:12px;color:var(--mid)">🎯 추천 치료법 (우선순위 순)</h4>
+        <div class="result-recs" id="resultRecs"></div>
+        <div class="result-hospitals">
+          <h4>📍 맞춤 추천 병원</h4>
+          <div class="rh-item"><span class="rh-name">모어헤어 클리닉 강남점</span><span class="rh-score">★ 4.8 · 186건</span></div>
+          <div class="rh-item"><span class="rh-name">탈모전문 닥터모 의원</span><span class="rh-score">★ 4.7 · 98건</span></div>
+          <div class="rh-item"><span class="rh-name">헤어젠 피부과 신촌점</span><span class="rh-score">★ 4.5 · 124건</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <button class="btn-outline" onclick="restartDiag()">↺ 다시 진단하기</button>
+          <button class="btn-teal" onclick="closeModal('diagModal');document.getElementById('search').scrollIntoView({behavior:'smooth'})">병원 찾아보기 →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="adminModal" onclick="if(event.target===this)closeModal('adminModal')" style="z-index:2000;">
+  <div class="modal-box" style="max-width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+    <div style="background:var(--ink);padding:20px 28px;border-radius:16px 16px 0 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent-soft);letter-spacing:2px;margin-bottom:4px;">ADMIN PANEL</div>
+        <div style="color:white;font-size:1.1rem;font-weight:700;">헤어트루스 관리자 대시보드</div>
+      </div>
+      <button onclick="closeModal('adminModal')" style="background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;">✕</button>
+    </div>
+
+    <!-- 탭 -->
+    <div style="display:flex;gap:0;background:#1a1a1a;border-bottom:1px solid #333;flex-shrink:0;">
+      <button class="admin-tab active" id="adminTab0" onclick="switchAdminTab(0)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">📊 대시보드</button>
+      <button class="admin-tab" id="adminTab1" onclick="switchAdminTab(1)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">⏳ 대기 후기 <span id="pendingBadge" style="background:var(--accent);color:white;padding:1px 6px;border-radius:10px;font-size:0.7rem;margin-left:4px;">0</span></button>
+      <button class="admin-tab" id="adminTab2" onclick="switchAdminTab(2)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">✅ 승인된 후기</button>
+      <button class="admin-tab" id="adminTab3" onclick="switchAdminTab(3)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">👥 회원 관리</button>
+      <button class="admin-tab" id="adminTab4" onclick="switchAdminTab(4)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">🏥 병원 관리</button>
+      <button class="admin-tab" id="adminTab5" onclick="switchAdminTab(5)" style="padding:12px 20px;border:none;background:transparent;color:#aaa;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;">📈 방문자 통계</button>
+    </div>
+
+    <!-- 탭 콘텐츠 -->
+    <div style="flex:1;overflow-y:auto;padding:24px;">
+
+      <!-- 대시보드 탭 -->
+      <div id="adminContent0">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;" id="adminStats"></div>
+        <div style="background:#f7f8fa;border-radius:12px;padding:20px;">
+          <div style="font-weight:700;margin-bottom:12px;font-size:0.9rem;">⚡ 빠른 작업</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button onclick="switchAdminTab(1)" style="background:var(--accent);color:white;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">⏳ 대기 후기 검토</button>
+            <button onclick="exportData()" style="background:var(--teal);color:white;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">📥 데이터 내보내기</button>
+            <button onclick="clearAllData()" style="background:#e53935;color:white;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">🗑️ 전체 초기화</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대기 후기 탭 -->
+      <div id="adminContent1" style="display:none;">
+        <div style="font-size:0.85rem;color:var(--mid);margin-bottom:16px;">영수증 후기 작성자의 후기를 검토하고 승인 또는 반려해주세요.</div>
+        <div id="pendingReviews"></div>
+      </div>
+
+      <!-- 승인된 후기 탭 -->
+      <div id="adminContent2" style="display:none;">
+        <div id="approvedReviews"></div>
+      </div>
+
+      <!-- 회원 관리 탭 -->
+      <div id="adminContent3" style="display:none;">
+        <div id="userList"></div>
+      </div>
+
+      <!-- 병원 관리 탭 -->
+      <div id="adminContent4" style="display:none;">
+        <div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:0.85rem;color:var(--mid);">병원·한의원·두피샵 정보를 직접 추가하고 관리하세요.</div>
+          <button onclick="openHospitalForm()" style="background:var(--teal);color:white;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">+ 병원 추가</button>
+        </div>
+
+        <!-- 병원 추가/수정 폼 -->
+        <div id="hospitalForm" style="display:none;background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;border:1.5px solid var(--line);">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;" id="hospitalFormTitle">🏥 병원 추가</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">병원명 *</label>
+              <input id="hosp_name" type="text" placeholder="예: 연세 피부과의원" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">유형 *</label>
+              <select id="hosp_type" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;background:white;">
+                <option value="clinic">탈모클리닉</option>
+                <option value="derm">피부과</option>
+                <option value="hanbang">한의원</option>
+                <option value="scalp">두피관리샵</option>
+                <option value="pharmacy">약국</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">지역 *</label>
+              <input id="hosp_region" type="text" placeholder="예: 서울 강남구" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">전화번호</label>
+              <input id="hosp_phone" type="text" placeholder="예: 02-1234-5678" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">주요 시술</label>
+              <input id="hosp_treatment" type="text" placeholder="예: 피나스테리드, 두피 PRP" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">가격대</label>
+              <input id="hosp_price" type="text" placeholder="예: 8,000원~15만원" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:0.78rem;color:var(--mid);display:block;margin-bottom:5px;">메모</label>
+            <input id="hosp_memo" type="text" placeholder="관리자 메모 (사이트에 표시 안 됨)" style="width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:7px;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+          </div>
+          <input type="hidden" id="hosp_editId">
+          <div style="display:flex;gap:8px;">
+            <button onclick="saveHospital()" style="background:var(--teal);color:white;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">💾 저장</button>
+            <button onclick="closeHospitalForm()" style="background:#eee;color:#666;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;font-size:0.85rem;font-family:'Noto Sans KR',sans-serif;">취소</button>
+          </div>
+        </div>
+
+        <!-- 병원 목록 -->
+        <div id="hospitalList"></div>
+      </div>
+
+      <!-- 방문자 통계 탭 -->
+      <div id="adminContent5" style="display:none;">
+        <!-- 내부 통계 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;" id="visitorStats"></div>
+
+        <!-- 후기 추이 차트 -->
+        <div style="background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;">📊 월별 후기 등록 추이</div>
+          <div id="reviewChart" style="display:flex;align-items:flex-end;gap:8px;height:120px;padding:0 4px;"></div>
+          <div id="reviewChartLabels" style="display:flex;gap:8px;margin-top:8px;padding:0 4px;"></div>
+        </div>
+
+        <!-- 시술별 후기 비율 -->
+        <div style="background:#f7f8fa;border-radius:12px;padding:20px;margin-bottom:20px;">
+          <div style="font-weight:700;font-size:0.9rem;margin-bottom:16px;">💉 시술별 후기 비율</div>
+          <div id="treatmentStats"></div>
+        </div>
+
+        <!-- 구글 애널리틱스 바로가기 -->
+        <div style="background:var(--ink);border-radius:12px;padding:20px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="color:white;font-weight:700;font-size:0.9rem;margin-bottom:4px;">📈 구글 애널리틱스 상세 통계</div>
+            <div style="color:#aaa;font-size:0.8rem;">실시간 방문자·유입경로·기기 등 상세 데이터</div>
+          </div>
+          <a href="https://analytics.google.com" target="_blank" style="background:var(--teal);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;">GA 바로가기 →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="floatingBtn" onclick="openReviewModal()" style="position:fixed;bottom:28px;right:28px;z-index:999;display:none;align-items:center;gap:10px;background:var(--accent);color:white;padding:14px 22px;border-radius:50px;cursor:pointer;box-shadow:0 4px 20px rgba(200,75,47,0.45);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;">
+  <span>🧾</span><span>후기 남기기</span>
 </div>
 <script>
-window.addEventListener('scroll', function() {
-  const btn = document.getElementById('floatingReviewBtn');
-  if(!btn) return;
-  if(window.scrollY > 300) { btn.style.opacity='1'; btn.style.pointerEvents='auto'; }
-  else { btn.style.opacity='0'; btn.style.pointerEvents='none'; }
+window.addEventListener('scroll',function(){
+  var b=document.getElementById('floatingBtn');
+  if(b) b.style.display=window.scrollY>300?'flex':'none';
 });
 </script>
 
 <script>
+try {
+
+// null 체크 헬퍼
+function safeSetHTML(id, html) {
+  var el = document.getElementById(id);
+  if(el) el.innerHTML = html;
+}
+function safeShow(id) {
+  var el = document.getElementById(id);
+  if(el) el.style.display = 'block';
+}
 
 /* ── EXISTING ── */
 function switchRankTab(el, idx) {
@@ -2654,19 +3168,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+} catch(e) { console.warn('JS 초기화 오류:', e); }
 </script>
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('nav a, .mobile-nav a').forEach(a => {
-    if (a.href === location.href) {
+(function(){
+  var links = document.querySelectorAll('nav a, .mobile-nav a');
+  links.forEach(function(a){
+    if(a.href === location.href) {
       a.style.color = 'var(--accent-soft)';
-      a.style.borderBottom = '2px solid var(--accent-soft)';
+      a.style.fontWeight = '700';
     }
   });
-});
+})();
 </script>
-
 </body>
 </html>
