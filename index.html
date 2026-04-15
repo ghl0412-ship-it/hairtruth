@@ -2814,16 +2814,27 @@ function resetEmailVerify() {
 function checkId(input) {
   const val = input.value;
   const msg = document.getElementById('reg_name_msg');
-  const ok = /^[a-z0-9]{5,15}$/.test(val);
   if (!val) { msg.textContent = ''; input.style.borderColor = 'var(--line)'; return; }
-  if (ok) {
-    msg.textContent = '✅ 사용 가능한 아이디입니다.';
-    msg.style.color = 'var(--verified)';
-    input.style.borderColor = 'var(--verified)';
-  } else {
+
+  const formatOk = /^[a-z0-9]{5,15}$/.test(val);
+  if (!formatOk) {
     msg.textContent = '❌ 영문 소문자·숫자만, 5~15자로 입력해주세요.';
     msg.style.color = 'var(--accent)';
     input.style.borderColor = 'var(--accent)';
+    return;
+  }
+
+  // 중복 체크
+  const users = getUsers();
+  const isDuplicate = users.some(u => u.name === val);
+  if (isDuplicate) {
+    msg.textContent = '❌ 이미 사용 중인 아이디예요. 다른 아이디를 입력해주세요.';
+    msg.style.color = 'var(--accent)';
+    input.style.borderColor = 'var(--accent)';
+  } else {
+    msg.textContent = '✅ 사용 가능한 아이디입니다.';
+    msg.style.color = 'var(--verified)';
+    input.style.borderColor = 'var(--verified)';
   }
 }
 
@@ -2968,8 +2979,18 @@ function doRegister() {
   }
 
   const users = getUsers();
-  if (users.find(u => u.email === name || u.email === email)) {
-    showAuthMsg('error', '이미 사용 중인 아이디 또는 이메일입니다.');
+
+  // 아이디 중복 체크
+  if (users.find(u => u.name === name)) {
+    showAuthMsg('error', '이미 사용 중인 아이디예요. 다른 아이디를 입력해주세요.');
+    document.getElementById('reg_name').focus();
+    return;
+  }
+
+  // 이메일 중복 체크
+  if (users.find(u => u.email === email)) {
+    showAuthMsg('error', '이미 가입된 이메일이에요. 로그인을 시도해보세요.');
+    document.getElementById('reg_email').focus();
     return;
   }
 
