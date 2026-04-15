@@ -350,6 +350,21 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   .footer-grid{grid-template-columns:1fr;}
   .trust-bar{gap:18px;}
 }
+
+/* ── SPA 라우터 ── */
+.ht-page { display: none; }
+.ht-page.active { display: block; }
+.ht-page-fade { animation: htFadeIn 0.25s ease; }
+@keyframes htFadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* 후기 상세 페이지 */
+.review-detail-wrap { max-width: 720px; margin: 0 auto; padding: 40px 5%; }
+.review-detail-card { background: var(--white); border-radius: 16px; padding: 32px; border: 1px solid var(--line); }
+.review-detail-back { display: inline-flex; align-items: center; gap: 8px; color: var(--teal); font-size: 0.88rem; font-weight: 600; cursor: pointer; margin-bottom: 24px; background: none; border: none; font-family: 'Noto Sans KR', sans-serif; }
+.review-detail-back:hover { opacity: 0.7; }
+
+/* 네비 활성 상태 */
+nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px solid var(--accent-soft); }
 </style>
 <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -367,11 +382,12 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 <header>
   <div class="logo">헤어<span>트루스</span></div>
   <nav>
-    <a href="#search">병원 찾기</a>
-    <a href="#ranking">랭킹</a>
-    <a href="#price">가격표</a>
-    <a href="#guide">치료 가이드</a>
-    <a href="#qa">Q&A</a>
+    <a href="#" onclick="navigate('hospitals');return false;">병원 찾기</a>
+    <a href="#" onclick="navigate('ranking');return false;">랭킹</a>
+    <a href="#" onclick="navigate('price');return false;">가격표</a>
+    <a href="#" onclick="navigate('guide');return false;">치료 가이드</a>
+    <a href="#" onclick="navigate('reviews');return false;">후기</a>
+    <a href="#" onclick="navigate('qa');return false;">Q&A</a>
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
     <a href="https://instagram.com/hairtruth_kr" target="_blank" rel="noopener" style="color:#aaa">📷 인스타</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
@@ -380,15 +396,19 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
 <div class="mobile-nav" id="mn">
-  <a href="#search">병원 찾기</a>
-  <a href="#ranking">병원 랭킹</a>
-  <a href="#price">비급여 가격표</a>
-  <a href="#guide">탈모 치료 가이드</a>
-  <a href="#qa">Q&A 커뮤니티</a>
+  <a href="#" onclick="navigate('hospitals');document.getElementById('mn').classList.remove('open');return false;">병원 찾기</a>
+  <a href="#" onclick="navigate('ranking');document.getElementById('mn').classList.remove('open');return false;">병원 랭킹</a>
+  <a href="#" onclick="navigate('price');document.getElementById('mn').classList.remove('open');return false;">비급여 가격표</a>
+  <a href="#" onclick="navigate('guide');document.getElementById('mn').classList.remove('open');return false;">탈모 치료 가이드</a>
+  <a href="#" onclick="navigate('reviews');document.getElementById('mn').classList.remove('open');return false;">후기</a>
+  <a href="#" onclick="navigate('qa');document.getElementById('mn').classList.remove('open');return false;">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
   <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
 </div>
+
+<!-- HOME PAGE -->
+<div class="ht-page active" id="page-home">
 
 <!-- HERO -->
 <div class="hero">
@@ -397,7 +417,7 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
     <h1>광고 없이,<br><em>영수증으로 증명된</em><br>탈모 병원 정보</h1>
     <p>실제 방문자의 영수증을 확인한 후기만 게재합니다.<br>비급여 진료비를 투명하게 공개해 합리적인 선택을 돕습니다.</p>
     <div class="hero-actions">
-      <a href="#search" class="btn-primary">병원 찾기 →</a>
+      <a href="#" onclick="navigate('hospitals');return false;" class="btn-primary">병원 찾기 →</a>
       <a href="#" class="btn-secondary" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
     </div>
   </div>
@@ -423,6 +443,11 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   <div class="trust-item">🔒 개인정보 블라인드 처리</div>
   <div class="trust-item">📊 비급여 가격 실시간 집계</div>
 </div>
+
+</div><!-- /page-home -->
+
+<!-- 병원찾기 PAGE -->
+<div class="ht-page" id="page-hospitals">
 
 <!-- SEARCH -->
 <div class="search-section" id="search">
@@ -829,6 +854,11 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
 </section>
 
+</div><!-- /page-hospitals -->
+
+<!-- 랭킹 PAGE -->
+<div class="ht-page" id="page-ranking">
+
 <!-- RANKING -->
 <section class="ranking-section" id="ranking">
   <div class="section-label">병원 랭킹</div>
@@ -856,6 +886,10 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
 </section>
 
+</div><!-- /page-ranking -->
+
+<!-- 가격표 PAGE -->
+<div class="ht-page" id="page-price">
 
 <!-- PRICE + CHARTS -->
 <section class="price-section" id="price">
@@ -912,6 +946,11 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
     </table>
   </div>
 </section>
+
+</div><!-- /page-price -->
+
+<!-- 치료가이드 PAGE -->
+<div class="ht-page" id="page-guide">
 
 <!-- TREATMENT GUIDE -->
 <section class="guide-section" id="guide">
@@ -1225,6 +1264,11 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
 </section>
 
+</div><!-- /page-guide -->
+
+<!-- 후기 PAGE -->
+<div class="ht-page" id="page-reviews">
+
 <!-- REVIEWS -->
 <section class="review-section">
   <div class="section-label">인증 후기</div>
@@ -1248,6 +1292,19 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
 </section>
 
+</div><!-- /page-reviews -->
+
+<!-- 후기 상세 PAGE -->
+<div class="ht-page" id="page-review-detail">
+  <div class="review-detail-wrap">
+    <button class="review-detail-back" onclick="navigate('reviews')">← 후기 목록으로</button>
+    <div id="reviewDetailContent"></div>
+  </div>
+</div><!-- /page-review-detail -->
+
+<!-- Q&A PAGE -->
+<div class="ht-page" id="page-qa">
+
 <section class="qa-section" id="qa">
   <div class="section-label">커뮤니티 Q&A</div>
   <div class="section-title">궁금한 점을 물어보세요</div>
@@ -1260,6 +1317,8 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
   <button class="qa-write" onclick="handleNavAuth()">✏️ 질문 작성하기 (로그인 필요)</button>
 </section>
+
+</div><!-- /page-qa -->
 
 <!-- CTA -->
 <div class="cta-section">
@@ -3400,7 +3459,7 @@ function renderReviews() {
       const avatar = r.nickname ? r.nickname.charAt(0) : '익';
       const colors = ['#fef3f0,#c84b2f','#e8f5ee,#2a7a4b','#fff8e0,#b8932a','#f0e8fe,#6a3fa8','#e8f0fe,#1a5fce'];
       const col = colors[r.id % colors.length].split(',');
-      return `<div class="review-card">
+      return `<div class="review-card" data-review-id="${r.id}" style="cursor:pointer;" onclick="navigate('review-detail',{id:'${r.id}}')">
         <div class="review-top">
           <div class="reviewer-info">
             <div class="avatar" style="background:${col[0]};color:${col[1]}">${avatar}</div>
@@ -4047,6 +4106,103 @@ function renderTimeline() {
 }
 
 document.addEventListener('DOMContentLoaded', function() { renderTimeline(); });
+</script>
+
+
+<!-- ── SPA 라우터 ── -->
+<script>
+const PAGES = ['home','hospitals','ranking','price','guide','reviews','review-detail','qa'];
+
+function navigate(page, params) {
+  PAGES.forEach(p => {
+    const el = document.getElementById('page-' + p);
+    if (el) { el.classList.remove('active','ht-page-fade'); }
+  });
+  const target = document.getElementById('page-' + page);
+  if (!target) { navigate('home'); return; }
+  target.classList.add('active','ht-page-fade');
+  if (page === 'review-detail' && params && params.id) renderReviewDetail(params.id);
+  if (page === 'reviews') { setTimeout(renderReviews, 50); }
+  const hash = page === 'home' ? '' : '#/' + page + (params && params.id ? '/' + params.id : '');
+  history.pushState({ page, params }, '', location.pathname + hash);
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('nav-active'));
+  const navMap = { hospitals:'병원 찾기', ranking:'랭킹', price:'가격표', guide:'치료 가이드', reviews:'후기', qa:'Q&A' };
+  document.querySelectorAll('nav a').forEach(a => {
+    if (a.textContent.trim() === navMap[page]) a.classList.add('nav-active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('popstate', e => {
+  if (e.state && e.state.page) navigate(e.state.page, e.state.params);
+  else navigate('home');
+});
+
+function renderReviewDetail(id) {
+  const reviews = getReviews().filter(r => r.status === 'approved');
+  const r = reviews.find(rv => String(rv.id) === String(id));
+  const container = document.getElementById('reviewDetailContent');
+  if (!container) return;
+  if (!r) {
+    container.innerHTML = '<div style="text-align:center;padding:60px 0;color:#aaa;"><div style="font-size:3rem;margin-bottom:16px;">🔍</div><div>후기를 찾을 수 없어요.</div></div>';
+    return;
+  }
+  const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+  const colors = ['#fef3f0,#c84b2f','#e8f5ee,#2a7a4b','#fff8e0,#b8932a','#f0e8fe,#6a3fa8','#e8f0fe,#1a5fce'];
+  const col = colors[r.id % colors.length].split(',');
+  const avatar = r.nickname ? r.nickname.charAt(0) : '익';
+  container.innerHTML = `
+    <div class="review-detail-card">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:${col[0]};color:${col[1]};display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;">${avatar}</div>
+        <div>
+          <div style="font-weight:700;font-size:1rem;">${r.nickname || '익명'}</div>
+          <div style="font-size:0.8rem;color:#aaa;">${r.region||''} ${r.gender?'· '+r.gender:''} · ${r.date} 등록</div>
+        </div>
+        <div style="margin-left:auto;background:var(--verified-bg);color:var(--verified);padding:6px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;">🧾 영수증 인증</div>
+      </div>
+      <div style="font-size:1.5rem;color:#f5a623;margin-bottom:12px;">${stars}</div>
+      <div style="background:var(--teal-light);border-radius:10px;padding:16px;margin-bottom:20px;">
+        <div style="font-size:1.1rem;font-weight:700;color:var(--teal);margin-bottom:8px;">🏥 ${r.hospitalName}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="font-size:0.82rem;color:var(--mid);"><span style="font-weight:600;">시술명</span><br>${r.treatment}</div>
+          <div style="font-size:0.82rem;"><span style="font-weight:600;color:var(--mid);">실제 지불 금액</span><br><span style="font-size:1.1rem;font-weight:700;color:var(--accent);">${r.amount}원</span></div>
+        </div>
+      </div>
+      <div style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:24px;padding:20px;background:#fafafa;border-radius:10px;border-left:3px solid var(--teal);">${r.content}</div>
+      ${r.hasReceipt && r.receiptImg ? `<div style="margin-bottom:20px;"><div style="font-size:0.82rem;font-weight:600;color:var(--mid);margin-bottom:8px;">🧾 영수증 사진</div><img src="${r.receiptImg}" style="width:100%;max-height:300px;object-fit:contain;border-radius:10px;border:1px solid var(--line);" alt="영수증"><div style="font-size:0.75rem;color:var(--verified);font-weight:600;margin-top:6px;">✅ 영수증 인증 완료</div></div>` : ''}
+      <div style="padding-top:16px;border-top:1px solid var(--line);">
+        <button onclick="navigate('reviews')" style="background:none;border:1px solid var(--line);padding:10px 20px;border-radius:8px;font-size:0.85rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;color:var(--mid);">← 목록으로 돌아가기</button>
+      </div>
+    </div>`;
+}
+
+// renderReviews에 클릭 이벤트 추가
+const _origRenderReviews = renderReviews;
+renderReviews = function() {
+  _origRenderReviews();
+  setTimeout(() => {
+    document.querySelectorAll('#reviewGrid .review-card').forEach(card => {
+      const id = card.getAttribute('data-review-id');
+      if (id) {
+        card.style.cursor = 'pointer';
+        card.onclick = () => navigate('review-detail', { id });
+      }
+    });
+  }, 150);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash;
+  if (hash.startsWith('#/')) {
+    const parts = hash.slice(2).split('/');
+    const page = parts[0];
+    const id = parts[1];
+    if (PAGES.includes(page)) { navigate(page, id ? { id } : null); return; }
+  }
+  navigate('home');
+  history.replaceState({ page: 'home' }, '', location.pathname);
+});
 </script>
 
 <!-- Floating 후기 버튼 -->
