@@ -1567,40 +1567,13 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
             <div id="reg_name_msg" style="font-size:0.72rem;margin-top:4px;"></div>
           </div>
 
-          <!-- 이메일 + 인증 -->
+          <!-- 이메일 -->
           <div class="form-group">
             <label>이메일 <span style="color:var(--accent)">*</span></label>
-            <div style="display:flex;gap:8px;">
-              <input type="email" id="reg_email" placeholder="example@email.com"
-                oninput="checkEmail(this); resetEmailVerify()"
-                style="flex:1;"
-                onkeydown="if(event.key==='Enter'){event.preventDefault();sendVerifyCode();}">
-              <button type="button" id="sendCodeBtn" onclick="sendVerifyCode()"
-                style="white-space:nowrap;padding:0 14px;background:var(--teal);color:white;border:none;border-radius:8px;font-size:0.8rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;cursor:pointer;transition:all 0.2s;min-width:90px;">
-                인증번호 받기
-              </button>
-            </div>
+            <input type="email" id="reg_email" placeholder="example@email.com"
+              oninput="checkEmail(this)"
+              style="width:100%;box-sizing:border-box;">
             <div id="reg_email_msg" style="font-size:0.72rem;margin-top:4px;"></div>
-          </div>
-
-          <!-- 인증번호 입력 (이메일 발송 후 표시) -->
-          <div class="form-group" id="verifyCodeGroup" style="display:none;">
-            <label>인증번호 <span style="color:var(--accent)">*</span> <span id="codeTimerLabel" style="font-size:0.7rem;color:var(--accent);font-family:'DM Mono',monospace;"></span></label>
-            <div style="display:flex;gap:8px;">
-              <input type="text" id="reg_code" placeholder="6자리 숫자 입력" maxlength="6"
-                style="flex:1;letter-spacing:4px;font-family:'DM Mono',monospace;font-size:1rem;text-align:center;"
-                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                onkeydown="if(event.key==='Enter'){event.preventDefault();verifyCode();}">
-              <button type="button" onclick="verifyCode()"
-                style="white-space:nowrap;padding:0 14px;background:var(--ink);color:white;border:none;border-radius:8px;font-size:0.8rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;cursor:pointer;min-width:70px;">
-                확인
-              </button>
-            </div>
-            <div id="reg_code_msg" style="font-size:0.72rem;margin-top:4px;"></div>
-            <div style="font-size:0.72rem;color:#aaa;margin-top:4px;">
-              이메일이 오지 않으면 스팸 폴더를 확인하거나
-              <a href="#" onclick="sendVerifyCode();return false;" style="color:var(--teal);">재발송</a>해주세요.
-            </div>
           </div>
 
           <!-- 비밀번호 -->
@@ -2968,14 +2941,6 @@ function doRegister() {
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     showAuthMsg('error', '올바른 이메일 주소를 입력해주세요.');
     document.getElementById('reg_email').focus();
-    return;
-  }
-
-  // 이메일 인증 완료 여부 체크
-  if (!verifyCode_done) {
-    showAuthMsg('error', '이메일 인증을 완료해주세요. 인증번호 받기를 눌러주세요.');
-    document.getElementById('sendCodeBtn').style.animation = 'pulse 0.5s 3';
-    document.getElementById('verifyCodeGroup').scrollIntoView({behavior:'smooth', block:'center'});
     return;
   }
 
