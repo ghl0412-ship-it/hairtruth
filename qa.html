@@ -2,20 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <meta name="naver-site-verification" content="b8cba84b3f635f6add33efc51ef47979f31ca9a1" />
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0L14PBQVW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-T0L14PBQVW');
-  </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>헤어트루스 — 영수증 인증 탈모 병원 가격 비교</title>
-<meta name="description" content="탈모 병원 실제 가격을 영수증으로 인증해 공개하는 플랫폼. 광고 없이 실제 후기만 모읍니다.">
-<meta property="og:title" content="헤어트루스 — 영수증 인증 탈모 병원 정보">
-<meta property="og:description" content="탈모 병원 실제 가격, 영수증 인증 후기만 공개합니다.">
+<meta name="naver-site-verification" content="b8cba84b3f635f6add33efc51ef47979f31ca9a1"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T0L14PBQVW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T0L14PBQVW');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Q&A 커뮤니티 — 헤어트루스</title>
+<meta name="description" content="탈모 병원 실제 가격을 영수증으로 인증해 공개하는 플랫폼.">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1a1a1a;--cream:#f5f0e8;--warm:#f0e8d5;--accent:#c84b2f;--accent-soft:#e8a090;--teal:#2a6b6e;--teal-light:#e0f0f0;--gold:#b8932a;--mid:#6b6355;--line:#d4ccc0;--white:#fefefe;--verified:#2a7a4b;--verified-bg:#e8f5ee;}
@@ -366,946 +358,41 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 /* 네비 활성 상태 */
 nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px solid var(--accent-soft); }
 </style>
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-
-<!-- NOTIFICATION BANNER -->
 <div class="notif-banner" id="nb">
-  <span class="notif-badge">이벤트</span>
-  <p>🧾 <strong>영수증 인증</strong> 기반 탈모 병원·한의원·두피샵 후기 플랫폼 — <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--accent-soft);text-decoration:underline">채팅방 참여하기 →</a></p>
-  <button class="notif-close" onclick="document.getElementById('nb').remove()">✕</button>
+  <span class="notif-badge">알림</span>
+  <p>🧾 <strong>영수증 인증</strong> 기반 탈모 병원 정보 플랫폼 — <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--accent-soft)">채팅방 참여하기 →</a></p>
+  <button class="notif-close" onclick="document.getElementById('nb').style.display='none'">✕</button>
 </div>
-
-<!-- HEADER -->
 <header>
-  <div class="logo">헤어<span>트루스</span></div>
+  <div class="logo" onclick="location.href='index.html'" style="cursor:pointer;">헤어<span>트루스</span></div>
   <nav>
-    <a href="#" href="hospitals.html">병원 찾기</a>
-    <a href="#" href="ranking.html">랭킹</a>
-    <a href="#" href="price.html">가격표</a>
-    <a href="#" href="guide.html">치료 가이드</a>
-    <a href="#" href="reviews.html">후기</a>
-    <a href="#" href="qa.html">Q&A</a>
+    <a href="hospitals.html">병원 찾기</a>
+    <a href="ranking.html">랭킹</a>
+    <a href="price.html">가격표</a>
+    <a href="guide.html">치료 가이드</a>
+    <a href="reviews.html">후기</a>
+    <a href="qa.html">Q&A</a>
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
-    <a href="https://instagram.com/hairtruth_kr" target="_blank" rel="noopener" style="color:#aaa">📷 인스타</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
     <a href="#" onclick="openReviewModal();return false;" class="nav-cta">🧾 후기 남기기</a>
   </nav>
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
 <div class="mobile-nav" id="mn">
-  <a href="#" href="hospitals.html">병원 찾기</a>
-  <a href="#" href="ranking.html">병원 랭킹</a>
-  <a href="#" href="price.html">비급여 가격표</a>
-  <a href="#" href="guide.html">탈모 치료 가이드</a>
-  <a href="#" href="reviews.html">후기</a>
-  <a href="#" href="qa.html">Q&A 커뮤니티</a>
+  <a href="hospitals.html">병원 찾기</a>
+  <a href="ranking.html">병원 랭킹</a>
+  <a href="price.html">비급여 가격표</a>
+  <a href="guide.html">탈모 치료 가이드</a>
+  <a href="reviews.html">후기</a>
+  <a href="qa.html">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
   <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
 </div>
-
-<!-- HOME PAGE -->
-<div class="ht-page active" id="page-home">
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">영수증 인증 기반 탈모 병원 정보</div>
-    <h1>광고 없이,<br><em>영수증으로 증명된</em><br>탈모 병원 정보</h1>
-    <p>실제 방문자의 영수증을 확인한 후기만 게재합니다.<br>비급여 진료비를 투명하게 공개해 합리적인 선택을 돕습니다.</p>
-    <div class="hero-actions">
-      <a href="#" href="hospitals.html" class="btn-primary">병원 찾기 →</a>
-      <a href="#" class="btn-secondary" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
-    </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-grid">
-      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">영수증 인증율</div></div>
-      <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">광고성 게재</div></div>
-      <div class="stat-item"><div class="stat-num" id="heroReviewCnt">0</div><div class="stat-label">누적 인증 후기</div></div>
-      <div class="stat-item"><div class="stat-num" id="heroHospCnt">0</div><div class="stat-label">등록 기관 수</div></div>
-    </div>
-    <div class="receipt-proof">
-      <div class="receipt-icon">🧾</div>
-      <p><strong>영수증 검증 시스템</strong><br>모든 후기는 실제 진료비 영수증 첨부 필수. 익명·무료로 참여하세요!</p>
-    </div>
-  </div>
-</div>
-
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-item">🧾 영수증 100% 확인 후 게재</div>
-  <div class="trust-item">🚫 병원 광고비 수취 금지</div>
-  <div class="trust-item">💰 실제 지불 금액 공개</div>
-  <div class="trust-item">🔒 개인정보 블라인드 처리</div>
-  <div class="trust-item">📊 비급여 가격 실시간 집계</div>
-</div>
-
-</div><!-- /page-home -->
-
-<!-- 병원찾기 PAGE -->
-<div class="ht-page" id="page-hospitals">
-
-<!-- SEARCH -->
-<div class="search-section" id="search">
-  <div class="search-center">
-    <div class="section-label">병원 검색</div>
-    <div class="section-title">원하는 조건으로 병원 찾기</div>
-    <div class="section-sub">지역, 시술, 가격대로 조건에 맞는 병원을 검색하세요.</div>
-  </div>
-  <div class="search-box">
-    <span style="font-size:1.1rem;color:#aaa">🔍</span>
-    <input type="text" placeholder="병원명, 지역, 시술명 (예: 강남 모발이식, PRP 피부과)">
-    <button class="search-btn">검색</button>
-  </div>
-  <div class="filter-panel">
-    <!-- 지역 -->
-    <div class="fp-row">
-      <div class="fp-label">지역</div>
-      <div class="fp-chips" id="fp-region" style="flex-direction:column;gap:8px;padding:12px 14px;">
-        <!-- 시/도 선택 -->
-        <div style="display:flex;flex-wrap:wrap;gap:6px;" id="fp-sido-row">
-          <button class="fp-chip on" onclick="selectSido(this,'전체')" data-sido="전체">전체</button>
-          <button class="fp-chip" onclick="selectSido(this,'서울특별시')" data-sido="서울특별시">서울</button>
-          <button class="fp-chip" onclick="selectSido(this,'경기도')" data-sido="경기도">경기</button>
-          <button class="fp-chip" onclick="selectSido(this,'인천광역시')" data-sido="인천광역시">인천</button>
-          <button class="fp-chip" onclick="selectSido(this,'부산광역시')" data-sido="부산광역시">부산</button>
-          <button class="fp-chip" onclick="selectSido(this,'대구광역시')" data-sido="대구광역시">대구</button>
-          <button class="fp-chip" onclick="selectSido(this,'대전광역시')" data-sido="대전광역시">대전</button>
-          <button class="fp-chip" onclick="selectSido(this,'광주광역시')" data-sido="광주광역시">광주</button>
-          <button class="fp-chip" onclick="selectSido(this,'울산광역시')" data-sido="울산광역시">울산</button>
-          <button class="fp-chip" onclick="selectSido(this,'세종특별자치시')" data-sido="세종특별자치시">세종</button>
-          <button class="fp-chip" onclick="selectSido(this,'강원도')" data-sido="강원도">강원</button>
-          <button class="fp-chip" onclick="selectSido(this,'충청북도')" data-sido="충청북도">충북</button>
-          <button class="fp-chip" onclick="selectSido(this,'충청남도')" data-sido="충청남도">충남</button>
-          <button class="fp-chip" onclick="selectSido(this,'전라북도')" data-sido="전라북도">전북</button>
-          <button class="fp-chip" onclick="selectSido(this,'전라남도')" data-sido="전라남도">전남</button>
-          <button class="fp-chip" onclick="selectSido(this,'경상북도')" data-sido="경상북도">경북</button>
-          <button class="fp-chip" onclick="selectSido(this,'경상남도')" data-sido="경상남도">경남</button>
-          <button class="fp-chip" onclick="selectSido(this,'제주특별자치도')" data-sido="제주특별자치도">제주</button>
-        </div>
-        <!-- 시/군/구 선택 (시/도 선택 후 표시) -->
-        <div id="fp-sigungu-row" style="display:none;flex-wrap:wrap;gap:6px;padding-top:6px;border-top:1px solid var(--line);">
-          <!-- JS로 채워짐 -->
-        </div>
-      </div>
-    </div>
-    <!-- 시술 -->
-    <div class="fp-row">
-      <div class="fp-label">시술</div>
-      <div class="fp-chips" id="fp-treatment">
-        <button class="fp-chip on" onclick="fpSelect(this,'fp-treatment')">전체</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">모발이식 FUE</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">모발이식 FUT</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">두피 PRP</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">메조테라피</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">약물치료</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">LLLT 레이저</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">줄기세포</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">한방 약침</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-treatment')">두피 스케일링</button>
-      </div>
-    </div>
-    <!-- 평점 -->
-    <div class="fp-row">
-      <div class="fp-label">평점</div>
-      <div class="fp-chips" id="fp-rating">
-        <button class="fp-chip on" onclick="fpSelect(this,'fp-rating')">전체</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-rating')">⭐ 4.8 이상</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-rating')">⭐ 4.5 이상</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-rating')">⭐ 4.0 이상</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-rating')">⭐ 3.5 이상</button>
-      </div>
-    </div>
-    <!-- 후기 수 -->
-    <div class="fp-row">
-      <div class="fp-label">후기 수</div>
-      <div class="fp-chips" id="fp-reviews">
-        <button class="fp-chip on" onclick="fpSelect(this,'fp-reviews')">전체</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-reviews')">🧾 200건+</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-reviews')">🧾 100건+</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-reviews')">🧾 50건+</button>
-        <button class="fp-chip" onclick="fpSelect(this,'fp-reviews')">🧾 20건+</button>
-      </div>
-    </div>
-    <!-- 예산 슬라이더 -->
-    <div class="fp-row fp-slider-row" style="display:flex">
-      <div class="fp-label">예산</div>
-      <div class="fp-slider-body">
-        <span>💰 상한</span>
-        <input type="range" min="10" max="500" value="200" step="10" oninput="document.getElementById('pv2').textContent=this.value+'만원'">
-        <span class="fp-range-val" id="pv2">200만원</span>
-        <span style="margin-left:12px">🚇 거리</span>
-        <input type="range" min="1" max="30" value="10" oninput="document.getElementById('dv2').textContent=this.value+'km'">
-        <span class="fp-range-val" id="dv2">10km</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="fp-reset">
-    <button class="fp-reset-btn" onclick="fpResetAll()">↺ 필터 초기화</button>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
-<section class="how-section">
-  <div class="section-label">How It Works</div>
-  <div class="section-title">어떻게 신뢰할 수 있나요?</div>
-  <div class="section-sub">영수증 기반 3단계 검증 프로세스로 광고성 후기를 완전히 차단합니다.</div>
-  <div class="steps-grid">
-    <div class="step"><div class="step-num">01</div><div class="step-icon" style="background:#fef3f0">📋</div><h3>영수증 업로드</h3><p>탈모 병원 방문 후 발급받은 진료비 영수증을 사진으로 업로드합니다. 개인정보는 자동으로 블라인드 처리됩니다.</p></div>
-    <div class="step"><div class="step-num">02</div><div class="step-icon" style="background:#e8f5ee">🤖</div><h3>AI 진위 검증</h3><p>AI가 영수증의 병원명, 진료일, 금액 등을 자동 분석해 위조 여부를 판별합니다. 검증 완료 후 후기 작성이 가능합니다.</p></div>
-    <div class="step"><div class="step-num">03</div><div class="step-icon" style="background:#e8f0fe">📊</div><h3>투명한 정보 공개</h3><p>검증된 후기와 실제 지불 금액이 병원 프로필에 반영됩니다. 비급여 가격 통계도 자동으로 업데이트됩니다.</p></div>
-  </div>
-</section>
-
-<!-- HOSPITAL CARDS -->
-<section class="hospitals-section">
-  <div class="section-label">병원 찾기</div>
-  <div class="section-title">인증 후기 많은 탈모 기관</div>
-  <div class="section-sub">병원·한의원·두피샵·약국까지, 영수증으로 검증된 실제 방문자 후기 기반의 정보입니다.</div>
-
-  <!-- 기관 유형 탭 -->
-  <div class="inst-type-bar">
-    <button class="inst-type-btn active" data-type="all" onclick="filterInst(this,'all')">🏥 전체</button>
-    <button class="inst-type-btn" data-type="clinic" onclick="filterInst(this,'clinic')">🔬 탈모클리닉</button>
-    <button class="inst-type-btn" data-type="derm" onclick="filterInst(this,'derm')">💊 피부과</button>
-    <button class="inst-type-btn" data-type="hanbang" onclick="filterInst(this,'hanbang')">🌿 한의원</button>
-    <button class="inst-type-btn" data-type="scalp" onclick="filterInst(this,'scalp')">💆 두피관리샵</button>
-    <button class="inst-type-btn" data-type="pharmacy" onclick="filterInst(this,'pharmacy')">💊 약국</button>
-  </div>
-
-  <div class="filter-bar" style="margin-top:16px">
-    <button class="filter-chip active">전체 지역</button>
-    <button class="filter-chip">서울</button>
-    <button class="filter-chip">경기</button>
-    <button class="filter-chip">부산</button>
-    <button class="filter-chip">모발이식</button>
-    <button class="filter-chip">한방치료</button>
-    <button class="filter-chip">레이저</button>
-    <button class="filter-chip">줄기세포</button>
-    <select class="sort-select"><option>인증 후기 많은 순</option><option>평점 높은 순</option><option>가격 낮은 순</option><option>최근 후기 순</option></select>
-  </div>
-
-  <div class="hospital-grid" id="instGrid">
-    <!-- 실제 후기 데이터 JS로 렌더링 -->
-  </div>
-
-  <!-- 빈 상태 UI -->
-  <div id="emptyState" style="text-align:center;padding:60px 20px;background:var(--white);border:2px dashed var(--line);border-radius:16px;margin-top:16px;display:none;">
-    <div style="font-size:3.5rem;margin-bottom:16px;">🧾</div>
-    <div style="font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;">아직 등록된 후기가 없어요</div>
-    <div style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:24px;">헤어트루스는 광고 없이 실제 영수증 후기만 모읍니다.<br><strong style="color:var(--accent)">첫 후기 주인공</strong>이 되어주세요!</div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:12px 28px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">✏️ 사이트에서 후기 작성</button>
-      <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:var(--ink);color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;">💬 카카오 채팅방 참여</a>
-    </div>
-  </div>
-
-  <!-- 통계 대시보드 -->
-  <div class="stat-dashboard" style="margin-top:28px;">
-    <div class="stat-dash-item"><div class="sd-label">인증된 후기</div><div class="sd-val" id="statReviews">0<span class="sd-unit">건</span></div></div>
-    <div class="stat-dash-item"><div class="sd-label">등록 기관 수</div><div class="sd-val" id="statHospitals">0<span class="sd-unit">곳</span></div></div>
-    <div class="stat-dash-item"><div class="sd-label">영수증 인증율</div><div class="sd-val">100<span class="sd-unit">%</span></div></div>
-    <div class="stat-dash-item"><div class="sd-label">광고 수취</div><div class="sd-val" style="color:#e53935">0<span class="sd-unit">건</span></div></div>
-  </div>
-
-</section>
-
-<!-- 영수증 후기 모집 이벤트 배너 -->
-<section style="background:linear-gradient(135deg,#1a1a1a 0%,#2a1a14 100%);padding:60px 5%;text-align:center;">
-  <div style="max-width:700px;margin:0 auto;">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,75,47,0.2);border:1px solid rgba(200,75,47,0.4);color:#e8a090;padding:6px 16px;border-radius:20px;font-size:0.78rem;margin-bottom:20px;">🧾 영수증 후기 모집 중</div>
-    <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:#f5f0e8;line-height:1.4;margin-bottom:16px;">탈모 병원 다니고 계신가요?<br><span style="color:#e8a090">영수증 사진 한 장이 큰 힘이 됩니다</span></h2>
-    <p style="color:#888;font-size:0.9rem;line-height:1.8;margin-bottom:32px;">병원명·시술명·금액·만족도만 알려주세요. 익명으로 처리되고 무료입니다.<br>여러분의 후기 하나가 탈모 정보 불평등을 해소합니다.</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:8px;">☕</div>
-        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">영수증 인증 완료</div>
-        <div style="color:#888;font-size:0.78rem;margin-top:4px;">후기 1건 인증 시 즉시 지급</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:8px;">🔒</div>
-        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">완전 익명 보장</div>
-        <div style="color:#888;font-size:0.78rem;margin-top:4px;">개인정보 일절 수집 없음</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:8px;">💰</div>
-        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">무료 참여</div>
-        <div style="color:#888;font-size:0.78rem;margin-top:4px;">비용 없이 누구나 가능</div>
-      </div>
-    </div>
-    <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="display:inline-block;background:#c84b2f;color:white;padding:14px 36px;border-radius:8px;font-size:0.95rem;font-weight:700;text-decoration:none;transition:all 0.2s;">카카오 오픈채팅 참여하기 →</a>
-    <p style="color:#555;font-size:0.75rem;margin-top:12px;">지금 바로 참여 가능</p>
-  </div>
-</section>
-
-<!-- 지역별 가격 히트맵 -->
-<section style="background:var(--cream);padding:70px 5%;" id="heatmap">
-  <div class="section-label">지역별 가격 비교</div>
-  <div class="section-title">지역별 탈모 치료 평균 비용</div>
-  <div class="section-sub">피나스테리드 처방 기준 병원별 가격 분포. 같은 약인데 지역·병원에 따라 최대 10배 차이가 납니다.</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
-    <!-- 지역별 가격 바 차트 -->
-    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;">
-      <div style="font-size:0.9rem;font-weight:700;margin-bottom:4px;">피나스테리드 제네릭 지역별 월 처방비</div>
-      <div style="font-size:0.75rem;color:var(--mid);margin-bottom:20px;">진료비 + 약값 합산 기준</div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;">
-            <span>서울 강남·압구정</span><span style="font-family:'DM Mono',monospace;color:var(--accent);font-weight:700">2.5만~5만원</span>
-          </div>
-          <div style="background:#eee;border-radius:4px;height:8px;"><div style="width:90%;background:var(--accent);height:8px;border-radius:4px;"></div></div>
-        </div>
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;">
-            <span>서울 기타·수도권</span><span style="font-family:'DM Mono',monospace;color:var(--gold);font-weight:700">1.5만~3만원</span>
-          </div>
-          <div style="background:#eee;border-radius:4px;height:8px;"><div style="width:65%;background:var(--gold);height:8px;border-radius:4px;"></div></div>
-        </div>
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;">
-            <span>지방 광역시</span><span style="font-family:'DM Mono',monospace;color:var(--teal);font-weight:700">8천~2만원</span>
-          </div>
-          <div style="background:#eee;border-radius:4px;height:8px;"><div style="width:45%;background:var(--teal);height:8px;border-radius:4px;"></div></div>
-        </div>
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;">
-            <span>목포·광주 (전남)</span><span style="font-family:'DM Mono',monospace;color:var(--verified);font-weight:700">5천~1.5만원</span>
-          </div>
-          <div style="background:#eee;border-radius:4px;height:8px;"><div style="width:30%;background:var(--verified);height:8px;border-radius:4px;"></div></div>
-        </div>
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.82rem;">
-            <span>비대면 진료 앱</span><span style="font-family:'DM Mono',monospace;color:var(--verified);font-weight:700">5천~1만원</span>
-          </div>
-          <div style="background:#eee;border-radius:4px;height:8px;"><div style="width:22%;background:var(--verified);height:8px;border-radius:4px;"></div></div>
-        </div>
-      </div>
-      <div style="margin-top:18px;padding:12px;background:var(--teal-light);border-radius:8px;font-size:0.78rem;color:var(--teal);">
-        💡 <strong>핵심 팁:</strong> 병원 방문 전 반드시 전화로 "제네릭으로 처방 가능한가요?" 확인하세요.
-      </div>
-    </div>
-    <!-- 시술별 가격 비교 -->
-    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px;">
-      <div style="font-size:0.9rem;font-weight:700;margin-bottom:4px;">주요 시술 평균 비용</div>
-      <div style="font-size:0.75rem;color:var(--mid);margin-bottom:20px;">전국 평균 기준 (병원별 차이 있음)</div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--cream);border-radius:8px;">
-          <div>
-            <div style="font-size:0.85rem;font-weight:600;">모발이식 (비절개 FUE)</div>
-            <div style="font-size:0.72rem;color:var(--mid);">1,000모 기준</div>
-          </div>
-          <div style="font-family:'DM Mono',monospace;color:var(--accent);font-weight:700;font-size:0.9rem;">180~250만원</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--cream);border-radius:8px;">
-          <div>
-            <div style="font-size:0.85rem;font-weight:600;">두피 PRP 주사</div>
-            <div style="font-size:0.72rem;color:var(--mid);">1회 기준</div>
-          </div>
-          <div style="font-family:'DM Mono',monospace;color:var(--accent);font-weight:700;font-size:0.9rem;">8~25만원</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--cream);border-radius:8px;">
-          <div>
-            <div style="font-size:0.85rem;font-weight:600;">메조테라피</div>
-            <div style="font-size:0.72rem;color:var(--mid);">1회 기준</div>
-          </div>
-          <div style="font-family:'DM Mono',monospace;color:var(--gold);font-weight:700;font-size:0.9rem;">5~15만원</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--cream);border-radius:8px;">
-          <div>
-            <div style="font-size:0.85rem;font-weight:600;">피나스테리드 제네릭</div>
-            <div style="font-size:0.72rem;color:var(--mid);">월 처방 기준</div>
-          </div>
-          <div style="font-family:'DM Mono',monospace;color:var(--verified);font-weight:700;font-size:0.9rem;">5천~2만원</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:14px;">
-    <span style="font-size:1.4rem;">🧾</span>
-    <div>
-      <div style="font-size:0.88rem;font-weight:700;margin-bottom:4px;">실제 영수증 기반 가격 데이터를 모읍니다</div>
-      <div style="font-size:0.78rem;color:var(--mid);">위 데이터는 공개 자료 기준입니다. 영수증 후기가 쌓이면 실제 데이터로 업데이트됩니다. <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:600;">후기 남기러 가기 →</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- 한방 vs 양방 비교 -->
-<section style="background:var(--white);padding:70px 5%;" id="compare">
-  <div class="section-label">치료법 비교</div>
-  <div class="section-title">한방 vs 양방 탈모 치료</div>
-  <div class="section-sub">어떤 치료가 나에게 맞을까요? 비용·효과·기간을 한눈에 비교해보세요.</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;">
-    <!-- 양방 -->
-    <div style="border:2px solid var(--teal);border-radius:16px;overflow:hidden;">
-      <div style="background:var(--teal);padding:20px 24px;">
-        <div style="color:rgba(255,255,255,0.7);font-size:0.75rem;font-family:'DM Mono',monospace;margin-bottom:4px;">WESTERN MEDICINE</div>
-        <div style="color:white;font-size:1.2rem;font-weight:700;">양방 (피부과·의원)</div>
-      </div>
-      <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">주요 치료</span>
-          <span style="font-size:0.85rem;color:var(--mid);">피나스테리드·두타스테리드 처방, 미녹시딜, PRP, 모발이식</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">임상 근거</span>
-          <span style="font-size:0.85rem;color:var(--mid);">FDA·식약처 승인 치료제 기반. 대규모 임상 연구로 효과 입증</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">월 비용</span>
-          <span style="font-size:0.85rem;font-weight:700;color:var(--teal);">약물: 5천~5만원 / 시술: 5~25만원</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">효과 시기</span>
-          <span style="font-size:0.85rem;color:var(--mid);">3~6개월 후 효과 확인 가능</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">주의사항</span>
-          <span style="font-size:0.85rem;color:var(--mid);">성기능 부작용 일부 보고. 장기 복용 필요</span>
-        </div>
-        <div style="background:var(--teal-light);border-radius:8px;padding:12px;font-size:0.78rem;color:var(--teal);">
-          ✅ <strong>추천 대상:</strong> 남성형 탈모, 빠른 효과 원하는 분, 근거 중심 치료 원하는 분
-        </div>
-      </div>
-    </div>
-    <!-- 한방 -->
-    <div style="border:2px solid var(--gold);border-radius:16px;overflow:hidden;">
-      <div style="background:var(--gold);padding:20px 24px;">
-        <div style="color:rgba(255,255,255,0.7);font-size:0.75rem;font-family:'DM Mono',monospace;margin-bottom:4px;">ORIENTAL MEDICINE</div>
-        <div style="color:white;font-size:1.2rem;font-weight:700;">한방 (한의원)</div>
-      </div>
-      <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:#fdf6e3;color:var(--gold);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">주요 치료</span>
-          <span style="font-size:0.85rem;color:var(--mid);">한약 처방, 두피 약침, 침 치료, 한방 샴푸·두피 케어</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:#fdf6e3;color:var(--gold);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">임상 근거</span>
-          <span style="font-size:0.85rem;color:var(--mid);">일부 임상 연구 있음. 양방 대비 근거 수준 낮음</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:#fdf6e3;color:var(--gold);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">월 비용</span>
-          <span style="font-size:0.85rem;font-weight:700;color:var(--gold);">한약: 15~40만원 / 약침: 6~15만원</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:#fdf6e3;color:var(--gold);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">효과 시기</span>
-          <span style="font-size:0.85rem;color:var(--mid);">6~12개월 이상 꾸준한 치료 필요</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="background:#fdf6e3;color:var(--gold);padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;white-space:nowrap;">주의사항</span>
-          <span style="font-size:0.85rem;color:var(--mid);">비용 대비 효과 개인차 큼. 병원마다 처방 다름</span>
-        </div>
-        <div style="background:#fdf6e3;border-radius:8px;padding:12px;font-size:0.78rem;color:#8b6914;">
-          ✅ <strong>추천 대상:</strong> 양방 부작용 우려되는 분, 체질 개선 원하는 분, 병행 치료 원하는 분
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:20px 24px;text-align:center;">
-    <div style="font-size:0.88rem;font-weight:700;margin-bottom:6px;">💡 전문가 권장: 양방 약물치료 기본 + 한방 보조</div>
-    <div style="font-size:0.78rem;color:var(--mid);">피나스테리드·미녹시딜 약물치료를 기본으로 하고, 두피 관리 목적으로 한방 치료를 병행하는 것이 가장 효율적입니다.</div>
-  </div>
-</section>
-
-<!-- 탈모 치료 타임라인 기록 -->
-<section style="background:var(--cream);padding:70px 5%;" id="timeline">
-  <div class="section-label">치료 기록</div>
-  <div class="section-title">탈모 치료 타임라인</div>
-  <div class="section-sub">치료 시작부터 현재까지, 단계별로 어떤 변화가 있었는지 기록해보세요.</div>
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start;">
-    <!-- 타임라인 UI -->
-    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;">
-      <div style="padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
-        <div style="font-weight:700;font-size:0.95rem;">내 치료 기록</div>
-        <button onclick="openTimelineModal()" style="background:var(--teal);color:white;padding:7px 16px;border-radius:6px;font-size:0.8rem;border:none;cursor:pointer;font-weight:600;font-family:'Noto Sans KR',sans-serif;">+ 기록 추가</button>
-      </div>
-      <!-- 타임라인 목록 -->
-      <div style="padding:24px;position:relative;" id="timelineList">
-        <div style="position:absolute;left:44px;top:24px;bottom:24px;width:2px;background:var(--line);"></div>
-        <div style="display:flex;flex-direction:column;gap:24px;" id="timelineItems">
-          <!-- JS로 렌더링 -->
-        </div>
-      </div>
-    </div>
-    <!-- 기록 안내 -->
-    <div style="display:flex;flex-direction:column;gap:16px;">
-      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;">
-        <div style="font-size:1.1rem;margin-bottom:12px;">📊</div>
-        <div style="font-size:0.88rem;font-weight:700;margin-bottom:8px;">치료 기록의 힘</div>
-        <div style="font-size:0.8rem;color:var(--mid);line-height:1.7;">치료 시작 시점부터 기록하면 6개월 후 변화를 객관적으로 확인할 수 있어요.</div>
-      </div>
-      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;">
-        <div style="font-size:1.1rem;margin-bottom:12px;">🧾</div>
-        <div style="font-size:0.88rem;font-weight:700;margin-bottom:8px;">영수증 인증 방법</div>
-        <div style="font-size:0.8rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">카카오 오픈채팅방에서 영수증 사진 + 간단한 후기를 남겨주시면 됩니다. 완전 익명입니다!</div>
-        <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="display:block;background:var(--teal);color:white;padding:10px;border-radius:8px;text-align:center;font-size:0.82rem;text-decoration:none;font-weight:600;">채팅방 바로가기 →</a>
-      </div>
-      <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;">
-        <div style="font-size:1.1rem;margin-bottom:12px;">📱</div>
-        <div style="font-size:0.88rem;font-weight:700;margin-bottom:8px;">인스타그램 팔로우</div>
-        <div style="font-size:0.8rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">최신 탈모 정보와 가격 비교 업데이트를 받아보세요!</div>
-        <a href="https://instagram.com/hairtruth_kr" target="_blank" style="display:block;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:10px;border-radius:8px;text-align:center;font-size:0.82rem;text-decoration:none;font-weight:600;">@hairtruth_kr 팔로우 →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div><!-- /page-hospitals -->
-
-<!-- 랭킹 PAGE -->
-<div class="ht-page" id="page-ranking">
-
-<!-- RANKING -->
-<section class="ranking-section" id="ranking">
-  <div class="section-label">병원 랭킹</div>
-  <div class="section-title">종합 병원 순위</div>
-  <div class="section-sub">영수증 후기 수, 평점, 가격 합리성을 종합한 투명한 랭킹입니다. 광고비와 완전히 무관합니다.</div>
-  <div class="ranking-tabs">
-    <button class="rank-tab active" onclick="switchRankTab(this,0)">종합 순위</button>
-    <button class="rank-tab" onclick="switchRankTab(this,1)">모발이식</button>
-    <button class="rank-tab" onclick="switchRankTab(this,2)">PRP·주사</button>
-    <button class="rank-tab" onclick="switchRankTab(this,3)">약물치료</button>
-  </div>
-  <div class="rank-table-wrap" id="rankTableWrap">
-    <table class="rank-table">
-      <thead><tr><th>#</th><th>병원명</th><th>평점</th><th>인증 후기</th><th>시술</th><th>지역</th></tr></thead>
-      <tbody id="rankTableBody">
-      </tbody>
-    </table>
-  </div>
-  <!-- 랭킹 빈 상태 -->
-  <div id="rankEmptyState" style="text-align:center;padding:48px 20px;background:var(--white);border:2px dashed var(--line);border-radius:12px;margin-top:8px;display:none;">
-    <div style="font-size:2rem;margin-bottom:12px;">🏆</div>
-    <div style="font-weight:700;margin-bottom:8px;">아직 랭킹 데이터가 없어요</div>
-    <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;">영수증 후기가 쌓이면 자동으로 랭킹이 생성됩니다!</div>
-    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:0.85rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">🧾 첫 후기 남기기</button>
-  </div>
-</section>
-
-</div><!-- /page-ranking -->
-
-<!-- 가격표 PAGE -->
-<div class="ht-page" id="page-price">
-
-<!-- PRICE + CHARTS -->
-<section class="price-section" id="price">
-  <div class="section-label">비급여 가격 정보</div>
-  <div class="section-title">실제 지불 금액 & 가격 변동 추이</div>
-  <div class="section-sub">영수증 인증 데이터를 집계한 실제 비급여 진료비와 최근 6개월 가격 변동입니다.</div>
-  <div class="chart-row">
-    <div class="chart-card">
-      <div class="chart-title">모발이식 (비절개) 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a6b6e" stop-opacity="0.22"/><stop offset="100%" stop-color="#2a6b6e" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36" fill="none" stroke="#2a6b6e" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36 L300,72 L0,72 Z" fill="url(#g1)"/>
-        <circle cx="300" cy="36" r="4" fill="#2a6b6e"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="264" y="30" font-size="9" fill="#2a6b6e" font-family="monospace">195만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#2a6b6e"></div>서울 평균</div><span style="color:var(--accent);font-family:'DM Mono',monospace;font-size:0.72rem">↑ 3.2% (6개월)</span></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">두피 PRP 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c84b2f" stop-opacity="0.18"/><stop offset="100%" stop-color="#c84b2f" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38" fill="none" stroke="#c84b2f" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38 L300,72 L0,72 Z" fill="url(#g2)"/>
-        <circle cx="300" cy="38" r="4" fill="#c84b2f"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="268" y="32" font-size="9" fill="#c84b2f" font-family="monospace">17만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#c84b2f"></div>서울 평균</div><span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:0.72rem">→ 1.1% (6개월)</span></div>
-    </div>
-  </div>
-  <div class="price-table-wrap">
-    <table class="price-table">
-      <thead><tr><th>시술명</th><th>분류</th><th>평균 가격</th><th>최저 — 최고</th><th>표본 수</th><th>추세</th></tr></thead>
-      <tbody>
-        <tr><td><strong>모발이식 1,000모 (비절개 FUE)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">195만원</td><td class="price-range">160 — 280만원</td><td class="sample-count">🧾 742건</td><td><span class="trend-up">↑ 3.2%</span></td></tr>
-        <tr><td><strong>모발이식 1,000모 (절개 FUT)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">145만원</td><td class="price-range">100 — 200만원</td><td class="sample-count">🧾 318건</td><td><span class="trend-stable">→ 0.5%</span></td></tr>
-        <tr><td><strong>줄기세포 탈모 치료 (1회)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">95만원</td><td class="price-range">60 — 150만원</td><td class="sample-count">🧾 186건</td><td><span class="trend-up">↑ 4.8%</span></td></tr>
-        <tr><td><strong>두피 PRP 주사 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">17만원</td><td class="price-range">8 — 30만원</td><td class="sample-count">🧾 1,204건</td><td><span class="trend-stable">→ 1.1%</span></td></tr>
-        <tr><td><strong>메조테라피 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">13만원</td><td class="price-range">8 — 22만원</td><td class="sample-count">🧾 896건</td><td><span class="trend-up">↑ 2.0%</span></td></tr>
-        <tr><td><strong>LLLT 저출력 레이저 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">10만원</td><td class="price-range">5 — 18만원</td><td class="sample-count">🧾 524건</td><td><span class="trend-up">↑ 1.5%</span></td></tr>
-        <tr><td><strong>두피 앰플 마이크로 니들링</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">12만원</td><td class="price-range">8 — 20만원</td><td class="sample-count">🧾 312건</td><td><span class="trend-up">↑ 2.8%</span></td></tr>
-        <tr><td><strong>두피 스케일링 (1회)</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">6만원</td><td class="price-range">2 — 12만원</td><td class="sample-count">🧾 682건</td><td><span class="trend-stable">→ 0.3%</span></td></tr>
-        <tr><td><strong>한방 약침 시술 (1회)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">10만원</td><td class="price-range">6 — 18만원</td><td class="sample-count">🧾 428건</td><td><span class="trend-stable">→ 0.9%</span></td></tr>
-        <tr><td><strong>한방 탈모 한약 처방 (3개월)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">45만원</td><td class="price-range">30 — 80만원</td><td class="sample-count">🧾 267건</td><td><span class="trend-stable">→ 0.6%</span></td></tr>
-        <tr><td><strong>피나스테리드 처방 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국·의원</span></td><td class="price-range">3만원</td><td class="price-range">1.5 — 6만원</td><td class="sample-count">🧾 1,087건</td><td><span class="trend-stable">→ 0.8%</span></td></tr>
-        <tr><td><strong>미녹시딜 도포제 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국</span></td><td class="price-range">1.5만원</td><td class="price-range">0.8 — 3만원</td><td class="sample-count">🧾 863건</td><td><span class="trend-down">↓ 0.5%</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-</div><!-- /page-price -->
-
-<!-- 치료가이드 PAGE -->
-<div class="ht-page" id="page-guide">
-
-<!-- TREATMENT GUIDE -->
-<section class="guide-section" id="guide">
-  <div class="section-label">탈모 치료 가이드</div>
-  <div class="section-title">나에게 맞는 치료법은?</div>
-  <div class="section-sub">탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 영수증 후기 데이터를 기반으로 정리했습니다.</div>
-  <div class="guide-tabs">
-    <button class="guide-tab active" onclick="switchG(this,'implant')">💆 모발이식</button>
-    <button class="guide-tab" onclick="switchG(this,'prp')">💉 PRP·주사</button>
-    <button class="guide-tab" onclick="switchG(this,'meso')">🔬 메조테라피</button>
-    <button class="guide-tab" onclick="switchG(this,'meds')">💊 약물치료</button>
-    <button class="guide-tab" onclick="switchG(this,'hanbang')">🌿 한방치료</button>
-    <button class="guide-tab" onclick="switchG(this,'laser')">💡 레이저(LLLT)</button>
-    <button class="guide-tab" onclick="switchG(this,'stem')">🔄 줄기세포</button>
-  </div>
-  <div class="guide-content active" id="gi-implant">
-    <div class="guide-info">
-      <h3>모발이식</h3>
-      <p>두피의 건강한 모낭을 탈모 부위에 이식하는 수술적 치료입니다. 비절개(FUE)와 절개(FUT) 방식이 있으며 영구적인 효과를 기대할 수 있습니다.</p>
-      <div class="gtags"><span class="gt g">✓ 영구적 효과</span><span class="gt g">✓ M자·정수리 효과적</span><span class="gt c">△ 회복 7~14일</span><span class="gt b">✕ 고비용</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>영구</span></div><div class="eff-track"><div class="eff-fill" style="width:95%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.7 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:94%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1,000모)</span><span class="gstat-val">195만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">4~8시간</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">7~14일</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">6~12개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,060건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중증 이상</span></div>
-    </div>
-  </div>
-  <div class="guide-content" id="gi-prp">
-    <div class="guide-info">
-      <h3>두피 PRP 주사</h3>
-      <p>자신의 혈액에서 추출한 혈소판 농축 혈장(PRP)을 두피에 주입해 모낭을 자극하는 치료입니다. 수술 없이 모발 성장을 촉진합니다.</p>
-      <div class="gtags"><span class="gt g">✓ 비수술적 치료</span><span class="gt g">✓ 회복 기간 없음</span><span class="gt c">△ 3~6회 반복 필요</span><span class="gt b">✕ 효과 개인차 큼</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>6~12개월</span></div><div class="eff-track"><div class="eff-fill" style="width:55%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">17만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~3개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,204건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
-    </div>
-  </div>
-  <div class="guide-content" id="gi-meso">
-    <div class="guide-info">
-      <h3>메조테라피</h3>
-      <p>두피에 영양물질, 성장인자 등을 미세 주사로 주입해 모발 성장을 촉진하는 치료법입니다. PRP와 병행하면 효과가 높습니다.</p>
-      <div class="gtags"><span class="gt g">✓ 짧은 시술 시간</span><span class="gt g">✓ 두피 영양 공급</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 효과 증거 상대적 부족</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>3~6개월</span></div><div class="eff-track"><div class="eff-fill" style="width:45%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">13만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~40분</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">1~2개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">896건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기</span></div>
-    </div>
-  </div>
-  <div class="guide-content" id="gi-meds">
-    <div class="guide-info">
-      <h3>약물치료</h3>
-      <p>피나스테리드(남성형), 미녹시딜(남녀 공용) 등의 처방약으로 탈모를 억제하고 모발 성장을 돕는 치료입니다. 지속적인 복용이 필요합니다.</p>
-      <div class="gtags"><span class="gt g">✓ 가장 낮은 비용</span><span class="gt g">✓ 비수술, 간편</span><span class="gt c">△ 지속 복용 필요</span><span class="gt b">✕ 중단 시 재발</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>복용 기간</span></div><div class="eff-track"><div class="eff-fill" style="width:70%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.3 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:86%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1개월)</span><span class="gstat-val">3만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">처방 소요 시간</span><span class="gstat-val">15~30분</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,087건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
-    </div>
-  </div>
-
-  <!-- 한방치료 -->
-  <div class="guide-content" id="gi-hanbang">
-    <div class="guide-info">
-      <h3>한방 탈모 치료</h3>
-      <p>한의학적 관점에서 신체 내부의 불균형(혈허, 신허 등)을 개선해 모발 환경을 회복시키는 치료입니다. 약침, 한약 처방, 침 치료 등을 복합적으로 활용합니다.</p>
-      <div class="gtags"><span class="gt g">✓ 두피 예민할 때 효과적</span><span class="gt g">✓ 부작용 적음</span><span class="gt g">✓ 전신 건강 개선 병행</span><span class="gt c">△ 효과 느림 (3~6개월)</span><span class="gt b">✕ 장기 복용 필요</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 관리 필요</span></div><div class="eff-track"><div class="eff-fill" style="width:50%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">약침 평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">한약 처방 (3개월)</span><span class="gstat-val">30~80만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">초진 상담 시간</span><span class="gstat-val">30~60분</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">695건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기·양방 부작용 시</span></div>
-    </div>
-  </div>
-
-  <!-- 레이저(LLLT) -->
-  <div class="guide-content" id="gi-laser">
-    <div class="guide-info">
-      <h3>저출력 레이저 치료 (LLLT)</h3>
-      <p>630~670nm 파장의 저출력 적색 레이저를 두피에 조사해 모낭 세포의 에너지 대사를 활성화하고 혈류를 개선하는 비침습적 치료입니다. 병원 기기와 가정용 기기 두 가지 방식이 있습니다.</p>
-      <div class="gtags"><span class="gt g">✓ 완전 비침습·통증 없음</span><span class="gt g">✓ 다른 치료와 병행 가능</span><span class="gt g">✓ 가정용 기기 존재</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 중증에는 효과 미미</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 시술 중</span></div><div class="eff-track"><div class="eff-fill" style="width:48%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~30분</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">524건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기 (병행 치료)</span></div>
-    </div>
-  </div>
-
-  <!-- 줄기세포 -->
-  <div class="guide-content" id="gi-stem">
-    <div class="guide-info">
-      <h3>줄기세포 탈모 치료</h3>
-      <p>지방 조직 또는 탯줄 유래 줄기세포 성장인자(엑소좀·세포 상층액)를 두피에 주입해 손상된 모낭을 재생시키는 최신 치료입니다. PRP 대비 성장인자 농도가 높아 효과가 더 강력합니다.</p>
-      <div class="gtags"><span class="gt g">✓ PRP보다 강력한 재생</span><span class="gt g">✓ 비수술·짧은 회복</span><span class="gt c">△ 아직 임상 데이터 축적 중</span><span class="gt b">✕ 고비용</span></div>
-      <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>12~18개월</span></div><div class="eff-track"><div class="eff-fill" style="width:68%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.4 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:88%"></div></div></div>
-    </div>
-    <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">95만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
-      <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">1~2일 (경미한 붓기)</span></div>
-      <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">186건</span></div>
-      <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중기 (PRP 효과 부족 시)</span></div>
-    </div>
-  </div>
-</section>
-
-<style>
-/* 기관 유형 탭 */
-.inst-type-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
-.inst-type-btn{padding:9px 18px;border-radius:20px;border:1.5px solid var(--line);background:var(--white);font-size:0.82rem;cursor:pointer;color:var(--mid);transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;font-weight:500;}
-.inst-type-btn:hover{border-color:var(--teal);color:var(--teal);}
-.inst-type-btn.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
-/* 기관 유형 태그 */
-.inst-type-tag{padding:3px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;}
-.tag-clinic{background:#fef3f0;color:#c84b2f;}
-.tag-derm{background:#e8f5ee;color:#2a7a4b;}
-.tag-hanbang{background:#f0f7e8;color:#4a7a2b;}
-.tag-scalp{background:#f0e8fe;color:#6a3fa8;}
-.tag-pharmacy{background:#e8f0fe;color:#1a5fce;}
-/* 가격표 분류 태그 */
-.pt-tag{padding:2px 8px;border-radius:8px;font-size:0.68rem;font-weight:600;white-space:nowrap;}
-.pt-clinic{background:#fef3f0;color:#c84b2f;}
-.pt-derm{background:#e8f5ee;color:#2a7a4b;}
-.pt-hanbang{background:#f0f7e8;color:#4a7a2b;}
-.pt-scalp{background:#f0e8fe;color:#6a3fa8;}
-.pt-pharm{background:#e8f0fe;color:#1a5fce;}
-.trend-down{color:#1a4fce;font-size:0.75rem;}
-/* 병원 카드 숨김 */
-.hospital-card.hidden{display:none;}
-
-/* 반응형 */
-@media(max-width:600px){
-  .stat-dashboard{flex-direction:column;gap:14px;}
-  .stat-dash-item{border-right:none;border-bottom:1px solid #ebebeb;padding:0 0 14px;}
-  .stat-dash-item:last-child{border-bottom:none;padding-bottom:0;}
-  .hospital-grid{grid-template-columns:1fr 1fr;}
-}
-
-/* 새 섹션 반응형 */
-@media(max-width:768px){
-  .hero{grid-template-columns:1fr!important;gap:32px!important;}
-  .hero-stats{display:none;}
-  .chart-row{grid-template-columns:1fr!important;}
-  .steps-grid{grid-template-columns:1fr!important;}
-  .guide-content{flex-direction:column!important;}
-  .map-layout{grid-template-columns:1fr!important;}
-  .cta-section{flex-direction:column!important;text-align:center;}
-  .footer-grid{grid-template-columns:1fr!important;}
-}
-</style>
-
-<!-- MAP - 실제 위치 기반 -->
-<section class="map-section" id="mapSection">
-  <div class="section-label">내 주변 탈모 병원</div>
-  <div class="section-title">실제 위치 기반 병원 찾기</div>
-  <div class="section-sub">현재 위치를 허용하면 주변 피부과·한의원을 실시간으로 찾아드립니다.</div>
-
-  <!-- 위치 허용 요청 -->
-  <div id="geoRequest" style="text-align:center;padding:48px 20px;background:var(--white);border:1.5px solid var(--line);border-radius:16px;margin-bottom:24px;">
-    <div style="font-size:3rem;margin-bottom:16px;">📍</div>
-    <div style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">현재 위치를 허용해주세요</div>
-    <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;line-height:1.7;">위치 정보를 사용해 주변 탈모 피부과·한의원을 찾아드립니다.<br>위치 정보는 서버에 저장되지 않습니다.</div>
-    <button onclick="requestLocation()" style="background:var(--teal);color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">📍 내 위치로 병원 찾기</button>
-    <div style="margin-top:12px;font-size:0.78rem;color:#aaa;">위치 허용 후 Google 지도에서 주변 탈모 병원을 확인합니다</div>
-  </div>
-
-  <!-- 로딩 상태 -->
-  <div id="geoLoading" style="display:none;text-align:center;padding:40px;">
-    <div style="font-size:2rem;margin-bottom:12px;animation:pulse 1.5s infinite;">📍</div>
-    <div style="font-size:0.9rem;color:var(--mid);">위치 확인 중...</div>
-  </div>
-
-  <!-- 지도 임베드 (위치 허용 후) -->
-  <div id="geoResult" style="display:none;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;background:var(--verified-bg);padding:10px 16px;border-radius:8px;">
-      <span style="color:var(--verified);font-size:1rem;">✅</span>
-      <div>
-        <span style="font-size:0.85rem;font-weight:600;color:var(--verified);">위치 확인 완료</span>
-        <span id="geoAddress" style="font-size:0.8rem;color:var(--mid);margin-left:8px;"></span>
-      </div>
-    </div>
-    <!-- Google 지도 임베드 -->
-    <div id="mapFrame" style="border-radius:14px;overflow:hidden;height:400px;background:#eee;position:relative;">
-      <iframe id="googleMapIframe" width="100%" height="100%" frameborder="0" style="border:0;display:block;" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div style="margin-top:16px;padding:14px 16px;background:var(--cream);border-radius:8px;font-size:0.82rem;color:var(--mid);">
-      💡 지도에서 <strong>탈모·피부과·한의원</strong> 검색 결과를 확인하세요. 병원 방문 후 영수증 후기를 남겨주시면 헤어트루스에 등록됩니다!
-      <a href="#" onclick="openReviewModal();return false;" style="color:var(--teal);font-weight:600;text-decoration:none;">🧾 후기 남기기 →</a>
-    </div>
-  </div>
-
-  <!-- 위치 거부 시 -->
-  <div id="geoDenied" style="display:none;text-align:center;padding:32px;background:#fff8f0;border:1px solid #fcd;border-radius:12px;">
-    <div style="font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:8px;">위치 접근이 거부되었어요</div>
-    <div style="font-size:0.82rem;color:var(--mid);margin-bottom:16px;">브라우저 설정에서 위치 허용 후 다시 시도해주세요.<br>또는 직접 검색으로 주변 병원을 찾아보세요.</div>
-    <a href="https://www.google.com/maps/search/탈모+피부과" target="_blank" style="background:var(--teal);color:white;padding:10px 24px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;">Google 지도에서 직접 검색 →</a>
-  </div>
-</section>
-
-<!-- 블로그 연동 섹션 -->
-<section style="background:var(--white);padding:70px 5%;" id="blog">
-  <div class="section-label">탈모 정보</div>
-  <div class="section-title">헤어트루스 블로그</div>
-  <div class="section-sub">탈모 병원 가격·약물·시술 정보를 정리한 최신 글을 확인하세요. 광고 없이 실제 데이터 기반으로 작성됩니다.</div>
-
-  <!-- 블로그 글 카드 그리드 -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:32px;" id="blogGrid">
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">💊 약물 정보</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">프로페시아 가격 얼마야?<br>제네릭이랑 얼마나 달라?</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">프로페시아 vs 피나스테리드 제네릭 실제 가격 비교. 최대 10배 차이 나는 이유는?</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:#fef3f0;color:var(--accent);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">💰 가격 비교</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">피나스테리드 가격 병원마다<br>왜 이렇게 다를까?</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">비급여 구조 완전 정리. 같은 약인데 병원마다 최대 10배 차이 나는 4가지 이유.</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:#e8f5ee;color:#2a7a4b;padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">💉 시술 정보</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">두피 PRP 주사 가격 얼마야?<br>피부과별 실제 비용 비교</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">지역별 최대 3배 차이. 방문 전 전화로 꼭 확인해야 하는 이유와 절약 팁.</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:#fff8e0;color:var(--gold);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">📱 비대면 진료</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">닥터나우 피나스테리드 처방<br>비대면 앱 4개 비교</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">집에서 5분 만에 탈모약 처방 받는 방법. 닥터나우·나만의닥터·굿닥·솔닥 비교.</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);color:var(--teal);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">💊 약물 정보</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">아보다트 제네릭 가격 비교<br>오리지널이랑 얼마나 달라?</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">아보다트 vs 두타스테리드 제네릭. 최대 7배 차이. "제네릭으로 처방해주세요" 한 마디면 OK.</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;transition:all 0.2s;display:block;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:inline-flex;align-items:center;gap:6px;background:#fef3f0;color:var(--accent);padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;margin-bottom:12px;">⚠️ 주의사항</div>
-      <div style="font-size:0.95rem;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:8px;">탈모인이 절대 하면 안 되는<br>것들 7가지</div>
-      <div style="font-size:0.78rem;color:var(--mid);line-height:1.6;margin-bottom:14px;">약 잘 먹어도 이것 하면 효과 반토막. 탈모 치료 중 절대 하면 안 되는 행동 7가지 총정리.</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:0.72rem;color:#aaa;">2026.04</span>
-        <span style="font-size:0.72rem;color:var(--teal);font-weight:600;">읽기 →</span>
-      </div>
-    </a>
-
-  </div>
-
-  <div style="text-align:center;">
-    <a href="https://blog.naver.com/ghl0412" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:white;padding:13px 32px;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='var(--ink)'">
-      📝 블로그 전체 글 보기 (73개+)
-    </a>
-  </div>
-</section>
-
-</div><!-- /page-guide -->
-
-<!-- 후기 PAGE -->
-<div class="ht-page" id="page-reviews">
-
-<!-- REVIEWS -->
-<section class="review-section">
-  <div class="section-label">인증 후기</div>
-  <div class="section-title">실제 방문자의 목소리</div>
-  <div class="section-sub">모든 후기는 영수증을 첨부한 실제 방문자만 작성할 수 있습니다. 익명으로 처리됩니다.</div>
-
-  <div class="review-grid" id="reviewGrid">
-    <!-- 실제 후기가 JS로 렌더링됩니다 -->
-  </div>
-
-  <!-- 후기 없을 때 -->
-  <div id="reviewEmptyState" style="text-align:center;padding:48px 20px;background:var(--white);border:2px dashed var(--line);border-radius:16px;margin-top:8px;display:none;">
-    <div style="font-size:2.5rem;margin-bottom:12px;">✏️</div>
-    <div style="font-size:1rem;font-weight:700;margin-bottom:8px;">아직 등록된 후기가 없어요</div>
-    <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;">첫 영수증 후기를 남겨주세요! 함께 투명한 탈모 정보를 만들어가요.</div>
-    <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:11px 26px;border-radius:8px;border:none;cursor:pointer;font-size:0.88rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">✏️ 첫 후기 작성하기</button>
-  </div>
-
-  <div style="margin-top:24px;text-align:center;">
-    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">🧾 영수증 후기 작성하기</button>
-  </div>
-</section>
-
-</div><!-- /page-reviews -->
-
-<!-- 후기 상세 PAGE -->
-<div class="ht-page" id="page-review-detail">
-  <div class="review-detail-wrap">
-    <button class="review-detail-back" href="reviews.html">← 후기 목록으로</button>
-    <div id="reviewDetailContent"></div>
-  </div>
-</div><!-- /page-review-detail -->
-
-<!-- Q&A PAGE -->
-<div class="ht-page" id="page-qa">
-
-<section class="qa-section" id="qa">
+<section class="qa-section" id="qa"> id="qa">
   <div class="section-label">커뮤니티 Q&A</div>
   <div class="section-title">궁금한 점을 물어보세요</div>
   <div class="section-sub">실제 치료 경험자들이 직접 답변하는 Q&A 게시판입니다. 병원 선택부터 치료 후 관리까지 솔직한 정보를 공유합니다.</div>
@@ -1317,35 +404,6 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   </div>
   <button class="qa-write" onclick="handleNavAuth()">✏️ 질문 작성하기 (로그인 필요)</button>
 </section>
-
-</div><!-- /page-qa -->
-
-<!-- CTA -->
-<div class="cta-section">
-  <div class="cta-text">
-    <div class="section-label" style="color:var(--accent-soft)">영수증 후기 참여</div>
-    <h2>당신의 경험이<br>다음 탈모인에게<br>실질적인 도움이 됩니다</h2>
-    <p>광고 없는 투명한 탈모 정보를 함께 만들어 주세요.<br>광고 없이 영수증으로 증명된 후기만 모읍니다.</p>
-    <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
-      <a href="https://open.kakao.com/o/gSX50zki" target="_blank" class="btn-primary">☕ 채팅방 참여하기 →</a>
-      <a href="https://instagram.com/hairtruth_kr" target="_blank" style="display:inline-block;background:transparent;color:var(--cream);padding:13px 28px;border-radius:6px;border:1px solid #444;font-size:0.9rem;text-decoration:none;">📷 인스타 팔로우</a>
-    </div>
-  </div>
-  <div>
-    <div class="upload-box">
-      <div class="upload-icon">🧾</div>
-      <h3>후기 남기는 방법</h3>
-      <p>카카오 오픈채팅방에서<br>영수증 사진 + 간단한 후기를 남겨주세요.<br>완전 익명으로 처리됩니다!</p>
-      <a href="https://open.kakao.com/o/gSX50zki" target="_blank" class="btn-primary">카카오 채팅방 바로가기</a>
-    </div>
-    <div class="upload-steps">
-      <div class="upload-step"><div class="step-dot">1</div><span>채팅방 입장</span></div>
-      <div class="upload-step"><div class="step-dot">2</div><span>영수증 사진 전송</span></div>
-      <div class="upload-step"><div class="step-dot">3</div><span>후기 등록 완료</span></div>
-    </div>
-  </div>
-</div>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -1386,150 +444,6 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     <span>광고비 미수취 플랫폼 · 영수증 인증 후기만 게재</span>
   </div>
 </footer>
-
-<style>
-/* ── CARD DETAIL BTN ── */
-.card-detail-btn{width:100%;padding:10px;background:var(--cream);border:1px solid var(--line);border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;color:var(--teal);cursor:pointer;transition:all 0.2s;font-weight:500;}
-.card-detail-btn:hover{background:var(--teal-light);border-color:var(--teal);}
-
-/* ── MODAL BASE ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
-.modal-overlay.open{display:flex;}
-.modal-box{background:var(--white);border-radius:16px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn 0.3s ease;}
-@keyframes modalIn{from{opacity:0;transform:scale(0.96) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
-.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--warm);border:none;border-radius:50%;cursor:pointer;font-size:1rem;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10;}
-.modal-close:hover{background:var(--line);}
-
-/* ── HOSPITAL DETAIL MODAL ── */
-.hosp-modal{max-width:860px;}
-.hosp-hero{background:var(--ink);padding:32px 36px;border-radius:16px 16px 0 0;display:flex;gap:20px;align-items:flex-start;}
-.hosp-logo-lg{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;font-family:'Noto Serif KR',serif;flex-shrink:0;}
-.hosp-title{flex:1;}
-.hosp-name-lg{font-family:'Noto Serif KR',serif;font-size:1.4rem;color:var(--cream);margin-bottom:4px;}
-.hosp-loc{font-size:0.82rem;color:#666;margin-bottom:10px;}
-.hosp-hero-badges{display:flex;gap:8px;flex-wrap:wrap;}
-.hb{padding:3px 10px;border-radius:10px;font-size:0.72rem;}
-.hb-green{background:rgba(42,122,75,0.25);color:#7adaaa;}
-.hb-teal{background:rgba(42,107,110,0.25);color:#7ab8bb;}
-.hb-gold{background:rgba(184,147,42,0.25);color:#d4b060;}
-.hosp-body{padding:28px 36px;}
-.hosp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
-.hosp-stat-card{background:var(--warm);border-radius:10px;padding:16px 18px;}
-.hosp-stat-num{font-family:'DM Mono',monospace;font-size:1.6rem;color:var(--teal);line-height:1;margin-bottom:4px;}
-.hosp-stat-lbl{font-size:0.75rem;color:var(--mid);}
-.hosp-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:22px;}
-.hosp-tab{padding:10px 18px;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;color:var(--mid);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;}
-.hosp-tab.active{color:var(--ink);border-bottom-color:var(--accent);font-weight:600;}
-.hosp-tab-content{display:none;}
-.hosp-tab-content.active{display:block;}
-.price-list{border:1px solid var(--line);border-radius:10px;overflow:hidden;}
-.price-row{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--line);font-size:0.85rem;}
-.price-row:last-child{border-bottom:none;}
-.price-row:hover{background:var(--warm);}
-.pr-name{color:var(--ink);}
-.pr-range{font-family:'DM Mono',monospace;color:var(--teal);font-weight:500;}
-.pr-receipt{font-size:0.72rem;color:var(--mid);}
-.doctor-list{display:flex;flex-direction:column;gap:12px;}
-.doctor-card{display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--warm);border-radius:10px;}
-.doc-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;font-family:'Noto Serif KR',serif;flex-shrink:0;}
-.doc-name{font-size:0.9rem;font-weight:700;margin-bottom:2px;}
-.doc-spec{font-size:0.75rem;color:var(--teal);font-weight:500;margin-bottom:4px;}
-.doc-bio{font-size:0.78rem;color:var(--mid);line-height:1.6;}
-.mini-reviews{display:flex;flex-direction:column;gap:10px;}
-.mini-review{background:var(--warm);border-radius:8px;padding:14px 16px;}
-.mr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.mr-stars{color:var(--gold);font-size:0.82rem;}
-.mr-badge{background:var(--verified-bg);color:var(--verified);padding:2px 8px;border-radius:8px;font-size:0.68rem;font-weight:600;}
-.mr-text{font-size:0.82rem;color:var(--ink);line-height:1.65;margin-bottom:6px;}
-.mr-cost{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--teal);}
-.mr-meta{font-size:0.7rem;color:#aaa;margin-top:4px;}
-.hosp-cta-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
-.btn-outline{padding:12px;border-radius:8px;border:1px solid var(--line);background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:var(--ink);cursor:pointer;transition:all 0.2s;}
-.btn-outline:hover{background:var(--warm);}
-.btn-teal{padding:12px;border-radius:8px;border:none;background:var(--teal);font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:white;cursor:pointer;transition:background 0.2s;}
-.btn-teal:hover{background:#1f5254;}
-
-/* ── AUTH MODAL ── */
-.auth-modal{max-width:440px;}
-.auth-header{padding:32px 32px 0;text-align:center;}
-.auth-logo{font-family:'Noto Serif KR',serif;font-size:1.2rem;color:var(--ink);margin-bottom:6px;}
-.auth-logo span{color:var(--accent);}
-.auth-tabs{display:flex;background:var(--cream);border-radius:8px;padding:4px;margin:20px 0 0;}
-.auth-tab{flex:1;padding:9px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:var(--mid);transition:all 0.2s;}
-.auth-tab.active{background:white;color:var(--ink);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
-.auth-body{padding:24px 32px 32px;}
-.auth-form{display:flex;flex-direction:column;gap:14px;}
-.form-group{display:flex;flex-direction:column;gap:5px;}
-.form-group label{font-size:0.78rem;color:var(--mid);font-weight:500;}
-.form-group input{padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color 0.2s;background:var(--white);}
-.form-group input:focus{border-color:var(--teal);}
-.form-group input::placeholder{color:#ccc;}
-.auth-submit{padding:13px;border-radius:8px;border:none;background:var(--ink);color:white;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:background 0.2s;margin-top:4px;}
-.auth-submit:hover{background:#333;}
-.auth-divider{display:flex;align-items:center;gap:12px;margin:4px 0;}
-.auth-divider span{font-size:0.75rem;color:var(--mid);white-space:nowrap;}
-.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--line);}
-.social-btns{display:flex;flex-direction:column;gap:8px;}
-.social-btn{padding:11px;border-radius:8px;border:1.5px solid var(--line);background:white;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.2s;}
-.social-btn:hover{background:var(--warm);}
-.auth-footer{text-align:center;font-size:0.75rem;color:var(--mid);margin-top:10px;}
-.auth-footer a{color:var(--teal);text-decoration:none;}
-.auth-benefit{background:var(--verified-bg);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:0.78rem;color:var(--verified);line-height:1.6;}
-.auth-benefit strong{display:block;margin-bottom:3px;}
-.register-only,.login-only{display:none;}
-
-/* ── DIAGNOSIS MODAL ── */
-.diag-modal{max-width:600px;}
-.diag-header{background:var(--ink);padding:28px 32px;border-radius:16px 16px 0 0;}
-.diag-header-label{font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent-soft);margin-bottom:6px;}
-.diag-header h2{font-family:'Noto Serif KR',serif;font-size:1.3rem;color:var(--cream);margin-bottom:6px;}
-.diag-header p{font-size:0.82rem;color:#666;}
-.diag-progress{margin-top:16px;display:flex;gap:5px;}
-.diag-prog-step{height:3px;flex:1;background:#333;border-radius:2px;transition:background 0.3s;}
-.diag-prog-step.done{background:var(--accent);}
-.diag-prog-step.active{background:var(--accent-soft);}
-.diag-body{padding:28px 32px 32px;}
-.diag-q-num{font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--accent);letter-spacing:1px;margin-bottom:8px;}
-.diag-question{font-family:'Noto Serif KR',serif;font-size:1.05rem;color:var(--ink);margin-bottom:6px;line-height:1.5;}
-.diag-q-sub{font-size:0.8rem;color:var(--mid);margin-bottom:20px;}
-.diag-options{display:flex;flex-direction:column;gap:10px;}
-.diag-option{padding:14px 18px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:0.88rem;font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:var(--white);text-align:left;transition:all 0.2s;display:flex;align-items:center;gap:12px;}
-.diag-option:hover{border-color:var(--teal);background:var(--teal-light);}
-.diag-option.selected{border-color:var(--teal);background:var(--teal-light);font-weight:500;}
-.diag-option-icon{font-size:1.2rem;flex-shrink:0;}
-.diag-nav{display:flex;justify-content:space-between;margin-top:24px;align-items:center;}
-.diag-back{background:none;border:1px solid var(--line);padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:var(--mid);transition:all 0.2s;}
-.diag-back:hover{background:var(--warm);}
-.diag-next{background:var(--ink);border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:white;transition:background 0.2s;}
-.diag-next:hover{background:#333;}
-.diag-next:disabled{background:#ccc;cursor:not-allowed;}
-.diag-step{display:none;}
-.diag-step.active{display:block;}
-/* RESULT */
-.diag-result{display:none;}
-.diag-result.active{display:block;}
-.result-badge{display:inline-flex;align-items:center;gap:8px;background:var(--verified-bg);color:var(--verified);padding:6px 14px;border-radius:20px;font-size:0.78rem;font-weight:600;margin-bottom:16px;}
-.result-type{font-family:'Noto Serif KR',serif;font-size:1.3rem;color:var(--ink);margin-bottom:8px;}
-.result-desc{font-size:0.85rem;color:var(--mid);line-height:1.8;margin-bottom:20px;}
-.result-recs{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.result-rec{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
-.rec-rank{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;font-family:'DM Mono',monospace;flex-shrink:0;}
-.rec-1{background:var(--gold);color:white;}
-.rec-2{background:#a8a8a8;color:white;}
-.rec-3{background:#c87d4b;color:white;}
-.rec-info h4{font-size:0.9rem;font-weight:700;margin-bottom:3px;}
-.rec-info p{font-size:0.78rem;color:var(--mid);line-height:1.6;}
-.rec-cost{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--teal);margin-top:4px;}
-.result-hospitals{background:var(--warm);border-radius:10px;padding:14px 16px;margin-bottom:20px;}
-.result-hospitals h4{font-size:0.82rem;font-weight:700;margin-bottom:10px;color:var(--ink);}
-.rh-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:0.82rem;}
-.rh-item:last-child{border-bottom:none;}
-.rh-name{color:var(--ink);font-weight:500;}
-.rh-score{font-family:'DM Mono',monospace;color:var(--teal);font-size:0.78rem;}
-.diag-restart{width:100%;padding:12px;background:var(--warm);border:1px solid var(--line);border-radius:8px;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;cursor:pointer;color:var(--mid);transition:all 0.2s;}
-.diag-restart:hover{background:var(--line);}
-</style>
-
 <!-- ══════════════════════════════════════════
   MODAL 1: 병원 상세 페이지
 ══════════════════════════════════════════ -->
@@ -4172,7 +3086,7 @@ function renderReviewDetail(id) {
       <div style="font-size:0.95rem;line-height:1.8;color:var(--ink);margin-bottom:24px;padding:20px;background:#fafafa;border-radius:10px;border-left:3px solid var(--teal);">${r.content}</div>
       ${r.hasReceipt && r.receiptImg ? `<div style="margin-bottom:20px;"><div style="font-size:0.82rem;font-weight:600;color:var(--mid);margin-bottom:8px;">🧾 영수증 사진</div><img src="${r.receiptImg}" style="width:100%;max-height:300px;object-fit:contain;border-radius:10px;border:1px solid var(--line);" alt="영수증"><div style="font-size:0.75rem;color:var(--verified);font-weight:600;margin-top:6px;">✅ 영수증 인증 완료</div></div>` : ''}
       <div style="padding-top:16px;border-top:1px solid var(--line);">
-        <button href="reviews.html" style="background:none;border:1px solid var(--line);padding:10px 20px;border-radius:8px;font-size:0.85rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;color:var(--mid);">← 목록으로 돌아가기</button>
+        <button onclick="navigate('reviews')" style="background:none;border:1px solid var(--line);padding:10px 20px;border-radius:8px;font-size:0.85rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;color:var(--mid);">← 목록으로 돌아가기</button>
       </div>
     </div>`;
 }
@@ -4205,50 +3119,1784 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- Floating 후기 버튼 -->
-<div id="floatingReviewBtn" onclick="openReviewModal()" style="
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: white;
-  padding: 14px 22px;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(200,75,47,0.45);
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  transition: all 0.2s;
-  user-select: none;
-" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(200,75,47,0.55)'"
-   onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(200,75,47,0.45)'">
-  <span style="font-size:1.2rem;">🧾</span>
-  <span>후기 남기기</span>
-</div>
 
+<div id="floatingReviewBtn" onclick="openReviewModal()" style="position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:var(--accent);color:white;padding:14px 22px;border-radius:50px;cursor:pointer;box-shadow:0 4px 20px rgba(200,75,47,0.45);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;transition:all 0.2s;opacity:0;pointer-events:none;"><span style="font-size:1.2rem;">🧾</span><span>후기 남기기</span></div>
+<script>window.addEventListener('scroll',function(){var b=document.getElementById('floatingReviewBtn');if(!b)return;if(window.scrollY>300){b.style.opacity='1';b.style.pointerEvents='auto';}else{b.style.opacity='0';b.style.pointerEvents='none';}});</script>
 <script>
-// 스크롤 내리면 버튼 표시
-window.addEventListener('scroll', function() {
-  const btn = document.getElementById('floatingReviewBtn');
-  if (window.scrollY > 300) {
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-    btn.style.transform = 'translateY(0)';
-  } else {
-    btn.style.opacity = '0';
-    btn.style.pointerEvents = 'none';
-    btn.style.transform = 'translateY(10px)';
+/* ── EXISTING ── */
+function switchRankTab(el, idx) {
+  document.querySelectorAll('.rank-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderReviews();
+}
+
+function switchG(el,key){
+  document.querySelectorAll('.guide-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.guide-content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('gi-'+key).classList.add('active');
+}
+
+/* ── INSTITUTION TYPE FILTER ── */
+function filterInst(el, type) {
+  document.querySelectorAll('.inst-type-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#instGrid .hospital-card').forEach(card=>{
+    if(type==='all'||card.dataset.type===type){
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+/* ── FILTER PANEL CHIPS ── */
+function fpSelect(el, groupId) {
+  document.querySelectorAll('#'+groupId+' .fp-chip').forEach(c=>c.classList.remove('on','on-accent'));
+  el.classList.add('on');
+}
+function fpResetAll() {
+  ['fp-treatment','fp-rating','fp-reviews'].forEach(id=>{
+    const group = document.getElementById(id);
+    if(!group) return;
+    group.querySelectorAll('.fp-chip').forEach((c,i)=>{
+      c.classList.remove('on','on-accent');
+      if(i===0) c.classList.add('on');
+    });
+  });
+  // 지역 필터 초기화
+  const sidoRow = document.querySelector('#fp-sido-row .fp-chip');
+  if(sidoRow) sidoRow.click();
+  document.querySelectorAll('.fp-slider-body input[type=range]').forEach(r=>{r.value=r.defaultValue;r.dispatchEvent(new Event('input'));});
+}
+
+/* ── MODAL HELPERS ── */
+function closeModal(id){
+  const el = document.getElementById(id);
+  if(el){ el.classList.remove('open'); document.body.style.overflow=''; }
+}
+function openModal(id){
+  const el = document.getElementById(id);
+  if(el){ el.classList.add('open'); document.body.style.overflow='hidden'; }
+}
+
+/* ── HOSPITAL DATA ── */
+const HOSPITALS={
+  moreuhair:{
+    logo:'모',logoBg:'#fef3f0',logoColor:'#c84b2f',
+    name:'모어헤어 클리닉 강남점',loc:'서울 강남구 역삼동 123-4',
+    rating:'4.8',reviews:186,rank:1,
+    badges:['모발이식 전문','비절개 FUE','영수증 인증 최다'],
+    stats:[{n:'4.8',l:'평균 평점'},{n:'186',l:'영수증 인증 후기'},{n:'#1',l:'종합 랭킹'},{n:'15년',l:'운영 경력'}],
+    prices:[
+      {n:'비절개 모발이식 1,000모',r:'180~220만원',cnt:'742건'},
+      {n:'비절개 모발이식 2,000모',r:'340~400만원',cnt:'312건'},
+      {n:'절개 모발이식 1,000모',r:'130~160만원',cnt:'88건'},
+      {n:'두피 PRP 주사 (1회)',r:'15~20만원',cnt:'520건'},
+      {n:'두피 스케일링',r:'3~5만원',cnt:'204건'},
+    ],
+    doctors:[
+      {av:'김',avBg:'#fef3f0',avC:'#c84b2f',name:'김민준 원장',spec:'모발이식 전문의',bio:'연세대학교 의과대학 졸업 · 대한모발학회 정회원 · 모발이식 10,000례 이상 집도'},
+      {av:'이',avBg:'#e8f5ee',avC:'#2a7a4b',name:'이서연 부원장',spec:'피부과 전문의',bio:'서울대학교 의과대학 졸업 · 두피 PRP·메조테라피 전문 · 탈모 약물치료 상담'},
+    ],
+    reviews:[
+      {stars:'★★★★★',text:'원장님이 직접 집도하시고 설명도 자세하게 해주셔서 신뢰가 갔어요. 2000모 비절개 시술 후 6개월째인데 생착률이 매우 높습니다.',cost:'380만원',meta:'40대 남성 · 비절개 모발이식 2,000모'},
+      {stars:'★★★★★',text:'가격표에 나온 금액 그대로 청구됐어요. 숨겨진 비용 없이 투명해서 너무 좋았습니다. 재방문 의향 100%입니다.',cost:'195만원',meta:'30대 남성 · 비절개 모발이식 1,000모'},
+      {stars:'★★★★☆',text:'대기 없이 바로 진료받았고 상담도 꼼꼼했어요. PRP는 3회 패키지가 있어서 할인도 받았습니다.',cost:'54만원',meta:'40대 여성 · 두피 PRP 3회 패키지'},
+    ],
+    info:{tel:'02-1234-5678',hours:'평일 09:00~19:00 / 토 09:00~14:00 / 일·공휴일 휴무',parking:'건물 지하 주차장 (2시간 무료)',subway:'강남역 2번 출구 도보 5분'}
+  },
+  hairgen:{
+    logo:'헤',logoBg:'#e8f5ee',logoColor:'#2a7a4b',
+    name:'헤어젠 피부과 신촌점',loc:'서울 서대문구 신촌동 58-2',
+    rating:'4.5',reviews:124,rank:3,
+    badges:['PRP 전문','메조테라피','여성 탈모'],
+    stats:[{n:'4.5',l:'평균 평점'},{n:'124',l:'영수증 인증 후기'},{n:'#3',l:'종합 랭킹'},{n:'8년',l:'운영 경력'}],
+    prices:[
+      {n:'두피 PRP 주사 (1회)',r:'15~22만원',cnt:'486건'},
+      {n:'메조테라피 (1회)',r:'12~18만원',cnt:'312건'},
+      {n:'PRP 3회 패키지',r:'40~55만원',cnt:'198건'},
+      {n:'두피 스케일링',r:'4~6만원',cnt:'156건'},
+      {n:'약물치료 처방',r:'3~5만원',cnt:'87건'},
+    ],
+    doctors:[
+      {av:'박',avBg:'#e8f5ee',avC:'#2a7a4b',name:'박지은 원장',spec:'피부과 전문의',bio:'한양대학교 의과대학 졸업 · 대한피부과학회 정회원 · 두피·모발 질환 전문'},
+    ],
+    reviews:[
+      {stars:'★★★★☆',text:'비용 대비 효과가 좋았고 의사 선생님이 친절하셨습니다. 대기 시간이 좀 길지만 예약하면 괜찮아요.',cost:'54만원',meta:'30대 여성 · PRP 3회 패키지'},
+      {stars:'★★★★★',text:'산후 탈모로 방문했는데 원인과 치료 과정을 상세히 설명해주셨어요. 3개월 후 확연히 좋아졌습니다.',cost:'17만원',meta:'30대 여성 · 두피 PRP 1회'},
+    ],
+    info:{tel:'02-2345-6789',hours:'평일 10:00~19:00 / 토 10:00~15:00 / 일·공휴일 휴무',parking:'주변 공영 주차장 이용',subway:'신촌역 3번 출구 도보 3분'}
+  },
+  drmo:{
+    logo:'탈',logoBg:'#e8f0fe',logoColor:'#1a4fce',
+    name:'탈모전문 닥터모 의원',loc:'서울 마포구 합정동 341-5',
+    rating:'4.7',reviews:98,rank:2,
+    badges:['1:1 맞춤 상담','약물·시술 복합','합리적 가격'],
+    stats:[{n:'4.7',l:'평균 평점'},{n:'98',l:'영수증 인증 후기'},{n:'#2',l:'종합 랭킹'},{n:'12년',l:'운영 경력'}],
+    prices:[
+      {n:'모발이식 1,000모 (비절개)',r:'200~250만원',cnt:'186건'},
+      {n:'모발이식 1,000모 (절개)',r:'150~190만원',cnt:'54건'},
+      {n:'줄기세포 탈모 치료 (1회)',r:'80~120만원',cnt:'62건'},
+      {n:'두피 PRP 주사 (1회)',r:'18~25만원',cnt:'312건'},
+      {n:'피나스테리드 처방 (1개월)',r:'2~4만원',cnt:'498건'},
+    ],
+    doctors:[
+      {av:'최',avBg:'#e8f0fe',avC:'#1a4fce',name:'최현수 원장',spec:'피부과·모발이식 전문의',bio:'고려대학교 의과대학 졸업 · 대한모발학회 이사 · 탈모 통합 치료 20년 경력'},
+    ],
+    reviews:[
+      {stars:'★★★★★',text:'1:1 상담이 충실하고 과한 권유 없이 필요한 치료만 추천해 주셔서 신뢰가 갔습니다.',cost:'3.2만원',meta:'50대 남성 · 약물치료 처방'},
+      {stars:'★★★★★',text:'줄기세포 시술 후 3개월 만에 확연히 빠지는 양이 줄었어요. PRP보다 훨씬 효과가 강합니다.',cost:'95만원',meta:'40대 남성 · 줄기세포 탈모치료 1회'},
+    ],
+    info:{tel:'02-3456-7890',hours:'평일 09:30~18:30 / 토 09:30~13:00 / 일·공휴일 휴무',parking:'건물 앞 유료 주차장',subway:'합정역 7번 출구 도보 8분'}
+  },
+  hanil:{
+    logo:'한',logoBg:'#f0f7e8',logoColor:'#4a7a2b',
+    name:'자연모발 한의원 강남',loc:'서울 강남구 논현동 72-1',
+    rating:'4.4',reviews:87,rank:null,
+    badges:['한방 탈모 전문','약침·한약 병행','두피 진정 특화'],
+    stats:[{n:'4.4',l:'평균 평점'},{n:'87',l:'영수증 인증 후기'},{n:'10년',l:'운영 경력'},{n:'2종',l:'전문 치료'}],
+    prices:[
+      {n:'한방 약침 시술 (1회)',r:'8~15만원',cnt:'312건'},
+      {n:'탈모 한약 처방 (3개월)',r:'35~70만원',cnt:'198건'},
+      {n:'초진 상담 + 맥진',r:'3~5만원',cnt:'87건'},
+      {n:'두피 침 치료 (1회)',r:'5~10만원',cnt:'156건'},
+    ],
+    doctors:[
+      {av:'정',avBg:'#f0f7e8',avC:'#4a7a2b',name:'정한결 원장',spec:'한의사 (탈모·두피 전문)',bio:'경희대학교 한의과대학 졸업 · 대한한의사협회 정회원 · 탈모 한방 치료 10년 경력'},
+    ],
+    reviews:[
+      {stars:'★★★★☆',text:'양방 치료 후 두피가 예민해져서 한의원으로 바꿨는데 두피 진정 효과가 확실합니다. 빠지는 양도 줄었어요.',cost:'48만원',meta:'40대 여성 · 약침+한약 3개월'},
+      {stars:'★★★★☆',text:'체질 개선이 같이 되는 느낌이에요. 탈모 치료 외에도 전반적인 건강이 좋아졌습니다.',cost:'55만원',meta:'30대 남성 · 한약 3개월'},
+    ],
+    info:{tel:'02-4567-8901',hours:'평일 09:00~18:00 / 토 09:00~13:00 / 일·공휴일 휴무',parking:'인근 공영 주차장',subway:'학동역 3번 출구 도보 5분'}
+  },
+  kyunghee:{
+    logo:'경',logoBg:'#f5ede0',logoColor:'#8b5c2a',
+    name:'경희탈모 한의원 홍대점',loc:'서울 마포구 서교동 395-2',
+    rating:'4.6',reviews:64,rank:null,
+    badges:['약침 전문','여성 탈모 특화','산후 탈모 케어'],
+    stats:[{n:'4.6',l:'평균 평점'},{n:'64',l:'영수증 인증 후기'},{n:'7년',l:'운영 경력'},{n:'여성',l:'탈모 특화'}],
+    prices:[
+      {n:'두피 약침 (1회)',r:'6~12만원',cnt:'198건'},
+      {n:'여성 탈모 한약 (3개월)',r:'40~75만원',cnt:'86건'},
+      {n:'산후 탈모 집중 케어 (1개월)',r:'25~40만원',cnt:'54건'},
+      {n:'한방 샴푸·앰플 세트',r:'2~5만원',cnt:'124건'},
+    ],
+    doctors:[
+      {av:'윤',avBg:'#f5ede0',avC:'#8b5c2a',name:'윤소희 원장',spec:'한의사 (여성 탈모 전문)',bio:'경희대학교 한의과대학 졸업 · 여성 탈모·산후 탈모 특화 치료 7년 경력'},
+    ],
+    reviews:[
+      {stars:'★★★★★',text:'한약 처방 3개월 후 빠지는 양이 눈에 띄게 줄었어요. 두피도 훨씬 건강해졌습니다.',cost:'52만원',meta:'30대 여성 · 한약+약침 3개월'},
+    ],
+    info:{tel:'02-5678-9012',hours:'평일 10:00~19:00 / 토 10:00~14:00 / 일·공휴일 휴무',parking:'홍대 인근 공영 주차장',subway:'홍대입구역 6번 출구 도보 6분'}
+  },
+  scalpheal:{
+    logo:'두',logoBg:'#f0e8fe',logoColor:'#6a3fa8',
+    name:'스칼프힐 두피케어 센터',loc:'서울 강남구 청담동 118-3',
+    rating:'4.3',reviews:112,rank:null,
+    badges:['두피 전문 관리','병원 병행 추천','마이크로니들링'],
+    stats:[{n:'4.3',l:'평균 평점'},{n:'112',l:'영수증 인증 후기'},{n:'5년',l:'운영 경력'},{n:'비의료',l:'두피 관리 전문'}],
+    prices:[
+      {n:'두피 스케일링 (1회)',r:'5~10만원',cnt:'312건'},
+      {n:'두피 앰플 케어 (1회)',r:'8~15만원',cnt:'198건'},
+      {n:'마이크로니들링 두피 (1회)',r:'10~18만원',cnt:'86건'},
+      {n:'집중 케어 4회 패키지',r:'35~55만원',cnt:'124건'},
+    ],
+    doctors:[
+      {av:'박',avBg:'#f0e8fe',avC:'#6a3fa8',name:'박수진 관리사',spec:'두피 전문 관리사',bio:'두피 관리 전문 자격증 · 병원 병행 두피 케어 프로그램 전문'},
+    ],
+    reviews:[
+      {stars:'★★★★☆',text:'병원 치료와 병행으로 방문 중인데 두피 상태가 많이 개선됐어요. 직원분들이 전문적입니다.',cost:'42만원',meta:'40대 남성 · 집중 케어 4회'},
+      {stars:'★★★★☆',text:'두피 스케일링만 받았는데도 두피 가려움이 많이 줄었어요. 청결한 시설도 마음에 들었습니다.',cost:'8만원',meta:'30대 여성 · 두피 스케일링 1회'},
+    ],
+    info:{tel:'02-6789-0123',hours:'평일·토 10:00~20:00 / 일 11:00~18:00',parking:'청담동 인근 유료 주차장',subway:'청담역 1번 출구 도보 7분'}
+  },
+  rye:{
+    logo:'라',logoBg:'#fff0f5',logoColor:'#c03070',
+    name:'라 에스테틱 두피클리닉',loc:'서울 강서구 목동 916-4',
+    rating:'4.2',reviews:78,rank:null,
+    badges:['LLLT 레이저 케어','마이크로니들링','목동 지역 특화'],
+    stats:[{n:'4.2',l:'평균 평점'},{n:'78',l:'영수증 인증 후기'},{n:'4년',l:'운영 경력'},{n:'LLLT',l:'레이저 케어'}],
+    prices:[
+      {n:'LLLT 저출력 레이저 케어 (1회)',r:'6~12만원',cnt:'186건'},
+      {n:'두피 마이크로니들링 (1회)',r:'10~18만원',cnt:'94건'},
+      {n:'두피 분석 + 맞춤 케어',r:'8~14만원',cnt:'78건'},
+      {n:'레이저 6회 패키지',r:'40~65만원',cnt:'112건'},
+    ],
+    doctors:[
+      {av:'이',avBg:'#fff0f5',avC:'#c03070',name:'이민아 원장',spec:'두피·헤어 케어 전문가',bio:'미용학 박사 · 두피 LLLT 레이저 케어 전문 · 탈모 케어 복합 프로그램 운영'},
+    ],
+    reviews:[
+      {stars:'★★★★☆',text:'관리사 선생님이 두피 타입을 정확히 분석해주셔서 맞춤 케어를 받을 수 있었어요.',cost:'48만원',meta:'30대 여성 · LLLT 케어 8회'},
+    ],
+    info:{tel:'02-7890-1234',hours:'평일 10:00~20:00 / 토·일 10:00~18:00',parking:'건물 내 주차 가능',subway:'목동역 3번 출구 도보 8분'}
+  },
+  pharm1:{
+    logo:'약',logoBg:'#e8f0fe',logoColor:'#1a5fce',
+    name:'헤어케어 전문 약국 압구정',loc:'서울 강남구 압구정동 33-1',
+    rating:'4.5',reviews:203,rank:null,
+    badges:['탈모약 전문 상담','처방전 없이 구매 가능','탈모 영양제 전문'],
+    stats:[{n:'4.5',l:'평균 평점'},{n:'203',l:'영수증 인증 후기'},{n:'15년',l:'운영 경력'},{n:'전문',l:'탈모약 상담'}],
+    prices:[
+      {n:'피나스테리드 1mg (1개월)',r:'1~3만원',cnt:'524건'},
+      {n:'미녹시딜 5% 도포제 (1개월)',r:'0.8~2만원',cnt:'412건'},
+      {n:'두타스테리드 0.5mg (1개월)',r:'2~4만원',cnt:'186건'},
+      {n:'탈모 영양제 (비오틴·아연 복합)',r:'2~5만원',cnt:'312건'},
+      {n:'탈모 전용 샴푸·앰플 세트',r:'3~8만원',cnt:'198건'},
+    ],
+    doctors:[
+      {av:'김',avBg:'#e8f0fe',avC:'#1a5fce',name:'김약사',spec:'약사 (탈모약 전문 상담)',bio:'20년 경력 · 탈모 약물 전문 상담 · 피나스테리드·미녹시딜 복용 방법 및 부작용 상담'},
+    ],
+    reviews:[
+      {stars:'★★★★☆',text:'약사님이 탈모약 복용 방법을 자세히 설명해주시고 가격도 다른 곳보다 저렴했어요.',cost:'8.4만원',meta:'30대 남성 · 피나스테리드 3개월치'},
+      {stars:'★★★★★',text:'처방전 없이 구매할 수 있는 미녹시딜도 종류별로 다 있고 약사님이 본인 상황에 맞는 걸 추천해주셨어요.',cost:'1.5만원',meta:'20대 여성 · 미녹시딜 여성용'},
+    ],
+    info:{tel:'02-8901-2345',hours:'평일 09:00~21:00 / 토·일 10:00~19:00',parking:'압구정 인근 공영 주차장',subway:'압구정역 2번 출구 도보 3분'}
   }
+};
+
+function openHospital(key){
+  const h=HOSPITALS[key];
+  // hero
+  document.getElementById('hospHeroArea').innerHTML=`
+    <div class="hosp-logo-lg" style="background:${h.logoBg};color:${h.logoColor}">${h.logo}</div>
+    <div class="hosp-title">
+      <div class="hosp-name-lg">${h.name}</div>
+      <div class="hosp-loc">📍 ${h.loc}</div>
+      <div class="hosp-hero-badges">${h.badges.map(b=>`<span class="hb hb-teal">${b}</span>`).join('')}</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <div style="font-family:'DM Mono',monospace;font-size:2rem;color:var(--accent-soft);line-height:1">${h.rating}</div>
+      <div style="font-size:0.72rem;color:#666;margin-top:2px">★ 평점</div>
+    </div>`;
+  // stats
+  document.getElementById('hospStatsArea').innerHTML=h.stats.map(s=>`<div class="hosp-stat-card"><div class="hosp-stat-num">${s.n}</div><div class="hosp-stat-lbl">${s.l}</div></div>`).join('');
+  // prices
+  document.getElementById('hospPriceList').innerHTML=h.prices.map(p=>`<div class="price-row"><span class="pr-name">${p.n}</span><span><span class="pr-range">${p.r}</span> <span class="pr-receipt">🧾 ${p.cnt}</span></span></div>`).join('');
+  // doctors
+  document.getElementById('hospDoctorList').innerHTML=h.doctors.map(d=>`<div class="doctor-card"><div class="doc-avatar" style="background:${d.avBg};color:${d.avC}">${d.av}</div><div><div class="doc-name">${d.name}</div><div class="doc-spec">${d.spec}</div><div class="doc-bio">${d.bio}</div></div></div>`).join('');
+  // reviews
+  document.getElementById('hospReviewList').innerHTML=h.reviews.map(r=>`<div class="mini-review"><div class="mr-top"><span class="mr-stars">${r.stars}</span><span class="mr-badge">🧾 영수증 인증</span></div><div class="mr-text">${r.text}</div><div class="mr-cost">실제 지불: ${r.cost}</div><div class="mr-meta">${r.meta}</div></div>`).join('');
+  // info
+  document.getElementById('hospInfoArea').innerHTML=`<div style="display:flex;flex-direction:column;gap:12px;font-size:0.85rem">
+    <div style="display:flex;gap:12px;padding:12px;background:var(--warm);border-radius:8px"><span style="font-size:1.2rem">📞</span><div><div style="font-weight:600;margin-bottom:2px">전화번호</div><div style="color:var(--mid)">${h.info.tel}</div></div></div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--warm);border-radius:8px"><span style="font-size:1.2rem">🕐</span><div><div style="font-weight:600;margin-bottom:2px">진료시간</div><div style="color:var(--mid)">${h.info.hours}</div></div></div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--warm);border-radius:8px"><span style="font-size:1.2rem">🚇</span><div><div style="font-weight:600;margin-bottom:2px">교통</div><div style="color:var(--mid)">${h.info.subway}</div></div></div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--warm);border-radius:8px"><span style="font-size:1.2rem">🅿️</span><div><div style="font-weight:600;margin-bottom:2px">주차</div><div style="color:var(--mid)">${h.info.parking}</div></div></div>
+  </div>`;
+  // reset tabs
+  document.querySelectorAll('.hosp-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.hosp-tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.hosp-tab').classList.add('active');
+  document.getElementById('htab-prices').classList.add('active');
+  openModal('hospitalModal');
+}
+function switchHospTab(el,key){
+  document.querySelectorAll('.hosp-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.hosp-tab-content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('htab-'+key).classList.add('active');
+}
+
+/* ── AUTH SYSTEM ── */
+const USERS_KEY = 'hairtruth_users';
+const SESSION_KEY = 'hairtruth_session';
+
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function getCurrentUser() {
+  try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
+  catch(e) { return null; }
+}
+
+function setSession(user) {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+  setTimeout(() => renderTimeline(), 100);
+}
+
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
+  setTimeout(() => renderTimeline(), 100);
+}
+
+function hashPw(pw) {
+  // 간단한 해시 (실제 서비스에서는 서버 사이드 처리 필요)
+  let h = 0;
+  for (let i = 0; i < pw.length; i++) { h = ((h << 5) - h) + pw.charCodeAt(i); h |= 0; }
+  return h.toString(36);
+}
+
+function showAuthMsg(type, msg) {
+  const err = document.getElementById('authError');
+  const suc = document.getElementById('authSuccess');
+  err.style.display = 'none';
+  suc.style.display = 'none';
+  if (type === 'error') { err.textContent = msg; err.style.display = 'block'; }
+  if (type === 'success') { suc.textContent = msg; suc.style.display = 'block'; }
+}
+
+function openAuth(mode) { switchAuthTab(mode); openModal('authModal'); }
+
+/* ── GPS 위치 기반 병원 찾기 ── */
+function requestLocation() {
+  document.getElementById('geoRequest').style.display = 'none';
+  document.getElementById('geoLoading').style.display = 'block';
+
+  if (!navigator.geolocation) {
+    document.getElementById('geoLoading').style.display = 'none';
+    document.getElementById('geoDenied').style.display = 'block';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      document.getElementById('geoLoading').style.display = 'none';
+      document.getElementById('geoResult').style.display = 'block';
+
+      // 주소 표시
+      document.getElementById('geoAddress').textContent = `위도 ${lat.toFixed(4)}, 경도 ${lng.toFixed(4)}`;
+
+      // Google 지도 임베드 (주변 탈모 피부과 검색)
+      const query = encodeURIComponent('탈모 피부과');
+      const mapUrl = `https://maps.google.com/maps?q=${query}&ll=${lat},${lng}&z=14&output=embed`;
+      document.getElementById('googleMapIframe').src = mapUrl;
+
+      // 좌표 저장
+      localStorage.setItem('hairtruth_location', JSON.stringify({lat, lng, time: Date.now()}));
+    },
+    function(err) {
+      document.getElementById('geoLoading').style.display = 'none';
+      document.getElementById('geoDenied').style.display = 'block';
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+/* ── 관리자 시스템 ── */
+const ADMIN_KEY = 'hairtruth_admin_session';
+
+function isAdmin() {
+  try { return localStorage.getItem(ADMIN_KEY) === 'true'; }
+  catch(e) { return false; }
+}
+
+function openAdminPanel() {
+  const user = getCurrentUser();
+  if (!user || user.email !== ADMIN_EMAIL) {
+    alert('관리자 계정으로 로그인해주세요.');
+    openAuth('login');
+    return;
+  }
+  renderAdminPanel();
+  openModal('adminModal');
+}
+
+function renderAdminPanel() {
+  const allReviews = getReviews();
+  const pending = allReviews.filter(r => r.status === 'pending' || !r.status);
+  const approved = allReviews.filter(r => r.status === 'approved');
+  const rejected = allReviews.filter(r => r.status === 'rejected');
+  const users = getUsers();
+
+  // 배지 업데이트
+  document.getElementById('pendingBadge').textContent = pending.length;
+
+  // 대시보드 통계
+  document.getElementById('adminStats').innerHTML = [
+    {label:'전체 후기', val:allReviews.length, color:'var(--teal)', icon:'📋'},
+    {label:'대기 중', val:pending.length, color:'var(--accent)', icon:'⏳'},
+    {label:'승인 완료', val:approved.length, color:'#2a7a4b', icon:'✅'},
+    {label:'가입 회원', val:users.length, color:'var(--gold)', icon:'👥'},
+  ].map(s => `<div style="background:white;border:1px solid var(--line);border-radius:10px;padding:18px;">
+    <div style="font-size:1.5rem;margin-bottom:6px;">${s.icon}</div>
+    <div style="font-size:1.8rem;font-weight:800;color:${s.color};font-family:'DM Mono',monospace;">${s.val}</div>
+    <div style="font-size:0.78rem;color:var(--mid);">${s.label}</div>
+  </div>`).join('');
+
+  // 대기 후기
+  document.getElementById('pendingReviews').innerHTML = pending.length === 0
+    ? '<div style="text-align:center;padding:32px;color:var(--mid);">✅ 대기 중인 후기가 없습니다.</div>'
+    : pending.map(r => renderAdminReviewCard(r)).join('');
+
+  // 승인된 후기
+  document.getElementById('approvedReviews').innerHTML = approved.length === 0
+    ? '<div style="text-align:center;padding:32px;color:var(--mid);">아직 승인된 후기가 없습니다.</div>'
+    : approved.map(r => renderAdminReviewCard(r, true)).join('');
+
+  // 회원 목록
+  document.getElementById('userList').innerHTML = users.length === 0
+    ? '<div style="text-align:center;padding:32px;color:var(--mid);">가입된 회원이 없습니다.</div>'
+    : `<table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+        <thead><tr style="background:#f5f5f5;">${['#','닉네임','이메일','성별','지역','가입일'].map(h=>`<th style="padding:10px 12px;text-align:left;font-weight:600;">${h}</th>`).join('')}</tr></thead>
+        <tbody>${users.map((u,i)=>`<tr style="border-bottom:1px solid #eee;">
+          <td style="padding:10px 12px;">${i+1}</td>
+          <td style="padding:10px 12px;font-weight:600;">${u.name}</td>
+          <td style="padding:10px 12px;color:var(--mid);">${u.email}</td>
+          <td style="padding:10px 12px;">${u.gender||'-'}</td>
+          <td style="padding:10px 12px;">${u.region||'-'}</td>
+          <td style="padding:10px 12px;color:var(--mid);">${u.joinDate||'-'}</td>
+        </tr>`).join('')}</tbody>
+      </table>`;
+}
+
+function renderAdminReviewCard(r, isApproved) {
+  const verdictColor = r.aiVerdict === 'auto_approved' ? '#2a7a4b' : r.aiVerdict === 'suspicious' ? '#e53935' : '#b8932a';
+  const verdictLabel = r.aiVerdict === 'auto_approved' ? '자동승인 권장' : r.aiVerdict === 'suspicious' ? '의심스러움' : '검토 필요';
+  return `<div style="background:white;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <div>
+        <span style="font-weight:700;font-size:0.95rem;">${r.hospitalName}</span>
+        <span style="background:#f0f0f0;padding:2px 8px;border-radius:6px;font-size:0.72rem;margin-left:8px;">${r.hospitalType||'피부과'}</span>
+        <span style="background:#e8f5ee;color:#2a7a4b;padding:2px 8px;border-radius:6px;font-size:0.72rem;margin-left:4px;">${r.region||'-'}</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span style="background:${verdictColor};color:white;padding:3px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;">🤖 AI: ${verdictLabel} (${r.aiScore||0}점)</span>
+        ${r.hasReceipt ? '<span style="background:#e8f5ee;color:#2a7a4b;padding:3px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;">🧾 영수증 첨부</span>' : '<span style="background:#fef3f0;color:#c84b2f;padding:3px 10px;border-radius:10px;font-size:0.7rem;font-weight:600;">❌ 영수증 없음</span>'}
+      </div>
+    </div>
+    <div style="font-size:0.82rem;color:var(--mid);margin-bottom:6px;">시술: <strong>${r.treatment}</strong> · 금액: <strong style="color:var(--teal)">${r.amount}</strong> · 별점: ${'★'.repeat(r.rating||0)}</div>
+    <div style="font-size:0.82rem;background:#f9f9f9;padding:10px;border-radius:8px;line-height:1.6;margin-bottom:10px;">${r.content}</div>
+    ${r.hasReceipt && r.receiptImg ? `<img src="${r.receiptImg}" style="height:80px;object-fit:cover;border-radius:6px;border:1px solid #ddd;margin-bottom:10px;">` : ''}
+    <div style="font-size:0.72rem;color:#aaa;margin-bottom:10px;">작성: ${r.nickname||'익명'} · ${r.gender||''} · ${r.date} · AI검증: ${(r.aiReasons||[]).join(' / ')}</div>
+    ${!isApproved ? `<div style="display:flex;gap:8px;">
+      <button onclick="approveReview(${r.id})" style="background:#2a7a4b;color:white;padding:8px 20px;border-radius:6px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">✅ 승인</button>
+      <button onclick="rejectReview(${r.id})" style="background:#e53935;color:white;padding:8px 20px;border-radius:6px;border:none;cursor:pointer;font-size:0.82rem;font-family:'Noto Sans KR',sans-serif;font-weight:600;">❌ 반려</button>
+    </div>` : `<div style="display:flex;gap:8px;align-items:center;">
+      <span style="color:#2a7a4b;font-size:0.82rem;font-weight:600;">✅ 승인됨</span>
+      <button onclick="rejectReview(${r.id})" style="background:#f5f5f5;color:#e53935;padding:6px 14px;border-radius:6px;border:1px solid #ddd;cursor:pointer;font-size:0.78rem;font-family:'Noto Sans KR',sans-serif;">반려로 변경</button>
+    </div>`}
+  </div>`;
+}
+
+function switchAdminTab(idx) {
+  for(let i=0;i<6;i++){
+    const content = document.getElementById('adminContent'+i);
+    const tab = document.getElementById('adminTab'+i);
+    if(content) content.style.display = i===idx?'block':'none';
+    if(tab){ tab.style.color = i===idx?'white':'#aaa'; tab.style.borderBottomColor = i===idx?'var(--accent-soft)':'transparent'; }
+  }
+  if(idx===4) renderHospitalList();
+  if(idx===5) renderVisitorStats();
+}
+
+/* ── 병원 관리 ── */
+const HOSPITALS_KEY = 'ht_admin_hospitals';
+
+function getAdminHospitals() {
+  try { return JSON.parse(localStorage.getItem(HOSPITALS_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function openHospitalForm(id) {
+  document.getElementById('hospitalForm').style.display = 'block';
+  document.getElementById('hosp_editId').value = '';
+  document.getElementById('hospitalFormTitle').textContent = '🏥 병원 추가';
+  ['name','type','region','phone','treatment','price','memo'].forEach(f => {
+    const el = document.getElementById('hosp_'+f);
+    if(el) el.value = f==='type' ? 'clinic' : '';
+  });
+  if(id) {
+    const h = getAdminHospitals().find(h=>h.id===id);
+    if(!h) return;
+    document.getElementById('hospitalFormTitle').textContent = '✏️ 병원 수정';
+    document.getElementById('hosp_editId').value = id;
+    document.getElementById('hosp_name').value      = h.name||'';
+    document.getElementById('hosp_type').value      = h.type||'clinic';
+    document.getElementById('hosp_region').value    = h.region||'';
+    document.getElementById('hosp_phone').value     = h.phone||'';
+    document.getElementById('hosp_treatment').value = h.treatment||'';
+    document.getElementById('hosp_price').value     = h.price||'';
+    document.getElementById('hosp_memo').value      = h.memo||'';
+  }
+}
+
+function closeHospitalForm() {
+  document.getElementById('hospitalForm').style.display = 'none';
+}
+
+function saveHospital() {
+  const name = document.getElementById('hosp_name').value.trim();
+  if(!name){ alert('병원명을 입력해주세요.'); return; }
+  const hospitals = getAdminHospitals();
+  const editId = document.getElementById('hosp_editId').value;
+  const data = {
+    name,
+    type:      document.getElementById('hosp_type').value,
+    region:    document.getElementById('hosp_region').value.trim(),
+    phone:     document.getElementById('hosp_phone').value.trim(),
+    treatment: document.getElementById('hosp_treatment').value.trim(),
+    price:     document.getElementById('hosp_price').value.trim(),
+    memo:      document.getElementById('hosp_memo').value.trim(),
+  };
+  if(editId) {
+    const idx = hospitals.findIndex(h=>h.id==editId);
+    if(idx>-1) hospitals[idx] = {...hospitals[idx], ...data};
+  } else {
+    hospitals.push({...data, id: Date.now(), createdAt: new Date().toISOString().split('T')[0]});
+  }
+  localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+  closeHospitalForm();
+  renderHospitalList();
+}
+
+function deleteHospital(id) {
+  if(!confirm('이 병원을 삭제할까요?')) return;
+  const hospitals = getAdminHospitals().filter(h=>h.id!==id);
+  localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+  renderHospitalList();
+}
+
+function renderHospitalList() {
+  const container = document.getElementById('hospitalList');
+  if(!container) return;
+  const hospitals = getAdminHospitals();
+  const typeLabel = {clinic:'탈모클리닉',derm:'피부과',hanbang:'한의원',scalp:'두피샵',pharmacy:'약국'};
+  const typeColor = {clinic:'var(--teal)',derm:'var(--accent)',hanbang:'var(--verified)',scalp:'var(--gold)',pharmacy:'#7b5ea7'};
+  if(hospitals.length===0){
+    container.innerHTML = `<div style="text-align:center;padding:40px;color:#aaa;background:#f7f8fa;border-radius:12px;"><div style="font-size:2rem;margin-bottom:8px;">🏥</div><div style="font-size:0.85rem;">등록된 병원이 없어요.<br>위 + 병원 추가 버튼으로 추가해보세요!</div></div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div style="font-size:0.8rem;color:#aaa;margin-bottom:10px;">총 ${hospitals.length}개 병원 등록됨</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      ${hospitals.map(h=>`
+        <div style="background:white;border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:0.9rem;">${h.name}</span>
+              <span style="background:${typeColor[h.type]||'#888'};color:white;padding:2px 8px;border-radius:10px;font-size:0.7rem;">${typeLabel[h.type]||h.type}</span>
+            </div>
+            <div style="font-size:0.78rem;color:#888;display:flex;gap:12px;flex-wrap:wrap;">
+              ${h.region?`<span>📍 ${h.region}</span>`:''}
+              ${h.phone?`<span>📞 ${h.phone}</span>`:''}
+              ${h.treatment?`<span>💉 ${h.treatment}</span>`:''}
+              ${h.price?`<span>💰 ${h.price}</span>`:''}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;margin-left:12px;">
+            <button onclick="openHospitalForm(${h.id})" style="background:var(--teal);color:white;border:none;padding:7px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">수정</button>
+            <button onclick="deleteHospital(${h.id})" style="background:#fee;color:var(--accent);border:1px solid #fcc;padding:7px 14px;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">삭제</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+/* ── 방문자 통계 ── */
+function renderVisitorStats() {
+  const users   = getUsers();
+  const reviews = getReviews();
+  const approved = reviews.filter(r=>r.status==='approved');
+  const pending  = reviews.filter(r=>r.status==='pending');
+
+  // 목표 달성률
+  const goal = 30;
+  const pct  = Math.min(100, Math.round(approved.length/goal*100));
+
+  // 상단 통계 카드
+  const statsEl = document.getElementById('visitorStats');
+  if(statsEl) statsEl.innerHTML = [
+    { label:'가입 회원',  value: users.length+'명',    color:'var(--teal)',    icon:'👥' },
+    { label:'승인된 후기', value: approved.length+'건', color:'var(--verified)', icon:'✅' },
+    { label:'대기 후기',  value: pending.length+'건',  color:'var(--accent)',  icon:'⏳' },
+    { label:'목표 달성률', value: pct+'%',              color:'var(--gold)',    icon:'🎯' },
+    { label:'등록 병원',  value: getAdminHospitals().length+'개', color:'#7b5ea7', icon:'🏥' },
+    { label:'후기 30건까지', value: Math.max(0,goal-approved.length)+'건 남음', color:'#2c7bb6', icon:'🚀' },
+  ].map(s=>`
+    <div style="background:white;border:1.5px solid ${s.color}33;border-radius:12px;padding:16px;text-align:center;">
+      <div style="font-size:1.4rem;margin-bottom:6px;">${s.icon}</div>
+      <div style="font-size:1.3rem;font-weight:700;color:${s.color};">${s.value}</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:4px;">${s.label}</div>
+    </div>`).join('');
+
+  // 목표 달성 프로그레스바
+  const chartEl = document.getElementById('reviewChart');
+  const labelsEl = document.getElementById('reviewChartLabels');
+  if(chartEl) {
+    // 월별 후기 집계
+    const monthly = {};
+    reviews.forEach(r => {
+      if(!r.date && !r.createdAt) return;
+      const d = new Date(r.date || r.createdAt);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      monthly[key] = (monthly[key]||0) + 1;
+    });
+    const keys = Object.keys(monthly).sort().slice(-6);
+    if(keys.length===0) {
+      chartEl.innerHTML = `<div style="color:#aaa;font-size:0.82rem;padding:20px;">아직 후기 데이터가 없어요.</div>`;
+      if(labelsEl) labelsEl.innerHTML='';
+    } else {
+      const max = Math.max(...keys.map(k=>monthly[k]),1);
+      chartEl.innerHTML = keys.map(k=>{
+        const h = Math.max(8, Math.round(monthly[k]/max*100));
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;">
+          <span style="font-size:0.7rem;color:var(--teal);font-weight:700;">${monthly[k]}</span>
+          <div style="width:100%;height:${h}px;background:var(--teal);border-radius:4px 4px 0 0;opacity:0.8;"></div>
+        </div>`;
+      }).join('');
+      if(labelsEl) labelsEl.innerHTML = keys.map(k=>`<div style="flex:1;text-align:center;font-size:0.7rem;color:#aaa;">${k.slice(5)}월</div>`).join('');
+    }
+  }
+
+  // 시술별 비율
+  const treatEl = document.getElementById('treatmentStats');
+  if(treatEl && approved.length>0) {
+    const tmap = {};
+    approved.forEach(r=>{ if(r.treatment){ const k=r.treatment.slice(0,10); tmap[k]=(tmap[k]||0)+1; }});
+    const sorted = Object.entries(tmap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const total = sorted.reduce((s,e)=>s+e[1],0);
+    treatEl.innerHTML = sorted.map(([k,v])=>{
+      const pct2 = Math.round(v/total*100);
+      return `<div style="margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:4px;">
+          <span>${k}</span><span style="color:var(--teal);font-weight:600;">${v}건 (${pct2}%)</span>
+        </div>
+        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${pct2}%;background:var(--teal);border-radius:4px;transition:width 0.5s;"></div>
+        </div>
+      </div>`;
+    }).join('');
+  } else if(treatEl) {
+    treatEl.innerHTML = `<div style="color:#aaa;font-size:0.82rem;">승인된 후기가 없어요.</div>`;
+  }
+}
+
+function approveReview(id) {
+  const reviews = getReviews();
+  const idx = reviews.findIndex(r => r.id === id);
+  if (idx > -1) { reviews[idx].status = 'approved'; localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); }
+  renderAdminPanel();
+  renderReviews();
+}
+
+function rejectReview(id) {
+  const reviews = getReviews();
+  const idx = reviews.findIndex(r => r.id === id);
+  if (idx > -1) { reviews[idx].status = 'rejected'; localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); }
+  renderAdminPanel();
+  renderReviews();
+}
+
+function exportData() {
+  const data = {
+    reviews: getReviews(),
+    users: getUsers().map(u => ({...u, pw: '[hidden]'})),
+    exportDate: new Date().toLocaleString('ko-KR')
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `hairtruth_data_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+
+function clearAllData() {
+  if (!confirm('⚠️ 모든 후기와 회원 데이터가 삭제됩니다.\n정말 초기화 하시겠어요?')) return;
+  localStorage.removeItem(REVIEWS_KEY);
+  localStorage.removeItem(USERS_KEY);
+  renderAdminPanel();
+  renderReviews();
+  alert('초기화 완료!');
+}
+
+function handleNavAuth() {
+  const user = getCurrentUser();
+  if (user) {
+    if (confirm(`${user.name}님으로 로그인 중입니다.\n로그아웃 하시겠어요?`)) {
+      doLogout();
+    }
+  } else {
+    openAuth('login');
+  }
+}
+
+function switchAuthTab(mode) {
+  document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', mode === 'register');
+  document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = mode === 'register' ? 'block' : 'none';
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authSuccess').style.display = 'none';
+}
+
+function doLogin() {
+  const input = document.getElementById('login_email').value.trim();
+  const pw = document.getElementById('login_pw').value;
+
+  if (!input || !pw) {
+    showAuthMsg('error', '아이디(이메일)와 비밀번호를 입력해주세요.');
+    return;
+  }
+
+  const pwHash = hashPw(pw);
+
+  // 관리자 직접 체크 (DB에 없어도 로그인 가능)
+  if (input === ADMIN_EMAIL && pwHash === hashPw('rich0412!@#')) {
+    const adminUser = { id: 0, name: '관리자', email: ADMIN_EMAIL, gender: '', region: '' };
+    setSession(adminUser);
+    localStorage.setItem(ADMIN_KEY, 'true');
+    showAuthMsg('success', '✅ 관리자로 로그인되었습니다!');
+    setTimeout(() => { closeModal('authModal'); updateAuthUI(); }, 1200);
+    return;
+  }
+
+  const users = getUsers();
+  // 아이디(name) 또는 이메일(email) 둘 다 검색
+  const user = users.find(u =>
+    (u.name === input || u.email === input) && u.pw === pwHash
+  );
+
+  if (!user) {
+    showAuthMsg('error', '아이디(이메일) 또는 비밀번호가 올바르지 않습니다.');
+    return;
+  }
+
+  setSession({ id: user.id, name: user.name, email: user.email, gender: user.gender, region: user.region });
+  showAuthMsg('success', `✅ ${user.name}님, 환영합니다!`);
+  setTimeout(() => { closeModal('authModal'); updateAuthUI(); }, 1200);
+}
+
+function checkContentQuality(textarea) {
+  const content = textarea.value;
+  const msg = document.getElementById('contentQualityMsg');
+  if (!content) { msg.textContent = ''; return; }
+
+  const hairKeywords = ['탈모','모발','두피','피나스테리드','두타스테리드','미녹시딜','PRP','메조','이식','약물','한약','약침','피나','두타','아보다트','처방'];
+  const expKeywords = ['효과','좋았','만족','추천','친절','저렴','합리','개선','부작용','비쌌','불편','아팠','별로','후회','대기'];
+  const hairFound = hairKeywords.filter(k => content.includes(k)).length;
+  const expFound = expKeywords.filter(k => content.includes(k)).length;
+
+  let quality = 0;
+  if (content.length >= 50) quality++;
+  if (hairFound >= 1) quality++;
+  if (hairFound >= 2) quality++;
+  if (expFound >= 1) quality++;
+
+  const levels = [
+    {text:'✍️ 더 자세하게 써주세요', color:'#aaa'},
+    {text:'⚠️ 탈모 관련 내용을 추가해주세요', color:'#f57c00'},
+    {text:'🟡 조금 더 구체적으로 써주세요', color:'#fbc02d'},
+    {text:'🟢 좋아요! AI 검증 통과 가능성 높음', color:'#7cb342'},
+    {text:'✅ 훌륭한 후기예요! AI 자동승인 권장 가능', color:'#2a7a4b'},
+  ];
+  const lv = Math.min(4, quality);
+  msg.textContent = levels[lv].text;
+  msg.style.color = levels[lv].color;
+}
+
+/* ── 전국 행정구역 데이터 ── */
+const REGIONS = {
+  '서울특별시': ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
+  '경기도': ['수원시','성남시','의정부시','안양시','부천시','광명시','평택시','동두천시','안산시','고양시','과천시','구리시','남양주시','오산시','시흥시','군포시','의왕시','하남시','용인시','파주시','이천시','안성시','김포시','화성시','광주시','양주시','포천시','여주시','연천군','가평군','양평군'],
+  '인천광역시': ['중구','동구','미추홀구','연수구','남동구','부평구','계양구','서구','강화군','옹진군'],
+  '부산광역시': ['중구','서구','동구','영도구','부산진구','동래구','남구','북구','해운대구','사하구','금정구','강서구','연제구','수영구','사상구','기장군'],
+  '대구광역시': ['중구','동구','서구','남구','북구','수성구','달서구','달성군','군위군'],
+  '대전광역시': ['동구','중구','서구','유성구','대덕구'],
+  '광주광역시': ['동구','서구','남구','북구','광산구'],
+  '울산광역시': ['중구','남구','동구','북구','울주군'],
+  '세종특별자치시': ['세종시'],
+  '강원도': ['춘천시','원주시','강릉시','동해시','태백시','속초시','삼척시','홍천군','횡성군','영월군','평창군','정선군','철원군','화천군','양구군','인제군','고성군','양양군'],
+  '충청북도': ['청주시','충주시','제천시','보은군','옥천군','영동군','증평군','진천군','괴산군','음성군','단양군'],
+  '충청남도': ['천안시','공주시','보령시','아산시','서산시','논산시','계룡시','당진시','금산군','부여군','서천군','청양군','홍성군','예산군','태안군'],
+  '전라북도': ['전주시','군산시','익산시','정읍시','남원시','김제시','완주군','진안군','무주군','장수군','임실군','순창군','고창군','부안군'],
+  '전라남도': ['목포시','여수시','순천시','나주시','광양시','담양군','곡성군','구례군','고흥군','보성군','화순군','장흥군','강진군','해남군','영암군','무안군','함평군','영광군','장성군','완도군','진도군','신안군'],
+  '경상북도': ['포항시','경주시','김천시','안동시','구미시','영주시','영천시','상주시','문경시','경산시','의성군','청송군','영양군','영덕군','청도군','고령군','성주군','칠곡군','예천군','봉화군','울진군','울릉군'],
+  '경상남도': ['창원시','진주시','통영시','사천시','김해시','밀양시','거제시','양산시','의령군','함안군','창녕군','고성군','남해군','하동군','산청군','함양군','거창군','합천군'],
+  '제주특별자치도': ['제주시','서귀포시'],
+};
+
+function initRegionSelectors() {
+  // 시/도 옵션 채우기 (rv_sido, reg_sido)
+  ['rv_sido','reg_sido'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '<option value="">시/도 선택</option>';
+    Object.keys(REGIONS).forEach(sido => {
+      const opt = document.createElement('option');
+      opt.value = sido;
+      opt.textContent = sido;
+      el.appendChild(opt);
+    });
+  });
+}
+
+function updateSigungu(sidoId, sigunguId) {
+  const sido = document.getElementById(sidoId).value;
+  const sigunguSel = document.getElementById(sigunguId);
+  sigunguSel.innerHTML = '<option value="">시/군/구 선택</option>';
+
+  if (sido && REGIONS[sido]) {
+    REGIONS[sido].forEach(sg => {
+      const opt = document.createElement('option');
+      opt.value = sg;
+      opt.textContent = sg;
+      sigunguSel.appendChild(opt);
+    });
+    sigunguSel.disabled = false;
+  } else {
+    sigunguSel.disabled = true;
+  }
+
+  // hidden input 업데이트
+  const hiddenId = sidoId.replace('sido','region').replace('rv_sido','rv_region').replace('reg_sido','reg_region');
+  updateRegionHidden(sidoId, sigunguId, hiddenId);
+}
+
+function updateRegionHidden(sidoId, sigunguId, hiddenId) {
+  const sido = document.getElementById(sidoId)?.value || '';
+  const sg = document.getElementById(sigunguId)?.value || '';
+  const hidden = document.getElementById(hiddenId);
+  if (hidden) hidden.value = sg ? `${sido} ${sg}` : sido;
+
+  // sigungu change 이벤트도 업데이트
+  const sigunguEl = document.getElementById(sigunguId);
+  if (sigunguEl) {
+    sigunguEl.onchange = () => {
+      if (hidden) hidden.value = sigunguEl.value
+        ? `${document.getElementById(sidoId).value} ${sigunguEl.value}`
+        : document.getElementById(sidoId).value;
+    };
+  }
+}
+
+/* 검색 필터 지역 시/도 선택 */
+function selectSido(btn, sido) {
+  // 시/도 버튼 활성화
+  document.querySelectorAll('#fp-sido-row .fp-chip').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+
+  const sgRow = document.getElementById('fp-sigungu-row');
+
+  if (sido === '전체') {
+    sgRow.style.display = 'none';
+    sgRow.innerHTML = '';
+    return;
+  }
+
+  // 시/군/구 칩 렌더링
+  if (REGIONS[sido]) {
+    sgRow.style.display = 'flex';
+    sgRow.innerHTML = `<button class="fp-chip on" onclick="selectSigungu(this,'${sido}','전체')" style="background:var(--teal);color:white;border-color:var(--teal);">${sido} 전체</button>`
+      + REGIONS[sido].map(sg =>
+          `<button class="fp-chip" onclick="selectSigungu(this,'${sido}','${sg}')">${sg}</button>`
+        ).join('');
+  }
+}
+
+function selectSigungu(btn, sido, sg) {
+  document.querySelectorAll('#fp-sigungu-row .fp-chip').forEach(b => {
+    b.classList.remove('on');
+    b.style.background = '';
+    b.style.color = '';
+    b.style.borderColor = '';
+  });
+  btn.classList.add('on');
+}
+
+/* ── EmailJS 설정 ── */
+// ⚠️ 아래 3개 값을 EmailJS 가입 후 본인 값으로 교체하세요
+const EMAILJS_PUBLIC_KEY  = '5zs6z-Kdju_fcmZ2k';
+const EMAILJS_SERVICE_ID  = 'service_86ljpq6';
+const EMAILJS_TEMPLATE_ID = 'ow90hkd';
+
+let verifyCode_stored = '';
+let verifyCode_email  = '';
+let verifyCode_timer  = null;
+let verifyCode_done   = false;
+
+function sendVerifyCode() {
+  const email = document.getElementById('reg_email').value.trim();
+  const msg   = document.getElementById('reg_email_msg');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.textContent = '❌ 올바른 이메일 주소를 먼저 입력해주세요.';
+    msg.style.color = 'var(--accent)';
+    return;
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  verifyCode_stored = code;
+  verifyCode_email  = email;
+  verifyCode_done   = false;
+
+  // EmailJS 미설정 시 테스트 모드
+  if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+    document.getElementById('verifyCodeGroup').style.display = 'block';
+    startCodeTimer(180);
+    const btn = document.getElementById('sendCodeBtn');
+    btn.textContent = '재발송';
+    btn.style.background = '#888';
+    msg.textContent = `⚠️ 테스트 모드 — 인증번호: ${code}`;
+    msg.style.color = 'var(--gold)';
+    return;
+  }
+
+  // EmailJS 실제 발송
+  const btn = document.getElementById('sendCodeBtn');
+  btn.textContent = '발송 중...';
+  btn.disabled = true;
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email: email,
+    passcode: code,
+    time: '3분',
+  }, EMAILJS_PUBLIC_KEY).then(() => {
+    document.getElementById('verifyCodeGroup').style.display = 'block';
+    startCodeTimer(180);
+    btn.textContent = '재발송';
+    btn.disabled = false;
+    btn.style.background = '#888';
+    msg.textContent = `✅ ${email} 으로 인증번호를 발송했습니다.`;
+    msg.style.color = 'var(--verified)';
+  }).catch(err => {
+    btn.textContent = '인증번호 받기';
+    btn.disabled = false;
+    const errMsg = err?.text || err?.message || JSON.stringify(err);
+    msg.textContent = `❌ 발송 실패: ${errMsg}`;
+    msg.style.color = 'var(--accent)';
+    console.error('EmailJS 오류:', err);
+  });
+}
+
+function verifyCode() {
+  const input = document.getElementById('reg_code').value.trim();
+  const msg   = document.getElementById('reg_code_msg');
+  if (!input) { msg.textContent = '❌ 인증번호를 입력해주세요.'; msg.style.color = 'var(--accent)'; return; }
+  if (input !== verifyCode_stored) {
+    msg.textContent = '❌ 인증번호가 올바르지 않습니다.';
+    msg.style.color = 'var(--accent)';
+    document.getElementById('reg_code').style.borderColor = 'var(--accent)';
+    return;
+  }
+  verifyCode_done = true;
+  clearInterval(verifyCode_timer);
+  document.getElementById('codeTimerLabel').textContent = '';
+  document.getElementById('reg_code').disabled = true;
+  document.getElementById('reg_code').style.borderColor = 'var(--verified)';
+  document.getElementById('sendCodeBtn').disabled = true;
+  document.getElementById('sendCodeBtn').style.background = '#aaa';
+  msg.textContent = '✅ 이메일 인증 완료!';
+  msg.style.color = 'var(--verified)';
+  document.getElementById('reg_email').readOnly = true;
+  document.getElementById('reg_email').style.background = '#f5f5f5';
+  document.getElementById('reg_email_msg').textContent = '✅ 인증된 이메일';
+  document.getElementById('reg_email_msg').style.color = 'var(--verified)';
+}
+
+function startCodeTimer(seconds) {
+  clearInterval(verifyCode_timer);
+  let remaining = seconds;
+  const label = document.getElementById('codeTimerLabel');
+  verifyCode_timer = setInterval(() => {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    label.textContent = `(${m}:${s.toString().padStart(2,'0')} 남음)`;
+    remaining--;
+    if (remaining < 0) {
+      clearInterval(verifyCode_timer);
+      label.textContent = '(만료됨)';
+      label.style.color = 'var(--accent)';
+      verifyCode_stored = '';
+      document.getElementById('reg_code_msg').textContent = '❌ 만료됐습니다. 재발송해주세요.';
+      document.getElementById('reg_code_msg').style.color = 'var(--accent)';
+      const btn = document.getElementById('sendCodeBtn');
+      btn.textContent = '인증번호 받기';
+      btn.style.background = 'var(--teal)';
+      btn.disabled = false;
+    }
+  }, 1000);
+}
+
+function resetEmailVerify() {
+  if (!verifyCode_done) return;
+  verifyCode_done = false;
+  verifyCode_stored = '';
+  clearInterval(verifyCode_timer);
+  document.getElementById('verifyCodeGroup').style.display = 'none';
+  document.getElementById('reg_code').value = '';
+  document.getElementById('reg_code').disabled = false;
+  document.getElementById('reg_code').style.borderColor = 'var(--line)';
+  document.getElementById('reg_code_msg').textContent = '';
+  document.getElementById('sendCodeBtn').disabled = false;
+  document.getElementById('sendCodeBtn').textContent = '인증번호 받기';
+  document.getElementById('sendCodeBtn').style.background = 'var(--teal)';
+  document.getElementById('reg_email').readOnly = false;
+  document.getElementById('reg_email').style.background = '';
+}
+
+function checkId(input) {
+  const val = input.value;
+  const msg = document.getElementById('reg_name_msg');
+  if (!val) { msg.textContent = ''; input.style.borderColor = 'var(--line)'; return; }
+
+  const formatOk = /^[a-z0-9]{5,15}$/.test(val);
+  if (!formatOk) {
+    msg.textContent = '❌ 영문 소문자·숫자만, 5~15자로 입력해주세요.';
+    msg.style.color = 'var(--accent)';
+    input.style.borderColor = 'var(--accent)';
+    return;
+  }
+
+  // 중복 체크
+  const users = getUsers();
+  const isDuplicate = users.some(u => u.name === val);
+  if (isDuplicate) {
+    msg.textContent = '❌ 이미 사용 중인 아이디예요. 다른 아이디를 입력해주세요.';
+    msg.style.color = 'var(--accent)';
+    input.style.borderColor = 'var(--accent)';
+  } else {
+    msg.textContent = '✅ 사용 가능한 아이디입니다.';
+    msg.style.color = 'var(--verified)';
+    input.style.borderColor = 'var(--verified)';
+  }
+}
+
+function checkEmail(input) {
+  const val = input.value;
+  const msg = document.getElementById('reg_email_msg');
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  if (!val) { msg.textContent = ''; input.style.borderColor = 'var(--line)'; return; }
+  if (ok) {
+    msg.textContent = '✅ 올바른 이메일 형식입니다.';
+    msg.style.color = 'var(--verified)';
+    input.style.borderColor = 'var(--verified)';
+  } else {
+    msg.textContent = '❌ 올바른 이메일 형식으로 입력해주세요.';
+    msg.style.color = 'var(--accent)';
+    input.style.borderColor = 'var(--accent)';
+  }
+}
+
+function checkPw(input) {
+  const val = input.value;
+  const bar = document.getElementById('pwStrengthBar');
+  const msg = document.getElementById('pwStrengthMsg');
+  if (!val) { bar.style.width = '0%'; msg.textContent = ''; return; }
+
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (val.length >= 12) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(val)) score++;
+
+  const levels = [
+    {w:'20%', color:'#e53935', text:'매우 약함'},
+    {w:'40%', color:'#f57c00', text:'약함'},
+    {w:'60%', color:'#fbc02d', text:'보통'},
+    {w:'80%', color:'#7cb342', text:'강함'},
+    {w:'100%',color:'#2a7a4b', text:'매우 강함'},
+  ];
+  const lv = Math.max(0, Math.min(4, score-1));
+  bar.style.width = levels[lv].w;
+  bar.style.background = levels[lv].color;
+  msg.textContent = `비밀번호 강도: ${levels[lv].text}`;
+  msg.style.color = levels[lv].color;
+}
+
+function checkPw2(input) {
+  const pw = document.getElementById('reg_pw').value;
+  const msg = document.getElementById('reg_pw2_msg');
+  if (!input.value) { msg.textContent = ''; input.style.borderColor = 'var(--line)'; return; }
+  if (pw === input.value) {
+    msg.textContent = '✅ 비밀번호가 일치합니다.';
+    msg.style.color = 'var(--verified)';
+    input.style.borderColor = 'var(--verified)';
+  } else {
+    msg.textContent = '❌ 비밀번호가 일치하지 않습니다.';
+    msg.style.color = 'var(--accent)';
+    input.style.borderColor = 'var(--accent)';
+  }
+}
+
+function togglePw(id, btn) {
+  const input = document.getElementById(id);
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '숨기기'; }
+  else { input.type = 'password'; btn.textContent = '보기'; }
+}
+
+function selectGender(val) {
+  ['genderM','genderF','genderN'].forEach(id => {
+    document.getElementById(id).style.borderColor = 'var(--line)';
+    document.getElementById(id).style.background = 'white';
+  });
+  if (val === '남성') {
+    document.getElementById('genderM').style.borderColor = 'var(--teal)';
+    document.getElementById('genderM').style.background = 'var(--teal-light)';
+  } else if (val === '여성') {
+    document.getElementById('genderF').style.borderColor = 'var(--teal)';
+    document.getElementById('genderF').style.background = 'var(--teal-light)';
+  } else {
+    document.getElementById('genderN').style.borderColor = 'var(--teal)';
+    document.getElementById('genderN').style.background = 'var(--teal-light)';
+  }
+}
+
+function toggleAllAgree(cb) {
+  ['agreeTerms','agreePrivacy','agreeMarketing'].forEach(id => {
+    document.getElementById(id).checked = cb.checked;
+  });
+}
+
+function checkAllAgree() {
+  const all = ['agreeTerms','agreePrivacy','agreeMarketing'].every(id => document.getElementById(id).checked);
+  document.getElementById('agreeAll').checked = all;
+}
+
+function doRegister() {
+  const name = document.getElementById('reg_name').value.trim();
+  const email = document.getElementById('reg_email').value.trim();
+  const pw = document.getElementById('reg_pw').value;
+  const pw2 = document.getElementById('reg_pw2').value;
+  const gender = document.querySelector('input[name="reg_gender"]:checked')?.value || '';
+  const region = document.getElementById('reg_region').value ||
+    (document.getElementById('reg_sido')?.value ? document.getElementById('reg_sido').value + (document.getElementById('reg_sigungu')?.value ? ' ' + document.getElementById('reg_sigungu').value : '') : '');
+  const agreeTerms = document.getElementById('agreeTerms').checked;
+  const agreePrivacy = document.getElementById('agreePrivacy').checked;
+
+  // 아이디 검증
+  if (!name || !/^[a-z0-9]{5,15}$/.test(name)) {
+    showAuthMsg('error', '아이디는 영문 소문자·숫자 5~15자로 입력해주세요.');
+    document.getElementById('reg_name').focus();
+    return;
+  }
+
+  // 이메일 검증
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showAuthMsg('error', '올바른 이메일 주소를 입력해주세요.');
+    document.getElementById('reg_email').focus();
+    return;
+  }
+
+  // 비밀번호 검증
+  if (pw.length < 8) {
+    showAuthMsg('error', '비밀번호는 8자 이상이어야 합니다.');
+    document.getElementById('reg_pw').focus();
+    return;
+  }
+  if (!/[0-9]/.test(pw) || !/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(pw)) {
+    showAuthMsg('error', '비밀번호에 숫자와 특수문자(!@#$ 등)를 포함해주세요.');
+    document.getElementById('reg_pw').focus();
+    return;
+  }
+  if (pw !== pw2) {
+    showAuthMsg('error', '비밀번호가 일치하지 않습니다.');
+    document.getElementById('reg_pw2').focus();
+    return;
+  }
+
+  // 필수 약관 동의
+  if (!agreeTerms || !agreePrivacy) {
+    showAuthMsg('error', '필수 약관에 동의해주세요.');
+    return;
+  }
+
+  const users = getUsers();
+
+  // 아이디 중복 체크
+  if (users.find(u => u.name === name)) {
+    showAuthMsg('error', '이미 사용 중인 아이디예요. 다른 아이디를 입력해주세요.');
+    document.getElementById('reg_name').focus();
+    return;
+  }
+
+  // 이메일 중복 체크
+  if (users.find(u => u.email === email)) {
+    showAuthMsg('error', '이미 가입된 이메일이에요. 로그인을 시도해보세요.');
+    document.getElementById('reg_email').focus();
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    name,
+    email,
+    pw: hashPw(pw),
+    gender,
+    region,
+    marketing: document.getElementById('agreeMarketing').checked,
+    joinDate: new Date().toLocaleDateString('ko-KR')
+  };
+  users.push(newUser);
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  setSession({ id: newUser.id, name, email, gender, region });
+
+  showAuthMsg('success', `🎉 ${name}님, 가입을 환영합니다!`);
+  setTimeout(() => { closeModal('authModal'); updateAuthUI(); }, 1200);
+}
+
+function doLogout() {
+  clearSession();
+  updateAuthUI();
+  alert('로그아웃 되었습니다.');
+}
+
+function showForgotPw() {
+  const email = prompt('가입하신 이메일 주소를 입력해주세요:');
+  if (!email) return;
+  const users = getUsers();
+  const user = users.find(u => u.email === email);
+  if (!user) { alert('해당 이메일로 가입된 계정이 없습니다.'); return; }
+  alert(`비밀번호 찾기:\n\n현재 기기에서 가입한 계정입니다.\n새 비밀번호를 설정하시려면 카카오 채팅방으로 문의해주세요.\nhttps://open.kakao.com/o/gSX50zki`);
+}
+
+function updateAuthUI() {
+  const user = getCurrentUser();
+  const navBtn = document.getElementById('navAuthBtn');
+  const mobileBtn = document.getElementById('mobileAuthBtn');
+
+  // 관리자 패널 버튼 처리
+  let adminBtn = document.getElementById('navAdminBtn');
+
+  if (user) {
+    if (navBtn) { navBtn.textContent = `👤 ${user.name}`; navBtn.style.color = 'var(--accent-soft)'; navBtn.style.borderColor = 'var(--accent)'; }
+    if (mobileBtn) mobileBtn.textContent = `👤 ${user.name} (로그아웃)`;
+
+    // 관리자 버튼 추가
+    if (user.email === ADMIN_EMAIL && !adminBtn) {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const btn = document.createElement('a');
+        btn.id = 'navAdminBtn';
+        btn.href = '#';
+        btn.onclick = function(){ openAdminPanel(); return false; };
+        btn.textContent = '⚙️ 관리';
+        btn.style.cssText = 'background:var(--gold);color:white;padding:7px 14px;border-radius:4px;text-decoration:none;font-size:0.82rem;font-weight:700;';
+        nav.insertBefore(btn, nav.lastElementChild);
+      }
+    }
+  } else {
+    if (navBtn) { navBtn.textContent = '로그인'; navBtn.style.color = '#aaa'; navBtn.style.borderColor = '#444'; }
+    if (mobileBtn) mobileBtn.textContent = '로그인 / 회원가입';
+    if (adminBtn) adminBtn.remove();
+    localStorage.removeItem(ADMIN_KEY);
+  }
+}
+
+
+/* ── DIAGNOSIS ── */
+let diagStep=0;
+const diagAnswers={};
+function openDiag(){
+  diagStep=0; Object.keys(diagAnswers).forEach(k=>delete diagAnswers[k]);
+  document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));
+  document.querySelector('.diag-result').classList.remove('active');
+  document.querySelectorAll('.diag-step')[0].classList.add('active');
+  document.querySelectorAll('.diag-option').forEach(o=>o.classList.remove('selected'));
+  document.querySelectorAll('.diag-next').forEach(b=>b.disabled=true);
+  updateDiagProgress();
+  openModal('diagModal');
+}
+function updateDiagProgress(){
+  document.querySelectorAll('.diag-prog-step').forEach((s,i)=>{
+    s.classList.remove('done','active');
+    if(i<diagStep)s.classList.add('done');
+    else if(i===diagStep)s.classList.add('active');
+  });
+}
+function nextDiag(){
+  if(diagStep<6){
+    document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));
+    diagStep++;
+    document.querySelectorAll('.diag-step')[diagStep].classList.add('active');
+    updateDiagProgress();
+  }
+}
+function prevDiag(){
+  if(diagStep>0){
+    document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));
+    diagStep--;
+    document.querySelectorAll('.diag-step')[diagStep].classList.add('active');
+    updateDiagProgress();
+  }
+}
+// option click - DOMContentLoaded에서 처리
+function initDiagOptions() {
+  document.querySelectorAll('.diag-step').forEach(step=>{
+    step.querySelectorAll('.diag-option').forEach(opt=>{
+      opt.addEventListener('click',function(){
+        step.querySelectorAll('.diag-option').forEach(o=>o.classList.remove('selected'));
+        this.classList.add('selected');
+        diagAnswers[step.dataset.step]=this.dataset.val;
+        step.querySelector('.diag-next').disabled=false;
+      });
+    });
+  });
+}
+function showDiagResult(){
+  document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));
+  diagStep=7;
+  updateDiagProgress();
+  // compute result
+  const a=diagAnswers;
+  let type,desc,recs;
+  const isMale=a[0]==='male';
+  const isGenetic=['yes_father','yes_both'].includes(a[4]);
+  const isFemale=a[0]==='female';
+  const isPostpartum=a[5]==='postpartum';
+  const isStress=a[5]==='stress';
+  const isPatch=a[2]==='patch';
+  const isDiffuse=a[2]==='diffuse';
+  const isBudgetLow=a[6]==='budget_low';
+  const isBudgetHigh=['budget_high','budget_any'].includes(a[6]);
+
+  if(isPatch){
+    type='원형 탈모 (Alopecia Areata)';
+    desc='특정 부위가 원형으로 빠지는 자가면역 반응에 의한 탈모입니다. 스트레스·면역 이상이 주요 원인이며 피부과 전문의 진료가 우선입니다. 초기에 치료할수록 회복률이 높습니다.';
+    recs=[
+      {t:'피부과 전문의 진료 (우선)',d:'자가면역 억제 치료, 스테로이드 국소 주사 등이 효과적. 반드시 전문의 진단 필요.',c:'진료비 3~8만원',cl:'rec-1'},
+      {t:'두피 PRP 주사',d:'모낭 재활성화에 도움. 원형 탈모 회복기에 병행 치료로 효과적.',c:'17~25만원/회',cl:'rec-2'},
+      {t:'스트레스 관리',d:'원형 탈모의 가장 큰 원인 중 하나. 수면, 운동, 심리 치료 병행 권장.',c:'무료',cl:'rec-3'},
+    ];
+  } else if(isPostpartum){
+    type='산후 탈모 (Postpartum Hair Loss)';
+    desc='출산 후 에스트로겐 감소로 인해 일시적으로 빠지는 탈모입니다. 대부분 6~12개월 내 자연 회복되지만 두피 치료로 회복 속도를 높일 수 있습니다.';
+    recs=[
+      {t:'두피 PRP 주사',d:'모낭 재생을 촉진해 회복 속도를 높여줍니다. 산후 탈모에 가장 많이 선택되는 시술.',c:'15~22만원/회',cl:'rec-1'},
+      {t:'메조테라피',d:'두피 영양 공급으로 모발 성장 환경 개선. PRP와 병행하면 효과 상승.',c:'12~18만원/회',cl:'rec-2'},
+      {t:'영양 보충',d:'철분, 비오틴, 아연 등 영양 보충이 회복에 필수적입니다.',c:'저비용',cl:'rec-3'},
+    ];
+  } else if(isStress&&isDiffuse){
+    type='휴지기 탈모 (Telogen Effluvium)';
+    desc='극심한 스트레스나 영양 불균형으로 모발이 성장기를 마치지 않고 휴지기로 들어가 전체적으로 빠지는 탈모입니다. 원인 해소 후 대부분 회복됩니다.';
+    recs=[
+      {t:'원인 해소 (최우선)',d:'스트레스 관리, 영양 보충이 가장 중요합니다. 철분·비오틴 수치 검사 권장.',c:'저비용',cl:'rec-1'},
+      {t:'두피 PRP / 메조테라피',d:'모낭 회복을 가속화하는 시술. 원인 해소와 병행 시 효과적.',c:'15~22만원/회',cl:'rec-2'},
+      {t:'약물치료',d:'미녹시딜 도포제를 병행하면 회복 속도 향상에 도움.',c:'2~5만원/월',cl:'rec-3'},
+    ];
+  } else if(isMale&&isGenetic&&isBudgetHigh){
+    type='남성형 탈모 (안드로겐성) — 중등도 이상';
+    desc='유전적으로 DHT에 민감한 모낭이 점진적으로 위축되는 가장 흔한 남성 탈모입니다. 진행이 상당히 된 경우 모발이식이 가장 확실한 치료법입니다.';
+    recs=[
+      {t:'모발이식 (비절개 FUE)',d:'영구적인 효과. M자·정수리 탈모에 가장 확실한 치료. 1,000모당 평균 195만원.',c:'195~280만원/1000모',cl:'rec-1'},
+      {t:'피나스테리드 + 미녹시딜',d:'이식 후 남은 모발 유지에 필수. 수술 전후 반드시 병행 권장.',c:'3~7만원/월',cl:'rec-2'},
+      {t:'두피 PRP',d:'이식 후 두피 회복 및 잔모 강화에 효과적.',c:'15~22만원/회',cl:'rec-3'},
+    ];
+  } else if(isMale&&isBudgetLow){
+    type='남성형 탈모 (안드로겐성) — 초기 관리';
+    desc='초기 단계에서 약물치료를 꾸준히 병행하면 진행을 늦추거나 일부 회복이 가능합니다. 조기 치료일수록 효과가 큽니다.';
+    recs=[
+      {t:'피나스테리드 (처방약)',d:'DHT 생성 억제. 남성 탈모 1차 치료제. 최소 6개월 이상 복용 권장.',c:'2~5만원/월',cl:'rec-1'},
+      {t:'미녹시딜 (도포)',d:'모낭 혈류 개선으로 발모 촉진. 피나스테리드와 병행 시 시너지.',c:'1~3만원/월',cl:'rec-2'},
+      {t:'두피 PRP (선택)',d:'약물 치료와 병행 시 효과 향상. 예산 여유가 될 때 추가 권장.',c:'15~22만원/회',cl:'rec-3'},
+    ];
+  } else {
+    type='탈모 초기 — 원인 파악 및 관리 단계';
+    desc='탈모 초기 단계이거나 원인이 복합적으로 작용하고 있을 수 있습니다. 피부과 전문의의 진단을 통해 정확한 원인을 파악하는 것이 우선입니다.';
+    recs=[
+      {t:'피부과 전문의 진단 (필수)',d:'혈액 검사, 모발 검사 등을 통해 정확한 원인 파악. 잘못된 치료는 오히려 탈모를 악화시킬 수 있습니다.',c:'진료비 3~8만원',cl:'rec-1'},
+      {t:'두피 스케일링 및 관리',d:'두피 건강 개선으로 모발 성장 환경 조성. 부작용 없는 기본 관리.',c:'3~6만원/회',cl:'rec-2'},
+      {t:'생활 습관 개선',d:'균형 잡힌 식사, 스트레스 관리, 충분한 수면이 탈모 예방의 기본.',c:'무료',cl:'rec-3'},
+    ];
+  }
+  document.getElementById('resultType').textContent=type;
+  document.getElementById('resultDesc').textContent=desc;
+  document.getElementById('resultRecs').innerHTML=recs.map((r,i)=>`<div class="result-rec"><div class="rec-rank ${r.cl}">${i+1}</div><div class="rec-info"><h4>${r.t}</h4><p>${r.d}</p><div class="rec-cost">💰 ${r.c}</div></div></div>`).join('');
+  document.getElementById('diagResult').classList.add('active');
+}
+function restartDiag(){
+  diagStep=0; Object.keys(diagAnswers).forEach(k=>delete diagAnswers[k]);
+  document.getElementById('diagResult').classList.remove('active');
+  document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.diag-option').forEach(o=>o.classList.remove('selected'));
+  document.querySelectorAll('.diag-next').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.diag-step')[0].classList.add('active');
+  updateDiagProgress();
+}
+
+function handleReceiptUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) {
+    alert('파일 크기가 10MB를 초과합니다. 더 작은 이미지를 사용해주세요.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('rv_preview_img').src = e.target.result;
+    document.getElementById('rv_preview').style.display = 'block';
+    document.getElementById('rv_upload_area').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearReceipt() {
+  document.getElementById('rv_receipt').value = '';
+  document.getElementById('rv_preview').style.display = 'none';
+  document.getElementById('rv_upload_area').style.display = 'block';
+}
+
+/* ── REVIEW SYSTEM ── */
+const REVIEWS_KEY = 'hairtruth_reviews';
+const ADMIN_EMAIL = 'ghl0412';
+const ADMIN_PW_HASH = hashPw('rich0412!@#');
+
+function getReviews() {
+  try { return JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function getApprovedReviews() {
+  return getReviews().filter(r => r.status === 'approved');
+}
+
+// AI 검증 로직 - 실제 내용 분석
+function aiVerify(review) {
+  let score = 0;
+  const reasons = [];
+  const content = review.content || '';
+  const treatment = review.treatment || '';
+  const amount = review.amount || '';
+  const hospital = review.hospitalName || '';
+
+  // ─────────────────────────────
+  // 1. 영수증 사진 (25점)
+  // ─────────────────────────────
+  if (review.hasReceipt && review.receiptImg) {
+    score += 25;
+    reasons.push('✅ 영수증 사진 첨부');
+  } else {
+    reasons.push('❌ 영수증 사진 없음 (-25점)');
+  }
+
+  // ─────────────────────────────
+  // 2. 탈모 관련 키워드 (20점)
+  // ─────────────────────────────
+  const hairKeywords = [
+    '탈모','모발','두피','피나스테리드','두타스테리드','미녹시딜','피나','두타','아보다트',
+    'PRP','메조','모발이식','이식','약물치료','한약','약침','두피샵','두피케어',
+    '프로페시아','로게인','탈모약','처방','피부과','한의원','클리닉','헤어',
+    '정수리','M자','헤어라인','모낭','발모','육모','탈모치료','두피관리'
+  ];
+  const hairCount = hairKeywords.filter(kw => content.includes(kw) || treatment.includes(kw)).length;
+  if (hairCount >= 3) { score += 20; reasons.push(`✅ 탈모 관련 키워드 ${hairCount}개 확인`); }
+  else if (hairCount >= 1) { score += 10; reasons.push(`⚠️ 탈모 키워드 ${hairCount}개 (부족)`); }
+  else { reasons.push('❌ 탈모 관련 내용 없음 (0점)'); }
+
+  // ─────────────────────────────
+  // 3. 경험 후기 표현 (15점)
+  // ─────────────────────────────
+  const goodExpressions = [
+    '효과','좋았','만족','추천','친절','저렴','합리적','개선','좋더','빠지는 게 줄','굵어','회복',
+    '생착','깔끔','꼼꼼','다시 방문','재방문','믿을','신뢰','정확','정성'
+  ];
+  const badExpressions = [
+    '비쌌','비싸','아팠','부작용','불친절','불만','실망','효과 없','별로','후회',
+    '대기','오래','불편','강요','과잉','과다','청구','바가지'
+  ];
+  const hasGood = goodExpressions.some(e => content.includes(e));
+  const hasBad = badExpressions.some(e => content.includes(e));
+
+  if (hasGood || hasBad) {
+    score += 15;
+    if (hasGood && hasBad) reasons.push('✅ 장단점 균형 후기 (신뢰도 높음)');
+    else if (hasGood) reasons.push('✅ 긍정적 경험 표현 포함');
+    else reasons.push('✅ 솔직한 부정 경험 표현 포함');
+  } else {
+    reasons.push('❌ 경험 관련 표현 없음 (0점)');
+  }
+
+  // ─────────────────────────────
+  // 4. 금액 구체성 (15점)
+  // ─────────────────────────────
+  const amountNum = amount.replace(/[^0-9]/g, '');
+  const hasUnit = /원|만|천|백/.test(amount);
+  if (amountNum.length >= 4 && hasUnit) {
+    score += 15;
+    reasons.push('✅ 구체적인 금액 정보');
+  } else if (amountNum.length >= 3) {
+    score += 8;
+    reasons.push('⚠️ 금액 단위 불명확');
+  } else {
+    reasons.push('❌ 금액 정보 불충분 (0점)');
+  }
+
+  // ─────────────────────────────
+  // 5. 후기 내용 충실도 (15점)
+  // ─────────────────────────────
+  const sentences = content.split(/[.!?。\n]/).filter(s => s.trim().length > 3).length;
+  if (content.length >= 50 && sentences >= 2) {
+    score += 15;
+    reasons.push(`✅ 충실한 후기 내용 (${content.length}자, ${sentences}문장)`);
+  } else if (content.length >= 25) {
+    score += 7;
+    reasons.push(`⚠️ 후기 내용 부족 (${content.length}자)`);
+  } else {
+    reasons.push(`❌ 후기 너무 짧음 (${content.length}자, 최소 50자 권장)`);
+  }
+
+  // ─────────────────────────────
+  // 6. 스팸·무의미 내용 감지 (-감점)
+  // ─────────────────────────────
+  // 반복 문자 감지
+  const repeatPattern = /(.)\1{4,}/;
+  if (repeatPattern.test(content)) {
+    score -= 20;
+    reasons.push('🚨 반복 문자 감지 (-20점)');
+  }
+  // 무의미한 숫자/영문만
+  const meaningless = /^[0-9a-zA-Z\s!@#$%^&*]*$/.test(content);
+  if (meaningless && content.length < 50) {
+    score -= 20;
+    reasons.push('🚨 한글 내용 없음 (-20점)');
+  }
+  // 욕설·광고성 키워드
+  const spamWords = ['광고','홍보','클릭','링크','http','www','010-','카톡'];
+  const hasSpam = spamWords.some(w => content.toLowerCase().includes(w));
+  if (hasSpam) {
+    score -= 15;
+    reasons.push('🚨 광고·스팸 의심 (-15점)');
+  }
+
+  // ─────────────────────────────
+  // 7. 병원명 구체성 (10점)
+  // ─────────────────────────────
+  const hospitalKeywords = ['피부과','한의원','클리닉','의원','샵','약국','병원','센터'];
+  const hasHospitalType = hospitalKeywords.some(k => hospital.includes(k));
+  if (hospital.length >= 5 && hasHospitalType) {
+    score += 10;
+    reasons.push('✅ 병원명 구체적 (유형 포함)');
+  } else if (hospital.length >= 4) {
+    score += 5;
+    reasons.push('⚠️ 병원명 유형 불명확');
+  } else {
+    reasons.push('❌ 병원명 너무 짧음 (0점)');
+  }
+
+  // 최종 점수 범위 조정
+  score = Math.max(0, Math.min(100, score));
+
+  // 판정
+  let verdict;
+  if (score >= 75) verdict = 'auto_approved';   // 자동승인 권장
+  else if (score >= 45) verdict = 'pending';     // 검토 필요
+  else verdict = 'suspicious';                   // 의심스러움
+
+  return { score, reasons, verdict };
+}
+
+function saveReview(review) {
+  const reviews = getReviews();
+  review.id = Date.now();
+  review.date = new Date().toLocaleDateString('ko-KR');
+  review.timestamp = Date.now();
+
+  // AI 검증
+  const aiResult = aiVerify(review);
+  review.aiScore = aiResult.score;
+  review.aiReasons = aiResult.reasons;
+  review.status = aiResult.verdict === 'auto_approved' ? 'pending' : 'pending';
+  // 관리자 최종 승인 필요 (auto_approved도 pending으로 - 관리자가 확인)
+  review.aiVerdict = aiResult.verdict;
+
+  reviews.unshift(review);
+  localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+  return review;
+}
+
+function renderReviews() {
+  const allReviews = getReviews();
+  const reviews = allReviews.filter(r => r.status === 'approved');
+  const grid = document.getElementById('reviewGrid');
+  const empty = document.getElementById('reviewEmptyState');
+  const instGrid = document.getElementById('instGrid');
+  const instEmpty = document.getElementById('emptyState');
+
+  // 후기 섹션
+  if (reviews.length === 0) {
+    grid.innerHTML = '';
+    if(empty) empty.style.display = 'block';
+  } else {
+    if(empty) empty.style.display = 'none';
+    grid.innerHTML = reviews.map(r => {
+      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      const avatar = r.nickname ? r.nickname.charAt(0) : '익';
+      const colors = ['#fef3f0,#c84b2f','#e8f5ee,#2a7a4b','#fff8e0,#b8932a','#f0e8fe,#6a3fa8','#e8f0fe,#1a5fce'];
+      const col = colors[r.id % colors.length].split(',');
+      return `<div class="review-card" data-review-id="${r.id}" style="cursor:pointer;" onclick="navigate('review-detail',{id:'${r.id}}')">
+        <div class="review-top">
+          <div class="reviewer-info">
+            <div class="avatar" style="background:${col[0]};color:${col[1]}">${avatar}</div>
+            <div><div class="reviewer-name">${r.nickname || '익명'}</div><div class="reviewer-sub">${r.region || ''} · ${r.gender || ''}</div></div>
+          </div>
+          <div class="receipt-verified">🧾 영수증 인증</div>
+        </div>
+        <div class="review-stars" style="color:#f5a623">${stars}</div>
+        <div class="review-hospital" style="font-weight:700;margin:6px 0;color:var(--teal)">${r.hospitalName}</div>
+        <div class="review-text">${r.content}</div>
+        <div class="review-cost-box">
+          <div class="cost-row"><span class="cost-label">시술명</span><span class="cost-value">${r.treatment}</span></div>
+          <div class="cost-row" style="margin-top:5px"><span class="cost-label">실제 지불 금액</span><span class="cost-value" style="color:var(--accent);font-weight:700">${r.amount}원</span></div>
+        </div>
+        <div style="font-size:0.72rem;color:#aaa;margin-top:8px">${r.date} 등록 ${r.hasReceipt ? '· 🧾 영수증 첨부' : ''}</div>
+        ${r.hasReceipt && r.receiptImg ? `<div style="margin-top:10px;"><img src="${r.receiptImg}" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;border:1px solid var(--line);" alt="영수증"><div style="font-size:0.68rem;color:var(--verified);font-weight:600;margin-top:4px;">✅ 영수증 인증 완료</div></div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  // 병원 카드 섹션
+  const hospitals = groupByHospital(reviews);
+  if (hospitals.length === 0) {
+    instGrid.innerHTML = '';
+    if(instEmpty) instEmpty.style.display = 'block';
+  } else {
+    if(instEmpty) instEmpty.style.display = 'none';
+    instGrid.innerHTML = hospitals.map((h, i) => {
+      const typeMap = {clinic:'탈모클리닉',derm:'피부과',hanbang:'한의원',scalp:'두피관리샵',pharmacy:'약국'};
+      const tagMap = {clinic:'tag-clinic',derm:'tag-derm',hanbang:'tag-hanbang',scalp:'tag-scalp',pharmacy:'tag-pharmacy'};
+      const avgRating = (h.reviews.reduce((s,r)=>s+r.rating,0)/h.reviews.length).toFixed(1);
+      const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
+      return `<div class="hospital-card" data-type="${h.type||'derm'}">
+        ${i<3?`<span class="rank-badge ${rankClass}">${i+1}</span>`:''}
+        <span class="hc-type-tag ${tagMap[h.type]||'tag-derm'}">${typeMap[h.type]||'의원'}</span>
+        <div class="hc-subway">${h.region||''}</div>
+        <div class="hc-treatment">${h.reviews[0].treatment}</div>
+        <div class="hc-hosp-row"><span class="hc-hosp-icon">🏥</span><span class="hc-hosp-name">${h.name}</span></div>
+        <div class="hc-rating-row"><span class="hc-star">★</span><span class="hc-score">${avgRating}</span><span class="hc-cnt">(${h.reviews.length})</span></div>
+        <div class="hc-verified">🧾 영수증 인증 ${h.reviews.length}건</div>
+      </div>`;
+    }).join('');
+  }
+
+  // 랭킹 테이블
+  renderRanking(hospitals);
+
+  // 통계 업데이트
+  document.getElementById('statReviews').innerHTML = reviews.length + '<span class="sd-unit">건</span>';
+  document.getElementById('statHospitals').innerHTML = hospitals.length + '<span class="sd-unit">곳</span>';
+  // 히어로 수치 연동
+  if(document.getElementById('heroReviewCnt')) document.getElementById('heroReviewCnt').textContent = reviews.length;
+  if(document.getElementById('heroHospCnt')) document.getElementById('heroHospCnt').textContent = hospitals.length;
+}
+
+function groupByHospital(reviews) {
+  const map = {};
+  reviews.forEach(r => {
+    if (!map[r.hospitalName]) {
+      map[r.hospitalName] = { name: r.hospitalName, type: r.hospitalType, region: r.region, reviews: [] };
+    }
+    map[r.hospitalName].reviews.push(r);
+  });
+  return Object.values(map).sort((a,b) => b.reviews.length - a.reviews.length);
+}
+
+function renderRanking(hospitals) {
+  const tbody = document.getElementById('rankTableBody');
+  const empty = document.getElementById('rankEmptyState');
+  const wrap = document.getElementById('rankTableWrap');
+  if (!tbody) return;
+  if (hospitals.length === 0) {
+    if(wrap) wrap.style.display = 'none';
+    if(empty) empty.style.display = 'block';
+  } else {
+    if(wrap) wrap.style.display = 'block';
+    if(empty) empty.style.display = 'none';
+    tbody.innerHTML = hospitals.slice(0,10).map((h, i) => {
+      const avg = (h.reviews.reduce((s,r)=>s+r.rating,0)/h.reviews.length).toFixed(1);
+      const cls = i<3?'rank-num top':'rank-num';
+      return `<tr><td class="${cls}">${i+1}</td><td><strong>${h.name}</strong></td><td class="rank-score">${avg}</td><td>${h.reviews.length}건</td><td>${h.reviews[0].treatment}</td><td>${h.region||'-'}</td></tr>`;
+    }).join('');
+  }
+}
+
+function openReviewModal() {
+  document.getElementById('reviewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReviewModal() {
+  document.getElementById('reviewModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitReview() {
+  const hospitalName = document.getElementById('rv_hospital').value.trim();
+  const hospitalType = document.getElementById('rv_type').value;
+  const treatment = document.getElementById('rv_treatment').value.trim();
+  const amount = document.getElementById('rv_amount').value.trim();
+  const rating = document.querySelector('input[name="rv_rating"]:checked')?.value;
+  const content = document.getElementById('rv_content').value.trim();
+  const region = document.getElementById('rv_region').value ||
+    (document.getElementById('rv_sido')?.value ? document.getElementById('rv_sido').value + (document.getElementById('rv_sigungu')?.value ? ' ' + document.getElementById('rv_sigungu').value : '') : '');
+  const gender = document.getElementById('rv_gender').value;
+  const nickname = document.getElementById('rv_nickname').value.trim() || '익명';
+
+  const receiptImg = document.getElementById('rv_preview_img').src;
+  const hasReceipt = document.getElementById('rv_preview').style.display !== 'none';
+
+  if (!hospitalName || !treatment || !amount || !rating || !content) {
+    alert('병원명, 시술명, 금액, 별점, 후기 내용은 필수 입력 항목입니다!');
+    return;
+  }
+
+  saveReview({ hospitalName, hospitalType, treatment, amount, rating: parseInt(rating), content, region, gender, nickname, receiptImg: hasReceipt ? receiptImg : null, hasReceipt });
+  renderReviews();
+  closeReviewModal();
+  document.getElementById('reviewForm').reset();
+  clearReceipt();
+
+  setTimeout(() => {
+    alert('🎉 후기가 등록되었습니다! 감사합니다 😊\n' + (hasReceipt ? '' : '') + '카카오 채팅방에서 확인해주세요:\nhttps://open.kakao.com/o/gSX50zki');
+  }, 300);
+}
+
+// 별점 인터랙션
+document.addEventListener('DOMContentLoaded', function() {
+  // 핵심 초기화
+  renderReviews();
+  updateAuthUI();
+  initRegionSelectors();
+  initDiagOptions();
+
+  // 모달 오버레이 클릭 닫기
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', function(e){
+      if(e.target === this){
+        this.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // 필터칩 이벤트
+  document.querySelectorAll('.filter-chip').forEach(chip=>{
+    chip.addEventListener('click',function(){
+      document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // 스크롤 애니메이션
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.step,.stat-item,.qa-card').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(14px)';
+    el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+    obs.observe(el);
+  });
+
+  // 별점 인터랙션
+  const stars = document.querySelectorAll('.rv-star');
+  stars.forEach((star, idx) => {
+    star.addEventListener('click', () => {
+      stars.forEach((s, i) => {
+        s.style.color = i <= idx ? '#f5a623' : '#ddd';
+      });
+    });
+  });
 });
-// 초기 숨김
-document.getElementById('floatingReviewBtn').style.opacity = '0';
-document.getElementById('floatingReviewBtn').style.pointerEvents = 'none';
-document.getElementById('floatingReviewBtn').style.transition = 'all 0.3s';
+
 </script>
 
 </body>
