@@ -368,6 +368,8 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 </style>
 <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Kakao SDK -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -1613,6 +1615,17 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
         <div class="auth-footer" style="margin-top:16px;">
           계정이 없으신가요? <a href="#" onclick="switchAuthTab('register');return false">회원가입 →</a>
         </div>
+
+        <!-- 소셜 로그인 -->
+        <div style="display:flex;align-items:center;gap:10px;margin:16px 0;">
+          <div style="flex:1;height:1px;background:var(--line);"></div>
+          <span style="font-size:0.75rem;color:#aaa;">간편 로그인</span>
+          <div style="flex:1;height:1px;background:var(--line);"></div>
+        </div>
+        <button onclick="kakaoLogin()" style="width:100%;padding:12px;border-radius:8px;border:none;background:#FEE500;color:#3C1E1E;font-family:'Noto Sans KR',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C4.029 0 0 3.134 0 7c0 2.505 1.647 4.708 4.133 5.963L3.1 17.077a.338.338 0 00.522.363L8.84 13.94c.052.003.106.006.16.006 4.971 0 9-3.134 9-7S13.971 0 9 0z" fill="#3C1E1E"/></svg>
+          카카오로 3초 로그인
+        </button>
       </div>
 
       <!-- 회원가입 폼 -->
@@ -2563,6 +2576,79 @@ function switchAuthTab(mode) {
   document.getElementById('registerForm').style.display = mode === 'register' ? 'block' : 'none';
   document.getElementById('authError').style.display = 'none';
   document.getElementById('authSuccess').style.display = 'none';
+}
+
+// ── 카카오 로그인 ──
+const KAKAO_JS_KEY = 'YOUR_JAVASCRIPT_KEY'; // '784360dd83f96066bd5657cfd411f9ab';
+
+function initKakao() {
+  if (window.Kakao && !Kakao.isInitialized()) {
+    Kakao.init(KAKAO_JS_KEY);
+  }
+}
+
+function kakaoLogin() {
+  initKakao();
+  if (!window.Kakao) {
+    alert('카카오 SDK 로딩 중입니다. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+  Kakao.Auth.login({
+    success: function(authObj) {
+      Kakao.API.request({
+        url: '/v2/user/me',
+        success: function(res) {
+          var kakaoId   = res.id;
+          var nickname  = res.kakao_account && res.kakao_account.profile
+                          ? res.kakao_account.profile.nickname : '카카오유저';
+          var email     = res.kakao_account && res.kakao_account.email
+                          ? res.kakao_account.email : 'kakao_' + kakaoId + '@kakao.com';
+          var profileImg = res.kakao_account && res.kakao_account.profile
+                          ? res.kakao_account.profile.profile_image_url : '';
+
+          // 기존 유저 확인 or 신규 등록
+          var users = getUsers();
+          var existing = users.find(function(u) {
+            return u.kakaoId === String(kakaoId) || u.email === email;
+          });
+
+          if (existing) {
+            // 기존 회원 로그인
+            setSession({ id: existing.id, name: existing.name, email: existing.email, gender: existing.gender || '', region: existing.region || '', profileImg: profileImg });
+          } else {
+            // 신규 회원 자동 가입
+            var newUser = {
+              id: Date.now(),
+              kakaoId: String(kakaoId),
+              name: nickname,
+              email: email,
+              pw: '',
+              gender: '',
+              region: '',
+              profileImg: profileImg,
+              joinDate: new Date().toLocaleDateString('ko-KR'),
+              loginType: 'kakao'
+            };
+            users.push(newUser);
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            setSession({ id: newUser.id, name: nickname, email: email, gender: '', region: '', profileImg: profileImg });
+          }
+
+          closeModal('authModal');
+          showAuthMsg('success', '🎉 카카오 로그인 완료! 환영해요, ' + nickname + '님!');
+          setTimeout(function() { updateNavUI(); }, 300);
+        },
+        fail: function(err) {
+          console.error('카카오 사용자 정보 오류:', err);
+          alert('사용자 정보를 가져오지 못했어요. 다시 시도해주세요.');
+        }
+      });
+    },
+    fail: function(err) {
+      console.error('카카오 로그인 오류:', err);
+      alert('카카오 로그인에 실패했어요. 다시 시도해주세요.');
+    }
+  });
 }
 
 function doLogin() {
