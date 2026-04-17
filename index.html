@@ -1626,6 +1626,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 0C4.029 0 0 3.134 0 7c0 2.505 1.647 4.708 4.133 5.963L3.1 17.077a.338.338 0 00.522.363L8.84 13.94c.052.003.106.006.16.006 4.971 0 9-3.134 9-7S13.971 0 9 0z" fill="#3C1E1E"/></svg>
           카카오로 3초 로그인
         </button>
+        <div style="font-size:0.72rem;color:#aaa;text-align:center;margin-top:6px;">팝업이 안 뜨면 브라우저 팝업 차단 해제 후 시도해주세요</div>
       </div>
 
       <!-- 회원가입 폼 -->
@@ -2581,6 +2582,16 @@ function switchAuthTab(mode) {
 // ── 카카오 로그인 ──
 const KAKAO_JS_KEY = 'YOUR_JAVASCRIPT_KEY'; // '784360dd83f96066bd5657cfd411f9ab';
 
+// ── 카카오 초기화 (페이지 로드 시 바로 실행) ──
+(function() {
+  var t = setInterval(function() {
+    if (window.Kakao) {
+      if (!Kakao.isInitialized()) Kakao.init(KAKAO_JS_KEY);
+      clearInterval(t);
+    }
+  }, 200);
+})();
+
 function initKakao() {
   if (window.Kakao && !Kakao.isInitialized()) {
     Kakao.init(KAKAO_JS_KEY);
@@ -2588,33 +2599,18 @@ function initKakao() {
 }
 
 function kakaoLogin() {
-  initKakao();
   if (!window.Kakao) {
     alert('카카오 SDK를 불러오는 중이에요. 잠시 후 다시 눌러주세요!');
     return;
   }
-  try {
-    Kakao.Auth.login({
-      throughTalk: false,
-      success: function(authObj) {
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function(res) { processKakaoUser(res); },
-          fail: function(err) {
-            console.error('사용자 정보 오류:', err);
-            alert('사용자 정보를 가져오지 못했어요. 다시 시도해주세요.');
-          }
-        });
-      },
-      fail: function(err) {
-        console.error('로그인 오류:', err);
-        alert('카카오 로그인에 실패했어요.\n팝업이 차단됐을 수 있어요!\n브라우저 팝업 허용 후 다시 시도해주세요.');
-      }
-    });
-  } catch(e) {
-    console.error('Kakao 오류:', e);
-    alert('카카오 로그인 오류: ' + e.message);
+  if (!Kakao.isInitialized()) {
+    Kakao.init(KAKAO_JS_KEY);
   }
+  // 최신 SDK: authorize 방식 사용
+  Kakao.Auth.authorize({
+    redirectUri: 'https://hairtruth.kr/index.html',
+    scope: 'profile_nickname,profile_image'
+  });
 }
 
 function doLogin() {
@@ -4166,45 +4162,40 @@ document.addEventListener('DOMContentLoaded', function() {
   var code = params.get('code');
   if (!code) return;
 
-  // URL에서 code 파라미터 제거
+  // URL에서 code 제거
   history.replaceState({}, '', location.pathname);
 
-  // 카카오 토큰 교환 → 사용자 정보 가져오기
-  Kakao.Auth.setAccessToken && Kakao.Auth.getStatusInfo(function(statusObj) {
-    if (statusObj.status === 'connected') {
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: function(res) {
-          processKakaoUser(res);
-        },
-        fail: function() { fetchKakaoUserWithCode(code); }
-      });
-    } else {
-      fetchKakaoUserWithCode(code);
-    }
-  });
-});
+  // code → 액세스 토큰 교환 (카카오 REST API)
+  var REST_API_KEY = KAKAO_JS_KEY; // JS키로 임시 (실제론 REST키 필요)
 
-function fetchKakaoUserWithCode(code) {
-  // code를 이용해 액세스 토큰 발급 (서버 없이는 제한적)
-  // 임시: 카카오 팝업 재시도 안내
-  if (code) {
-    // SDK authorize 방식에서는 code를 서버에서 처리해야 함
-    // GitHub Pages(서버 없음) 환경에서는 JS SDK 팝업 방식 사용
-    initKakao();
-    Kakao.Auth.login({
-      throughTalk: false,
-      success: function(authObj) {
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function(res) { processKakaoUser(res); },
-          fail: function(e) { console.error(e); }
-        });
-      },
-      fail: function(e) { console.error('카카오 로그인 실패:', e); }
+  fetch('https://kauth.kakao.com/oauth/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'authorization_code',
+      client_id: KAKAO_JS_KEY,
+      redirect_uri: 'https://hairtruth.kr/index.html',
+      code: code
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(tokenData) {
+    if (!tokenData.access_token) {
+      console.error('토큰 오류:', tokenData);
+      return;
+    }
+    // 액세스 토큰으로 사용자 정보 조회
+    return fetch('https://kapi.kakao.com/v2/user/me', {
+      headers: { 'Authorization': 'Bearer ' + tokenData.access_token }
     });
-  }
-}
+  })
+  .then(function(r) { return r && r.json(); })
+  .then(function(res) {
+    if (!res || !res.id) return;
+    processKakaoUser(res);
+  })
+  .catch(function(e) { console.error('카카오 처리 오류:', e); });
+});
 
 function processKakaoUser(res) {
   var kakaoId    = res.id;
