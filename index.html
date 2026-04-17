@@ -368,6 +368,8 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 </style>
 <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- 카카오맵 SDK -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7b2f4039cdde1932a6561e5db271de37&libraries=services"></script>
 <!-- Kakao SDK -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
 </head>
@@ -1140,51 +1142,28 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 }
 </style>
 
-<!-- MAP - 실제 위치 기반 -->
-<section class="map-section" id="mapSection">
+<!-- MAP - 카카오맵 기반 -->
+<section class="map-section" id="mapSection" style="padding:60px 5%;">
   <div class="section-label">내 주변 탈모 병원</div>
-  <div class="section-title">실제 위치 기반 병원 찾기</div>
-  <div class="section-sub">현재 위치를 허용하면 주변 피부과·한의원을 실시간으로 찾아드립니다.</div>
+  <div class="section-title">전국 주요 탈모 병원 지도</div>
+  <div class="section-sub">카카오맵 기반 · 실제 위치 확인 가능 · 영수증 후기 병원 표시</div>
 
-  <!-- 위치 허용 요청 -->
-  <div id="geoRequest" style="text-align:center;padding:48px 20px;background:var(--white);border:1.5px solid var(--line);border-radius:16px;margin-bottom:24px;">
-    <div style="font-size:3rem;margin-bottom:16px;">📍</div>
-    <div style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">현재 위치를 허용해주세요</div>
-    <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;line-height:1.7;">위치 정보를 사용해 주변 탈모 피부과·한의원을 찾아드립니다.<br>위치 정보는 서버에 저장되지 않습니다.</div>
-    <button onclick="requestLocation()" style="background:var(--teal);color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">📍 내 위치로 병원 찾기</button>
-    <div style="margin-top:12px;font-size:0.78rem;color:#aaa;">위치 허용 후 Google 지도에서 주변 탈모 병원을 확인합니다</div>
+  <!-- 필터 버튼 -->
+  <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;">
+    <button onclick="filterMap('all')" id="filterAll" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--teal);background:var(--teal);color:white;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;">전체</button>
+    <button onclick="filterMap('clinic')" id="filterClinic" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🏥 피부과·클리닉</button>
+    <button onclick="filterMap('oriental')" id="filterOriental" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🌿 한의원</button>
+    <button onclick="filterMap('hair')" id="filterHair" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">💈 모발이식 전문</button>
   </div>
 
-  <!-- 로딩 상태 -->
-  <div id="geoLoading" style="display:none;text-align:center;padding:40px;">
-    <div style="font-size:2rem;margin-bottom:12px;animation:pulse 1.5s infinite;">📍</div>
-    <div style="font-size:0.9rem;color:var(--mid);">위치 확인 중...</div>
-  </div>
+  <!-- 카카오맵 -->
+  <div id="kakaoMap" style="width:100%;height:460px;border-radius:16px;border:1px solid var(--line);overflow:hidden;"></div>
 
-  <!-- 지도 임베드 (위치 허용 후) -->
-  <div id="geoResult" style="display:none;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;background:var(--verified-bg);padding:10px 16px;border-radius:8px;">
-      <span style="color:var(--verified);font-size:1rem;">✅</span>
-      <div>
-        <span style="font-size:0.85rem;font-weight:600;color:var(--verified);">위치 확인 완료</span>
-        <span id="geoAddress" style="font-size:0.8rem;color:var(--mid);margin-left:8px;"></span>
-      </div>
-    </div>
-    <!-- Google 지도 임베드 -->
-    <div id="mapFrame" style="border-radius:14px;overflow:hidden;height:400px;background:#eee;position:relative;">
-      <iframe id="googleMapIframe" width="100%" height="100%" frameborder="0" style="border:0;display:block;" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    <div style="margin-top:16px;padding:14px 16px;background:var(--cream);border-radius:8px;font-size:0.82rem;color:var(--mid);">
-      💡 지도에서 <strong>탈모·피부과·한의원</strong> 검색 결과를 확인하세요. 병원 방문 후 영수증 후기를 남겨주시면 헤어트루스에 등록됩니다!
-      <a href="#" onclick="openReviewModal();return false;" style="color:var(--teal);font-weight:600;text-decoration:none;">🧾 후기 남기기 →</a>
-    </div>
-  </div>
+  <!-- 병원 목록 -->
+  <div id="hospitalList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:20px;"></div>
 
-  <!-- 위치 거부 시 -->
-  <div id="geoDenied" style="display:none;text-align:center;padding:32px;background:#fff8f0;border:1px solid #fcd;border-radius:12px;">
-    <div style="font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:8px;">위치 접근이 거부되었어요</div>
-    <div style="font-size:0.82rem;color:var(--mid);margin-bottom:16px;">브라우저 설정에서 위치 허용 후 다시 시도해주세요.<br>또는 직접 검색으로 주변 병원을 찾아보세요.</div>
-    <a href="https://www.google.com/maps/search/탈모+피부과" target="_blank" style="background:var(--teal);color:white;padding:10px 24px;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;">Google 지도에서 직접 검색 →</a>
+  <div style="margin-top:14px;font-size:0.75rem;color:#aaa;text-align:center;">
+    ※ 지도 데이터: 카카오맵 | 병원 정보는 공개 정보 기반 | 영수증 후기 남기면 인증 마크 표시
   </div>
 </section>
 
@@ -2580,7 +2559,7 @@ function switchAuthTab(mode) {
 }
 
 // ── 카카오 로그인 ──
-const KAKAO_JS_KEY = 'YOUR_JAVASCRIPT_KEY'; // '7b2f4039cdde1932a6561e5db271de37';
+const KAKAO_JS_KEY = '7b2f4039cdde1932a6561e5db271de37'; // '7b2f4039cdde1932a6561e5db271de37';
 
 // ── 카카오 초기화 (페이지 로드 시 바로 실행) ──
 (function() {
@@ -4326,6 +4305,156 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   navigate('home');
   history.replaceState({ page: 'home' }, '', location.pathname);
+});
+</script>
+
+<!-- 카카오맵 JS -->
+<script>
+var KAKAO_MAP_KEY = '7b2f4039cdde1932a6561e5db271de37'; // ← 여기에 JavaScript 키
+
+// 전국 주요 탈모 병원 데이터
+var HAIR_HOSPITALS = [
+  // 서울 강남
+  {name:'모제림성형외과', addr:'서울 강남구 논현로 842', lat:37.5221, lng:127.0291, type:'hair', tel:'1600-5827', spec:'모발이식 전문'},
+  {name:'닥터원성형외과', addr:'서울 강남구 강남대로 476', lat:37.5044, lng:127.0245, type:'hair', tel:'02-512-1110', spec:'모발이식 전문'},
+  {name:'디에이치성형외과', addr:'서울 강남구 역삼로 175', lat:37.5016, lng:127.0373, type:'hair', tel:'02-555-9007', spec:'모발이식'},
+  {name:'강남 모발이식센터', addr:'서울 강남구 테헤란로 151', lat:37.5001, lng:127.0368, type:'hair', tel:'02-501-7575', spec:'탈모 전문'},
+  {name:'리쥬란피부과 강남', addr:'서울 강남구 강남대로 390', lat:37.5056, lng:127.0240, type:'clinic', tel:'02-543-1600', spec:'두피·탈모'},
+  // 서울 기타
+  {name:'압구정 탈모피부과', addr:'서울 강남구 압구정로 46길 47', lat:37.5270, lng:127.0277, type:'clinic', tel:'02-3444-5050', spec:'탈모 전문'},
+  {name:'서울탈모클리닉', addr:'서울 마포구 양화로 161', lat:37.5565, lng:126.9213, type:'clinic', tel:'02-334-7979', spec:'탈모·두피'},
+  {name:'모리한의원 홍대', addr:'서울 마포구 와우산로 21', lat:37.5534, lng:126.9245, type:'oriental', tel:'02-322-3900', spec:'탈모 한방'},
+  {name:'경희탈모한의원 강남', addr:'서울 서초구 강남대로 479', lat:37.5012, lng:127.0261, type:'oriental', tel:'02-595-0075', spec:'한방 탈모'},
+  {name:'웰빙한의원 신촌', addr:'서울 서대문구 신촌로 95', lat:37.5589, lng:126.9366, type:'oriental', tel:'02-364-7577', spec:'한방 탈모'},
+  // 경기·인천
+  {name:'분당 탈모피부과', addr:'경기 성남시 분당구 황새울로 360', lat:37.3840, lng:127.1219, type:'clinic', tel:'031-715-5757', spec:'탈모·두피'},
+  {name:'수원 모발이식센터', addr:'경기 수원시 팔달구 인계로 178', lat:37.2636, lng:127.0286, type:'hair', tel:'031-222-7575', spec:'모발이식'},
+  {name:'인천 탈모클리닉', addr:'인천 남동구 인주대로 570', lat:37.4565, lng:126.7321, type:'clinic', tel:'032-466-5500', spec:'탈모 전문'},
+  // 부산
+  {name:'부산모발이식센터', addr:'부산 부산진구 서면로 68', lat:35.1578, lng:129.0597, type:'hair', tel:'051-806-8282', spec:'모발이식'},
+  {name:'서면 탈모한의원', addr:'부산 부산진구 중앙대로 672', lat:35.1580, lng:129.0590, type:'oriental', tel:'051-808-7700', spec:'한방 탈모'},
+  {name:'해운대 두피케어', addr:'부산 해운대구 해운대로 611', lat:35.1631, lng:129.1635, type:'clinic', tel:'051-746-5000', spec:'두피·탈모'},
+  // 대구
+  {name:'대구 탈모피부과', addr:'대구 중구 동성로 2길 21', lat:35.8714, lng:128.5965, type:'clinic', tel:'053-422-5500', spec:'탈모 전문'},
+  {name:'수성 모발이식', addr:'대구 수성구 범어로 98', lat:35.8596, lng:128.6308, type:'hair', tel:'053-766-7700', spec:'모발이식'},
+  // 광주
+  {name:'광주 탈모클리닉', addr:'광주 서구 상무대로 980', lat:35.1521, lng:126.8516, type:'clinic', tel:'062-374-5757', spec:'탈모·두피'},
+  {name:'광주 탈모한의원', addr:'광주 동구 제봉로 96', lat:35.1468, lng:126.9201, type:'oriental', tel:'062-222-3399', spec:'한방 탈모'},
+  // 대전
+  {name:'대전 모발이식센터', addr:'대전 서구 둔산로 100', lat:36.3513, lng:127.3868, type:'hair', tel:'042-484-5500', spec:'모발이식'},
+  // 목포
+  {name:'목포 탈모피부과', addr:'전남 목포시 영산로 61', lat:34.8118, lng:126.3922, type:'clinic', tel:'061-285-5500', spec:'탈모·두피'},
+  {name:'목포 한방탈모', addr:'전남 목포시 삼학로 97', lat:34.8094, lng:126.3884, type:'oriental', tel:'061-244-3399', spec:'한방 탈모'},
+];
+
+var kakaoMapObj = null;
+var allMarkers = [];
+var currentFilter = 'all';
+
+var markerColors = {
+  hair:     '#c84b2f',
+  clinic:   '#2a6b6e',
+  oriental: '#2a7a4b'
+};
+
+var typeLabel = {
+  hair:     '💈 모발이식',
+  clinic:   '🏥 피부과',
+  oriental: '🌿 한의원'
+};
+
+function initKakaoMap() {
+  var container = document.getElementById('kakaoMap');
+  if (!container || !window.kakao || !kakao.maps) return;
+
+  var options = {
+    center: new kakao.maps.LatLng(36.5, 127.5),
+    level: 13
+  };
+  kakaoMapObj = new kakao.maps.Map(container, options);
+
+  // 마커 생성
+  HAIR_HOSPITALS.forEach(function(h, i) {
+    var pos = new kakao.maps.LatLng(h.lat, h.lng);
+
+    // 커스텀 마커 이미지
+    var markerColor = markerColors[h.type] || '#2a6b6e';
+    var markerContent = '<div style="background:'+markerColor+';color:white;padding:5px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-family:Noto Sans KR,sans-serif;">'
+      + (h.type==='hair'?'💈':h.type==='oriental'?'🌿':'🏥') + ' ' + h.name + '</div>';
+
+    var customOverlay = new kakao.maps.CustomOverlay({
+      position: pos,
+      content: markerContent,
+      yAnchor: 1.3
+    });
+    customOverlay.setMap(kakaoMapObj);
+    customOverlay._type = h.type;
+    customOverlay._data = h;
+    allMarkers.push(customOverlay);
+
+    // 클릭 이벤트
+    var el = document.createElement('div');
+    el.innerHTML = markerContent;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function() { showHospitalInfo(h); });
+  });
+
+  renderHospitalList(HAIR_HOSPITALS);
+}
+
+function showHospitalInfo(h) {
+  kakaoMapObj.setCenter(new kakao.maps.LatLng(h.lat, h.lng));
+  kakaoMapObj.setLevel(5);
+  alert('🏥 ' + h.name + '\n📍 ' + h.addr + '\n📞 ' + h.tel + '\n🔬 ' + h.spec);
+}
+
+function filterMap(type) {
+  currentFilter = type;
+  // 버튼 스타일
+  ['All','Clinic','Oriental','Hair'].forEach(function(t) {
+    var btn = document.getElementById('filter'+t);
+    if(!btn) return;
+    var active = (type === t.toLowerCase()) || (t==='All' && type==='all');
+    btn.style.background = active ? 'var(--teal)' : 'white';
+    btn.style.color = active ? 'white' : '#666';
+    btn.style.borderColor = active ? 'var(--teal)' : 'var(--line)';
+    btn.style.fontWeight = active ? '700' : '400';
+  });
+
+  var filtered = type === 'all' ? HAIR_HOSPITALS
+    : HAIR_HOSPITALS.filter(function(h){ return h.type === type; });
+
+  renderHospitalList(filtered);
+
+  // 지도 범위 조정
+  if (kakaoMapObj && filtered.length > 0) {
+    var bounds = new kakao.maps.LatLngBounds();
+    filtered.forEach(function(h){ bounds.extend(new kakao.maps.LatLng(h.lat, h.lng)); });
+    kakaoMapObj.setBounds(bounds);
+  }
+}
+
+function renderHospitalList(list) {
+  var el = document.getElementById('hospitalList');
+  if (!el) return;
+  el.innerHTML = list.map(function(h) {
+    return '<div style="background:white;border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;" onclick="kakaoMapObj&&kakaoMapObj.setCenter(new kakao.maps.LatLng('+h.lat+','+h.lng+'));kakaoMapObj&&kakaoMapObj.setLevel(5);">'
+      +'<div style="font-weight:700;font-size:0.9rem;margin-bottom:4px;">'+(h.type==='hair'?'💈':h.type==='oriental'?'🌿':'🏥')+' '+h.name+'</div>'
+      +'<div style="font-size:0.78rem;color:#aaa;margin-bottom:4px;">📍 '+h.addr+'</div>'
+      +'<div style="font-size:0.78rem;color:var(--teal);font-weight:600;">'+h.spec+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+// 카카오맵 SDK 로드 완료 후 초기화
+window.kakaoMapInit = initKakaoMap;
+document.addEventListener('DOMContentLoaded', function() {
+  var check = setInterval(function() {
+    if (window.kakao && kakao.maps) {
+      clearInterval(check);
+      initKakaoMap();
+    }
+  }, 300);
 });
 </script>
 
