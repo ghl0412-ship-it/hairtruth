@@ -2590,65 +2590,31 @@ function initKakao() {
 function kakaoLogin() {
   initKakao();
   if (!window.Kakao) {
-    alert('카카오 SDK 로딩 중입니다. 잠시 후 다시 시도해주세요.');
+    alert('카카오 SDK를 불러오는 중이에요. 잠시 후 다시 눌러주세요!');
     return;
   }
-  Kakao.Auth.login({
-    success: function(authObj) {
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: function(res) {
-          var kakaoId   = res.id;
-          var nickname  = res.kakao_account && res.kakao_account.profile
-                          ? res.kakao_account.profile.nickname : '카카오유저';
-          var email     = res.kakao_account && res.kakao_account.email
-                          ? res.kakao_account.email : 'kakao_' + kakaoId + '@kakao.com';
-          var profileImg = res.kakao_account && res.kakao_account.profile
-                          ? res.kakao_account.profile.profile_image_url : '';
-
-          // 기존 유저 확인 or 신규 등록
-          var users = getUsers();
-          var existing = users.find(function(u) {
-            return u.kakaoId === String(kakaoId) || u.email === email;
-          });
-
-          if (existing) {
-            // 기존 회원 로그인
-            setSession({ id: existing.id, name: existing.name, email: existing.email, gender: existing.gender || '', region: existing.region || '', profileImg: profileImg });
-          } else {
-            // 신규 회원 자동 가입
-            var newUser = {
-              id: Date.now(),
-              kakaoId: String(kakaoId),
-              name: nickname,
-              email: email,
-              pw: '',
-              gender: '',
-              region: '',
-              profileImg: profileImg,
-              joinDate: new Date().toLocaleDateString('ko-KR'),
-              loginType: 'kakao'
-            };
-            users.push(newUser);
-            localStorage.setItem(USERS_KEY, JSON.stringify(users));
-            setSession({ id: newUser.id, name: nickname, email: email, gender: '', region: '', profileImg: profileImg });
+  try {
+    Kakao.Auth.login({
+      throughTalk: false,
+      success: function(authObj) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function(res) { processKakaoUser(res); },
+          fail: function(err) {
+            console.error('사용자 정보 오류:', err);
+            alert('사용자 정보를 가져오지 못했어요. 다시 시도해주세요.');
           }
-
-          closeModal('authModal');
-          showAuthMsg('success', '🎉 카카오 로그인 완료! 환영해요, ' + nickname + '님!');
-          setTimeout(function() { updateNavUI(); }, 300);
-        },
-        fail: function(err) {
-          console.error('카카오 사용자 정보 오류:', err);
-          alert('사용자 정보를 가져오지 못했어요. 다시 시도해주세요.');
-        }
-      });
-    },
-    fail: function(err) {
-      console.error('카카오 로그인 오류:', err);
-      alert('카카오 로그인에 실패했어요. 다시 시도해주세요.');
-    }
-  });
+        });
+      },
+      fail: function(err) {
+        console.error('로그인 오류:', err);
+        alert('카카오 로그인에 실패했어요.\n팝업이 차단됐을 수 있어요!\n브라우저 팝업 허용 후 다시 시도해주세요.');
+      }
+    });
+  } catch(e) {
+    console.error('Kakao 오류:', e);
+    alert('카카오 로그인 오류: ' + e.message);
+  }
 }
 
 function doLogin() {
@@ -4192,6 +4158,87 @@ function renderTimeline() {
 }
 
 document.addEventListener('DOMContentLoaded', function() { renderTimeline(); });
+
+// ── 카카오 로그인 리다이렉트 처리 ──
+document.addEventListener('DOMContentLoaded', function() {
+  initKakao();
+  var params = new URLSearchParams(location.search);
+  var code = params.get('code');
+  if (!code) return;
+
+  // URL에서 code 파라미터 제거
+  history.replaceState({}, '', location.pathname);
+
+  // 카카오 토큰 교환 → 사용자 정보 가져오기
+  Kakao.Auth.setAccessToken && Kakao.Auth.getStatusInfo(function(statusObj) {
+    if (statusObj.status === 'connected') {
+      Kakao.API.request({
+        url: '/v2/user/me',
+        success: function(res) {
+          processKakaoUser(res);
+        },
+        fail: function() { fetchKakaoUserWithCode(code); }
+      });
+    } else {
+      fetchKakaoUserWithCode(code);
+    }
+  });
+});
+
+function fetchKakaoUserWithCode(code) {
+  // code를 이용해 액세스 토큰 발급 (서버 없이는 제한적)
+  // 임시: 카카오 팝업 재시도 안내
+  if (code) {
+    // SDK authorize 방식에서는 code를 서버에서 처리해야 함
+    // GitHub Pages(서버 없음) 환경에서는 JS SDK 팝업 방식 사용
+    initKakao();
+    Kakao.Auth.login({
+      throughTalk: false,
+      success: function(authObj) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function(res) { processKakaoUser(res); },
+          fail: function(e) { console.error(e); }
+        });
+      },
+      fail: function(e) { console.error('카카오 로그인 실패:', e); }
+    });
+  }
+}
+
+function processKakaoUser(res) {
+  var kakaoId    = res.id;
+  var nickname   = res.kakao_account && res.kakao_account.profile
+                   ? res.kakao_account.profile.nickname : '카카오유저';
+  var email      = res.kakao_account && res.kakao_account.email
+                   ? res.kakao_account.email : 'kakao_' + kakaoId + '@kakao.com';
+  var profileImg = res.kakao_account && res.kakao_account.profile
+                   ? res.kakao_account.profile.profile_image_url : '';
+
+  var users    = getUsers();
+  var existing = users.find(function(u) {
+    return u.kakaoId === String(kakaoId) || u.email === email;
+  });
+
+  if (existing) {
+    setSession({ id: existing.id, name: existing.name, email: existing.email,
+                 gender: existing.gender || '', region: existing.region || '',
+                 profileImg: profileImg });
+  } else {
+    var newUser = {
+      id: Date.now(), kakaoId: String(kakaoId), name: nickname,
+      email: email, pw: '', gender: '', region: '',
+      profileImg: profileImg,
+      joinDate: new Date().toLocaleDateString('ko-KR'), loginType: 'kakao'
+    };
+    users.push(newUser);
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    setSession({ id: newUser.id, name: nickname, email: email,
+                 gender: '', region: '', profileImg: profileImg });
+  }
+  updateNavUI();
+  alert('🎉 카카오 로그인 완료! 환영해요, ' + nickname + '님!');
+}
 </script>
 
 
