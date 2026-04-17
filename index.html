@@ -448,6 +448,31 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <div class="trust-item">📊 비급여 가격 실시간 집계</div>
 </div>
 
+<!-- MAP - 카카오맵 기반 -->
+<section class="map-section" id="mapSection" style="padding:60px 5%;">
+  <div class="section-label">내 주변 탈모 병원</div>
+  <div class="section-title">전국 주요 탈모 병원 지도</div>
+  <div class="section-sub">카카오맵 기반 · 실제 위치 확인 가능 · 영수증 후기 병원 표시</div>
+
+  <!-- 필터 버튼 -->
+  <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;">
+    <button onclick="filterMap('all')" id="filterAll" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--teal);background:var(--teal);color:white;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;">전체</button>
+    <button onclick="filterMap('clinic')" id="filterClinic" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🏥 피부과·클리닉</button>
+    <button onclick="filterMap('oriental')" id="filterOriental" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🌿 한의원</button>
+    <button onclick="filterMap('hair')" id="filterHair" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">💈 모발이식 전문</button>
+  </div>
+
+  <!-- 카카오맵 -->
+  <div id="kakaoMap" style="width:100%;height:460px;border-radius:16px;border:1px solid var(--line);overflow:hidden;"></div>
+
+  <!-- 병원 목록 -->
+  <div id="hospitalList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:20px;"></div>
+
+  <div style="margin-top:14px;font-size:0.75rem;color:#aaa;text-align:center;">
+    ※ 지도 데이터: 카카오맵 | 병원 정보는 공개 정보 기반 | 영수증 후기 남기면 인증 마크 표시
+  </div>
+</section>
+
 </div><!-- /page-home -->
 
 <!-- 병원찾기 PAGE -->
@@ -1141,31 +1166,6 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   .footer-grid{grid-template-columns:1fr!important;}
 }
 </style>
-
-<!-- MAP - 카카오맵 기반 -->
-<section class="map-section" id="mapSection" style="padding:60px 5%;">
-  <div class="section-label">내 주변 탈모 병원</div>
-  <div class="section-title">전국 주요 탈모 병원 지도</div>
-  <div class="section-sub">카카오맵 기반 · 실제 위치 확인 가능 · 영수증 후기 병원 표시</div>
-
-  <!-- 필터 버튼 -->
-  <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;">
-    <button onclick="filterMap('all')" id="filterAll" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--teal);background:var(--teal);color:white;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;">전체</button>
-    <button onclick="filterMap('clinic')" id="filterClinic" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🏥 피부과·클리닉</button>
-    <button onclick="filterMap('oriental')" id="filterOriental" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">🌿 한의원</button>
-    <button onclick="filterMap('hair')" id="filterHair" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--line);background:white;color:#666;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;cursor:pointer;">💈 모발이식 전문</button>
-  </div>
-
-  <!-- 카카오맵 -->
-  <div id="kakaoMap" style="width:100%;height:460px;border-radius:16px;border:1px solid var(--line);overflow:hidden;"></div>
-
-  <!-- 병원 목록 -->
-  <div id="hospitalList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:20px;"></div>
-
-  <div style="margin-top:14px;font-size:0.75rem;color:#aaa;text-align:center;">
-    ※ 지도 데이터: 카카오맵 | 병원 정보는 공개 정보 기반 | 영수증 후기 남기면 인증 마크 표시
-  </div>
-</section>
 
 <!-- 블로그 연동 섹션 -->
 <section style="background:var(--white);padding:70px 5%;" id="blog">
