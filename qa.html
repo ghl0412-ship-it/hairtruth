@@ -395,15 +395,156 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 <section class="qa-section" id="qa">
   <div class="section-label">커뮤니티 Q&A</div>
   <div class="section-title">궁금한 점을 물어보세요</div>
-  <div class="section-sub">실제 치료 경험자들이 직접 답변하는 Q&A 게시판입니다. 병원 선택부터 치료 후 관리까지 솔직한 정보를 공유합니다.</div>
-  <div class="qa-grid">
-    <div class="qa-card"><div class="qa-top"><span class="qa-cat">모발이식</span><span class="qa-ans">✓ 답변 12건</span></div><div class="qa-q">비절개 vs 절개 모발이식, 어떤 걸 선택해야 할까요? 가격 차이가 꽤 크던데요.</div><div class="qa-p">비절개는 흉터가 작고 회복이 빠르지만 가격이 30~40% 더 높습니다. 모량이 충분하다면 비절개를 권장하는 추세이나...</div><div class="qa-foot"><span class="qa-meta">24분 전 · 경험자 답변</span><span class="qa-votes">👍 34</span></div></div>
-    <div class="qa-card"><div class="qa-top"><span class="qa-cat">비용·가격</span><span class="qa-ans">✓ 답변 8건</span></div><div class="qa-q">모발이식 상담 갔더니 견적이 인터넷 가격의 2배였어요. 이게 정상인가요?</div><div class="qa-p">병원마다 가격 차이가 큽니다. 헤어트루스 비급여 가격 데이터 기준으로는 1,000모당 160~280만원이며 영수증 인증 후기에서 실제 지불 금액을 확인하시면...</div><div class="qa-foot"><span class="qa-meta">2시간 전 · 영수증 인증 회원</span><span class="qa-votes">👍 51</span></div></div>
-    <div class="qa-card"><div class="qa-top"><span class="qa-cat">여성 탈모</span><span class="qa-ans">✓ 답변 6건</span></div><div class="qa-q">산후 탈모인데 PRP 주사가 효과가 있나요? 몇 회 정도 받아야 할까요?</div><div class="qa-p">산후 탈모는 일반적으로 호르몬이 안정되면 자연 회복되지만, PRP가 회복 속도를 높이는 데 도움이 됩니다. 보통 3~4회 패키지를...</div><div class="qa-foot"><span class="qa-meta">어제 · 영수증 인증 회원</span><span class="qa-votes">👍 28</span></div></div>
-    <div class="qa-card"><div class="qa-top"><span class="qa-cat">약물치료</span><span class="qa-ans">✓ 답변 15건</span></div><div class="qa-q">피나스테리드 복용 중인데 효과가 없는 것 같아요. 얼마나 기다려야 하나요?</div><div class="qa-p">최소 6개월, 충분한 판단은 12개월 복용 후 평가하기를 권장합니다. 3~4개월 시점에는 오히려 초기 탈락이 증가하는 경우도 있어...</div><div class="qa-foot"><span class="qa-meta">3일 전 · 경험자 답변</span><span class="qa-votes">👍 67</span></div></div>
+  <div class="section-sub">탈모 치료 경험자들이 직접 답변하는 Q&A 게시판입니다. 병원 선택부터 치료 후 관리까지 솔직한 정보를 공유합니다.</div>
+
+  <!-- 질문 작성 양식 -->
+  <div style="background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;border-radius:16px;padding:28px;margin-bottom:24px;">
+
+    <!-- 카테고리 선택 -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:0.8rem;color:#888;margin-bottom:8px;font-weight:600;">카테고리 선택</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;" id="qaCatBtns">
+        <button onclick="selectQaCat(this,'모발이식')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">모발이식</button>
+        <button onclick="selectQaCat(this,'비용·가격')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">비용·가격</button>
+        <button onclick="selectQaCat(this,'약물치료')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">약물치료</button>
+        <button onclick="selectQaCat(this,'두피관리')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">두피관리</button>
+        <button onclick="selectQaCat(this,'한방치료')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">한방치료</button>
+        <button onclick="selectQaCat(this,'여성탈모')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">여성탈모</button>
+        <button onclick="selectQaCat(this,'기타')" style="padding:6px 14px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;font-family:'Noto Sans KR',sans-serif;font-size:0.78rem;cursor:pointer;">기타</button>
+      </div>
+      <input type="hidden" id="qaSelectedCat" value="">
+    </div>
+
+    <!-- 제목 입력 -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:0.8rem;color:#888;margin-bottom:6px;font-weight:600;">질문 제목</div>
+      <input type="text" id="qaTitle" maxlength="60"
+        placeholder="예) 피나스테리드 6개월째인데 효과가 없어요. 두타스테리드로 바꿔야 할까요?"
+        style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid #333;border-radius:8px;color:var(--cream);font-family:'Noto Sans KR',sans-serif;font-size:0.88rem;box-sizing:border-box;"
+        oninput="document.getElementById('qaTitleCount').textContent=this.value.length">
+      <div style="font-size:0.72rem;color:#555;text-align:right;margin-top:4px;"><span id="qaTitleCount">0</span>/60자</div>
+    </div>
+
+    <!-- 본문 입력 -->
+    <div style="margin-bottom:18px;">
+      <div style="font-size:0.8rem;color:#888;margin-bottom:6px;font-weight:600;">질문 내용</div>
+      <textarea id="qaContent" maxlength="500" rows="5"
+        placeholder="예) 현재 피나스테리드 1mg을 6개월째 복용 중입니다.&#10;처음 3개월은 탈락이 줄었는데 요즘 다시 빠지는 것 같아요.&#10;두타스테리드로 바꾸면 효과가 있을까요?&#10;병원 처방 비용도 궁금합니다."
+        style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);border:1px solid #333;border-radius:8px;color:var(--cream);font-family:'Noto Sans KR',sans-serif;font-size:0.88rem;line-height:1.7;resize:vertical;box-sizing:border-box;"
+        oninput="document.getElementById('qaContentCount').textContent=this.value.length"></textarea>
+      <div style="font-size:0.72rem;color:#555;text-align:right;margin-top:4px;"><span id="qaContentCount">0</span>/500자</div>
+    </div>
+
+    <!-- 작성 팁 -->
+    <div style="background:rgba(42,107,110,0.1);border:1px solid rgba(42,107,110,0.25);border-radius:8px;padding:12px 16px;margin-bottom:18px;">
+      <div style="font-size:0.78rem;color:#7ab8bb;line-height:1.8;">
+        <span style="font-weight:700;color:var(--teal);">작성 팁</span><br>
+        · 현재 복용 중인 약·치료 방법을 함께 적으면 더 정확한 답변을 받을 수 있어요<br>
+        · 병원 방문 후 영수증 후기도 남겨주시면 다른 분들에게 큰 도움이 돼요
+      </div>
+    </div>
+
+    <!-- 제출 버튼 -->
+    <button onclick="submitQa()" class="qa-write" style="font-size:0.9rem;font-weight:700;padding:14px;">
+      질문 등록하기 (로그인 필요)
+    </button>
   </div>
-  <button class="qa-write" onclick="handleNavAuth()">✏️ 질문 작성하기 (로그인 필요)</button>
+
+  <!-- 등록된 질문 목록 -->
+  <div id="qaList" style="margin-top:8px;"></div>
+
 </section>
+
+<script>
+var selectedQaCat = '';
+
+function selectQaCat(btn, cat) {
+  selectedQaCat = cat;
+  document.getElementById('qaSelectedCat').value = cat;
+  document.querySelectorAll('#qaCatBtns button').forEach(function(b) {
+    b.style.background = 'transparent';
+    b.style.color = '#888';
+    b.style.borderColor = '#333';
+    b.style.fontWeight = '400';
+  });
+  btn.style.background = 'var(--teal)';
+  btn.style.color = 'white';
+  btn.style.borderColor = 'var(--teal)';
+  btn.style.fontWeight = '700';
+}
+
+function submitQa() {
+  var user = getCurrentUser ? getCurrentUser() : null;
+  if (!user) {
+    alert('로그인 후 질문을 작성할 수 있어요!');
+    if (document.getElementById('authModal')) openAuthModal('login');
+    return;
+  }
+  var cat   = selectedQaCat;
+  var title = document.getElementById('qaTitle').value.trim();
+  var body  = document.getElementById('qaContent').value.trim();
+
+  if (!cat)   { alert('카테고리를 선택해주세요!'); return; }
+  if (!title) { alert('질문 제목을 입력해주세요!'); return; }
+  if (!body)  { alert('질문 내용을 입력해주세요!'); return; }
+
+  // localStorage 저장
+  var QA_KEY = 'hairtruth_qa';
+  var qas = [];
+  try { qas = JSON.parse(localStorage.getItem(QA_KEY) || '[]'); } catch(e) {}
+  var newQa = {
+    id: Date.now(),
+    cat: cat,
+    title: title,
+    body: body,
+    author: user.name,
+    date: new Date().toLocaleDateString('ko-KR'),
+    votes: 0
+  };
+  qas.unshift(newQa);
+  localStorage.setItem(QA_KEY, JSON.stringify(qas));
+
+  // 폼 초기화
+  document.getElementById('qaTitle').value = '';
+  document.getElementById('qaContent').value = '';
+  document.getElementById('qaTitleCount').textContent = '0';
+  document.getElementById('qaContentCount').textContent = '0';
+  document.querySelectorAll('#qaCatBtns button').forEach(function(b) {
+    b.style.background = 'transparent';
+    b.style.color = '#888';
+    b.style.borderColor = '#333';
+    b.style.fontWeight = '400';
+  });
+  selectedQaCat = '';
+
+  alert('질문이 등록됐어요! 다른 분들이 답변해드릴 거예요 :)');
+  renderQaList();
+}
+
+function renderQaList() {
+  var QA_KEY = 'hairtruth_qa';
+  var el = document.getElementById('qaList');
+  if (!el) return;
+  var qas = [];
+  try { qas = JSON.parse(localStorage.getItem(QA_KEY) || '[]'); } catch(e) {}
+  if (qas.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:40px 0;color:#555;font-size:0.88rem;">아직 등록된 질문이 없어요.<br>첫 번째 질문을 남겨보세요!</div>';
+    return;
+  }
+  el.innerHTML = qas.map(function(q) {
+    return '<div style="background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin-bottom:12px;">'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
+      + '<span style="background:var(--teal);color:white;padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;">'+q.cat+'</span>'
+      + '<span style="font-size:0.75rem;color:#555;">'+q.date+' · '+q.author+'</span>'
+      + '</div>'
+      + '<div style="font-size:0.95rem;font-weight:700;color:var(--cream);margin-bottom:8px;">'+q.title+'</div>'
+      + '<div style="font-size:0.84rem;color:#888;line-height:1.7;">'+q.body.replace(/\n/g,'<br>')+'</div>'
+      + '</div>';
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', renderQaList);
+</script>
 
 <footer>
   <div class="footer-grid">
