@@ -349,6 +349,40 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 @media(max-width:600px){
   .footer-grid{grid-template-columns:1fr;}
   .trust-bar{gap:18px;}
+
+  /* 모바일 로그인 모달 최적화 */
+  .modal-overlay{padding:0;align-items:flex-end;}
+  .auth-modal{
+    max-width:100%;
+    border-radius:20px 20px 0 0;
+    max-height:92vh;
+  }
+  .auth-header{padding:24px 20px 0;}
+  .auth-body{padding:20px 20px 32px;}
+  .auth-form{gap:12px;}
+  .form-group input{
+    padding:14px;
+    font-size:1rem;
+  }
+  .auth-submit{
+    padding:15px;
+    font-size:1rem;
+  }
+
+  /* 모바일 병원 목록 - 가로 스크롤 */
+  #hospitalList{
+    display:flex !important;
+    flex-direction:row !important;
+    overflow-x:auto !important;
+    gap:10px !important;
+    padding-bottom:12px !important;
+    scrollbar-width:thin;
+    -webkit-overflow-scrolling:touch;
+  }
+  #hospitalList > div{
+    min-width:220px !important;
+    flex-shrink:0 !important;
+  }
 }
 
 /* ── SPA 라우터 ── */
