@@ -349,6 +349,9 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
 .ht-page-fade { animation: htFadeIn 0.25s ease; }
 @keyframes htFadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
+/* 독립 페이지 - ht-page 숨김 해제 */
+body > .ht-page, section, .search-section, .hospitals-section { display: block !important; }
+
 /* 후기 상세 페이지 */
 .review-detail-wrap { max-width: 720px; margin: 0 auto; padding: 40px 5%; }
 .review-detail-card { background: var(--white); border-radius: 16px; padding: 32px; border: 1px solid var(--line); }
@@ -531,9 +534,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     </button>
   </div>
 
-  <div class="hospital-grid" id="instGrid">
-    <!-- 실제 후기 데이터 JS로 렌더링 -->
-  </div>
+  <div class="hospital-grid" id="instGrid"></div>
 
   <!-- 빈 상태 UI -->
   <div id="emptyState" style="text-align:center;padding:60px 20px;background:var(--white);border:2px dashed var(--line);border-radius:16px;margin-top:16px;display:none;">
@@ -929,8 +930,8 @@ function renderHospitals() {
   if (filtered.length === 0) {
     grid.innerHTML = currentFilter.favOnly
       ? '<div style="text-align:center;padding:60px 20px;border:2px dashed var(--line);border-radius:16px;"><div style="font-size:3rem;margin-bottom:12px;">♡</div><div style="font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px;">즐겨찾기한 병원이 없어요</div><div style="font-size:0.85rem;color:var(--mid);">병원 카드의 하트 버튼을 눌러 저장해보세요!</div></div>'
-      : '';
-    if (empty && !currentFilter.favOnly) empty.style.display = 'block';
+      : '<div style="text-align:center;padding:60px 20px;"><div style="font-size:2.5rem;margin-bottom:12px;">🔍</div><div style="font-size:1rem;font-weight:700;color:var(--ink);">검색 결과가 없어요</div><div style="font-size:0.85rem;color:var(--mid);margin-top:6px;">다른 키워드로 검색해보세요</div></div>';
+    if (empty) empty.style.display = 'none';
     return;
   }
   if (empty) empty.style.display = 'none';
