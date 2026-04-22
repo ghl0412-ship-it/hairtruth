@@ -522,15 +522,13 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   </div>
 
   <div class="filter-bar" style="margin-top:16px">
-    <button class="filter-chip active">전체 지역</button>
-    <button class="filter-chip">서울</button>
-    <button class="filter-chip">경기</button>
-    <button class="filter-chip">부산</button>
+    <button class="filter-chip active">전체</button>
     <button class="filter-chip">모발이식</button>
-    <button class="filter-chip">한방치료</button>
-    <button class="filter-chip">레이저</button>
-    <button class="filter-chip">줄기세포</button>
-    <select class="sort-select"><option>인증 후기 많은 순</option><option>평점 높은 순</option><option>가격 낮은 순</option><option>최근 후기 순</option></select>
+    <button class="filter-chip">피부과</button>
+    <button class="filter-chip">한의원</button>
+    <button id="favFilterBtn" onclick="toggleFavFilter(this)" class="filter-chip" style="display:flex;align-items:center;gap:5px;">
+      <span>♡</span> 즐겨찾기
+    </button>
   </div>
 
   <div class="hospital-grid" id="instGrid">
@@ -849,24 +847,203 @@ window.addEventListener('scroll',function(){
 </script>
 <script src="shared.js"></script>
 <script>
-// 병원 찾기 페이지 - 필터 칩
+// ── 전국 탈모 병원 데이터 ──
+var HOSP_DATA = [
+  {name:'맥스웰피부과 강남', addr:'서울 강남구 강남대로 476', region:'서울', type:'clinic', spec:'탈모치료 전문 20년', tel:'02-512-1110'},
+  {name:'모아이의원', addr:'서울 강남구 테헤란로 151', region:'서울', type:'clinic', spec:'모발이식·두피문신 전문', tel:'02-501-7575'},
+  {name:'모나라피부과', addr:'서울 강남구 압구정로 46길 47', region:'서울', type:'hair', spec:'모발이식 전문', tel:'02-8282-8282'},
+  {name:'모제림성형외과', addr:'서울 강남구 논현로 842', region:'서울', type:'hair', spec:'모발이식 전문', tel:'1600-5827'},
+  {name:'포헤어의원 압구정', addr:'서울 강남구 압구정로 50길 32', region:'서울', type:'hair', spec:'비절개 모발이식', tel:'02-546-3333'},
+  {name:'DA클리닉 강남', addr:'서울 강남구 역삼로 175', region:'서울', type:'hair', spec:'모발이식 전문', tel:'02-555-9007'},
+  {name:'맥스웰피부과 홍대', addr:'서울 마포구 양화로 161', region:'서울', type:'clinic', spec:'탈모치료 전문', tel:'02-334-8110'},
+  {name:'모리한의원 홍대', addr:'서울 마포구 와우산로 21', region:'서울', type:'oriental', spec:'한방 탈모 전문', tel:'02-322-3900'},
+  {name:'이마반의원 홍대', addr:'서울 마포구 홍익로 6길 10', region:'서울', type:'clinic', spec:'탈모·두피 전문', tel:'02-338-5577'},
+  {name:'포헤어의원 신촌', addr:'서울 서대문구 이화여대길 52', region:'서울', type:'hair', spec:'모발이식', tel:'02-365-3333'},
+  {name:'경희탈모한의원 강남', addr:'서울 서초구 강남대로 479', region:'서울', type:'oriental', spec:'한방 탈모 전문', tel:'02-595-0075'},
+  {name:'탈모119한의원 노원', addr:'서울 노원구 동일로 1560', region:'서울', type:'oriental', spec:'한방 탈모 전문', tel:'02-934-0119'},
+  {name:'글로리한의원 종로', addr:'서울 종로구 종로 104', region:'서울', type:'oriental', spec:'탈모 한방 치료', tel:'02-735-7575'},
+  {name:'분당 탈모피부과', addr:'경기 성남시 분당구 황새울로 360', region:'경기', type:'clinic', spec:'탈모·두피', tel:'031-715-5757'},
+  {name:'수원 모발이식센터', addr:'경기 수원시 팔달구 인계로 178', region:'경기', type:'hair', spec:'모발이식', tel:'031-222-7575'},
+  {name:'일산 탈모클리닉', addr:'경기 고양시 일산동구 중앙로 1305', region:'경기', type:'clinic', spec:'탈모 전문', tel:'031-906-5500'},
+  {name:'인천 탈모클리닉', addr:'인천 남동구 인주대로 570', region:'인천', type:'clinic', spec:'탈모 전문', tel:'032-466-5500'},
+  {name:'맥스웰피부과 부산', addr:'부산 부산진구 서면로 68', region:'부산', type:'clinic', spec:'탈모치료 전문 20년', tel:'051-806-8110'},
+  {name:'부산 모발이식센터', addr:'부산 해운대구 센텀서로 30', region:'부산', type:'hair', spec:'모발이식 전문', tel:'051-746-7575'},
+  {name:'서면 탈모한의원', addr:'부산 부산진구 중앙대로 672', region:'부산', type:'oriental', spec:'한방 탈모', tel:'051-808-7700'},
+  {name:'대구 탈모피부과', addr:'대구 중구 동성로 2길 21', region:'대구', type:'clinic', spec:'탈모 전문', tel:'053-422-5500'},
+  {name:'수성 모발이식', addr:'대구 수성구 범어로 98', region:'대구', type:'hair', spec:'모발이식', tel:'053-766-7700'},
+  {name:'광주 탈모클리닉', addr:'광주 서구 상무대로 980', region:'광주', type:'clinic', spec:'탈모·두피', tel:'062-374-5757'},
+  {name:'광주 탈모한의원', addr:'광주 동구 제봉로 96', region:'광주', type:'oriental', spec:'한방 탈모', tel:'062-222-3399'},
+  {name:'대전 모발이식센터', addr:'대전 서구 둔산로 100', region:'대전', type:'hair', spec:'모발이식', tel:'042-484-5500'},
+  {name:'목포 탈모피부과', addr:'전남 목포시 영산로 61', region:'전남', type:'clinic', spec:'탈모·두피', tel:'061-285-5500'},
+  {name:'목포 한방탈모', addr:'전남 목포시 삼학로 97', region:'전남', type:'oriental', spec:'한방 탈모', tel:'061-244-3399'},
+  {name:'전주 탈모피부과', addr:'전북 전주시 완산구 기린대로 99', region:'전북', type:'clinic', spec:'탈모 전문', tel:'063-255-5500'},
+  {name:'청주 탈모피부과', addr:'충북 청주시 서원구 사직대로 270', region:'충북', type:'clinic', spec:'탈모 전문', tel:'043-274-5500'},
+  {name:'천안 모발이식', addr:'충남 천안시 서북구 불당대로 173', region:'충남', type:'hair', spec:'모발이식', tel:'041-555-8800'},
+  {name:'춘천 탈모클리닉', addr:'강원 춘천시 중앙로 71', region:'강원', type:'clinic', spec:'탈모 전문', tel:'033-254-5500'},
+  {name:'포항 탈모피부과', addr:'경북 포항시 남구 중앙로 313', region:'경북', type:'clinic', spec:'탈모 전문', tel:'054-272-5500'},
+  {name:'창원 탈모피부과', addr:'경남 창원시 성산구 원이대로 406', region:'경남', type:'clinic', spec:'탈모 전문', tel:'055-282-5500'},
+  {name:'제주 탈모클리닉', addr:'제주 제주시 연동 281-1', region:'제주', type:'clinic', spec:'탈모·두피', tel:'064-745-5500'},
+];
+
+var typeLabel = { hair:'모발이식', clinic:'피부과·클리닉', oriental:'한의원' };
+var typeColor = { hair:'var(--accent)', clinic:'var(--teal)', oriental:GREEN_COLOR='#2a7a4b' };
+var currentFilter = { region:'', type:'', keyword:'', favOnly: false };
+var FAV_KEY = 'hairtruth_favorites';
+
+function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY)||'[]'); } catch(e){ return []; } }
+function isFav(name) { return getFavs().includes(name); }
+function toggleFav(name) {
+  var favs = getFavs();
+  var idx = favs.indexOf(name);
+  if (idx > -1) { favs.splice(idx, 1); }
+  else { favs.push(name); }
+  localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+  renderHospitals();
+}
+
+function renderHospitals() {
+  var grid = document.getElementById('instGrid');
+  var empty = document.getElementById('emptyState');
+  if (!grid) return;
+
+  // 영수증 후기 데이터 병합
+  var reviews = [];
+  try {
+    reviews = JSON.parse(localStorage.getItem('hairtruth_reviews') || '[]')
+      .filter(function(r){ return r.status === 'approved'; });
+  } catch(e){}
+
+  // 필터 적용
+  var kw = currentFilter.keyword.toLowerCase();
+  var favs = getFavs();
+  var filtered = HOSP_DATA.filter(function(h) {
+    var matchRegion = !currentFilter.region || h.region === currentFilter.region;
+    var matchType   = !currentFilter.type   || h.type   === currentFilter.type;
+    var matchKw     = !kw || h.name.toLowerCase().includes(kw)
+                          || h.addr.toLowerCase().includes(kw)
+                          || h.spec.toLowerCase().includes(kw);
+    var matchFav    = !currentFilter.favOnly || favs.includes(h.name);
+    return matchRegion && matchType && matchKw && matchFav;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = currentFilter.favOnly
+      ? '<div style="text-align:center;padding:60px 20px;border:2px dashed var(--line);border-radius:16px;"><div style="font-size:3rem;margin-bottom:12px;">♡</div><div style="font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px;">즐겨찾기한 병원이 없어요</div><div style="font-size:0.85rem;color:var(--mid);">병원 카드의 하트 버튼을 눌러 저장해보세요!</div></div>'
+      : '';
+    if (empty && !currentFilter.favOnly) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  grid.innerHTML = filtered.map(function(h) {
+    var hospReviews = reviews.filter(function(r){
+      return r.hospitalName && r.hospitalName.includes(h.name.slice(0,4));
+    });
+    var avgRating = hospReviews.length > 0
+      ? (hospReviews.reduce(function(s,r){ return s+(r.rating||0); }, 0) / hospReviews.length).toFixed(1)
+      : null;
+    var typeTag = typeLabel[h.type] || h.type;
+    var tagColor = h.type === 'hair' ? 'var(--accent)' : h.type === 'oriental' ? '#2a7a4b' : 'var(--teal)';
+    var faved = favs.includes(h.name);
+
+    return '<div class="inst-card" style="background:var(--white);border:1px solid '+(faved?'var(--accent)':'var(--line)')+';border-radius:14px;padding:20px;cursor:default;position:relative;">'
+      + '<button onclick="toggleFav(\''+h.name.replace(/'/g,"\\'")+'\')" title="즐겨찾기" style="position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;font-size:1.3rem;line-height:1;padding:0;">'
+      + (faved ? '<span style="color:var(--accent);">♥</span>' : '<span style="color:#ccc;">♡</span>')
+      + '</button>'
+      + '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;padding-right:32px;">'
+      + '<div>'
+      + '<span style="background:'+tagColor+';color:white;padding:3px 10px;border-radius:10px;font-size:0.72rem;font-weight:700;">'+typeTag+'</span>'
+      + (hospReviews.length > 0 ? '<span style="background:var(--verified-bg);color:var(--verified);padding:3px 10px;border-radius:10px;font-size:0.72rem;font-weight:600;margin-left:6px;">영수증 인증 '+hospReviews.length+'건</span>' : '')
+      + '</div>'
+      + (avgRating ? '<span style="font-size:0.85rem;font-weight:700;color:var(--gold);">★ '+avgRating+'</span>' : '')
+      + '</div>'
+      + '<div style="font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px;">'+h.name+'</div>'
+      + '<div style="font-size:0.8rem;color:#aaa;margin-bottom:8px;">📍 '+h.addr+'</div>'
+      + '<div style="font-size:0.78rem;color:var(--teal);font-weight:600;margin-bottom:12px;">'+h.spec+'</div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+      + '<a href="tel:'+h.tel+'" style="flex:1;text-align:center;background:var(--ink);color:var(--cream);padding:9px;border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;">전화</a>'
+      + '<button onclick="openReviewModal()" style="flex:1;background:var(--teal);color:white;border:none;padding:9px;border-radius:8px;cursor:pointer;font-family:\'Noto Sans KR\',sans-serif;font-size:0.8rem;font-weight:600;">후기 남기기</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  // 통계 업데이트
+  var statR = document.getElementById('statReviews');
+  var statH = document.getElementById('statHospitals');
+  if (statR) statR.innerHTML = reviews.length + '<span class="sd-unit">건</span>';
+  if (statH) statH.innerHTML = filtered.length + '<span class="sd-unit">곳</span>';
+}
+
+// 검색 버튼
 document.addEventListener('DOMContentLoaded', function() {
+  renderHospitals();
+
+  // 검색창 연동
+  var searchInput = document.querySelector('.search-box input');
+  var searchBtn = document.querySelector('.search-btn');
+  if (searchInput) {
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { currentFilter.keyword = this.value; renderHospitals(); }
+    });
+  }
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
+      if (searchInput) { currentFilter.keyword = searchInput.value; renderHospitals(); }
+    });
+  }
+
+  // 타입 필터 칩
   document.querySelectorAll('.filter-chip').forEach(function(chip) {
     chip.addEventListener('click', function() {
-      var group = this.closest('.fp-row');
-      if (!group) return;
-      var chips = group.querySelectorAll('.filter-chip');
-      chips.forEach(function(c){ c.classList.remove('active'); });
+      document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
       this.classList.add('active');
-    });
-  });
-  document.querySelectorAll('.inst-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.inst-tab').forEach(function(t){ t.classList.remove('active'); });
-      this.classList.add('active');
+      var txt = this.textContent.trim();
+      if (txt === '전체') currentFilter.type = '';
+      else if (txt.includes('모발이식')) currentFilter.type = 'hair';
+      else if (txt.includes('한방') || txt.includes('한의')) currentFilter.type = 'oriental';
+      else currentFilter.type = 'clinic';
+      renderHospitals();
     });
   });
 });
+
+function toggleFavFilter(btn) {
+  currentFilter.favOnly = !currentFilter.favOnly;
+  if (currentFilter.favOnly) {
+    btn.style.background = 'var(--accent)';
+    btn.style.color = 'white';
+    btn.style.borderColor = 'var(--accent)';
+    btn.innerHTML = '<span>♥</span> 즐겨찾기';
+  } else {
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.style.borderColor = '';
+    btn.innerHTML = '<span>♡</span> 즐겨찾기';
+  }
+  renderHospitals();
+}
+
+// 지역 필터
+function selectSido(btn, sido) {
+  document.querySelectorAll('#fp-sido-row .fp-chip').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var regionMap = {
+    '전체':'', '서울특별시':'서울', '경기도':'경기', '인천광역시':'인천',
+    '부산광역시':'부산', '대구광역시':'대구', '대전광역시':'대전',
+    '광주광역시':'광주', '울산광역시':'울산', '강원도':'강원',
+    '충청북도':'충북', '충청남도':'충남', '전라북도':'전북',
+    '전라남도':'전남', '경상북도':'경북', '경상남도':'경남',
+    '제주특별자치도':'제주', '세종특별자치시':'세종'
+  };
+  currentFilter.region = regionMap[sido] || '';
+  renderHospitals();
+}
+function fpSelect(btn, groupId) {
+  var group = document.getElementById(groupId);
+  if (!group) return;
+  group.querySelectorAll('.fp-chip').forEach(function(c){ c.classList.remove('on'); });
+  btn.classList.add('on');
+}
 </script>
 </body>
 </html>
