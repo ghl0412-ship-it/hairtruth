@@ -118,3 +118,94 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+// ── 비교함 (Compare) 스크립트 ──
+let compareList = JSON.parse(localStorage.getItem('hairtruth_compare') || '[]');
+
+function toggleCompare(hospitalData) {
+  const index = compareList.findIndex(item => item.id === hospitalData.id);
+  
+  if (index > -1) {
+    compareList.splice(index, 1);
+  } else {
+    if (compareList.length >= 3) {
+      alert('비교함에는 최대 3개까지만 담을 수 있습니다.');
+      return;
+    }
+    compareList.push(hospitalData);
+  }
+  
+  localStorage.setItem('hairtruth_compare', JSON.stringify(compareList));
+  updateCompareUI();
+}
+
+function updateCompareUI() {
+  const bar = document.getElementById('compareBar');
+  const count = document.getElementById('compareCount');
+  if (!bar || !count) return;
+  
+  if (compareList.length > 0) {
+    bar.style.display = 'flex';
+    count.textContent = compareList.length;
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+function openCompareModal() {
+  if (compareList.length < 2) {
+    alert('비교를 위해 최소 2개 이상의 병원을 선택해 주세요.');
+    return;
+  }
+  
+  const wrapper = document.getElementById('compareTableWrapper');
+  if (!wrapper) return;
+  
+  let html = `<table class="compare-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        ${compareList.map(h => `<th>${h.name}</th>`).join('')}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>대표 시술/가격</strong></td>
+        ${compareList.map(h => `<td><strong style="color:var(--accent);">${h.price}</strong></td>`).join('')}
+      </tr>
+      <tr>
+        <td><strong>평점 / 후기수</strong></td>
+        ${compareList.map(h => `<td>★ ${h.rating} (${h.reviews}개)</td>`).join('')}
+      </tr>
+      <tr>
+        <td><strong>위치/지하철</strong></td>
+        ${compareList.map(h => `<td>${h.location}</td>`).join('')}
+      </tr>
+      <tr>
+        <td><strong>삭제</strong></td>
+        ${compareList.map(h => `<td><button onclick="removeItem('${h.id}')" style="border:none;background:none;color:#aaa;cursor:pointer;">삭제</button></td>`).join('')}
+      </tr>
+    </tbody>
+  </table>`;
+  
+  wrapper.innerHTML = html;
+  document.getElementById('compareModal').style.display = 'flex';
+}
+
+function closeCompareModal() {
+  const modal = document.getElementById('compareModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function removeItem(id) {
+  compareList = compareList.filter(item => item.id !== id);
+  localStorage.setItem('hairtruth_compare', JSON.stringify(compareList));
+  updateCompareUI();
+  if (compareList.length < 2) {
+    closeCompareModal();
+  } else {
+    openCompareModal();
+  }
+}
+
+// 기존 shared.js의 DOMContentLoaded와 통합하거나 아래와 같이 추가
+document.addEventListener('DOMContentLoaded', updateCompareUI);
