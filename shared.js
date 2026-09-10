@@ -74,7 +74,7 @@ function handleNavAuth() {
     if (document.getElementById('authModal')) {
       openAuthModal('login');
     } else {
-      location.href = 'index.html';
+      location.href = 'index.html?open=auth';
     }
   }
 }
@@ -87,14 +87,14 @@ function openReviewModal() {
     if (document.getElementById('authModal')) {
       openAuthModal('login');
     } else {
-      location.href = 'index.html';
+      location.href = 'index.html?open=auth';
     }
     return;
   }
   if (document.getElementById('reviewModal')) {
     document.getElementById('reviewModal').classList.add('open');
   } else {
-    location.href = 'index.html';
+    location.href = 'index.html?open=review';
   }
 }
 
@@ -103,13 +103,93 @@ function openDiag() {
   if (document.getElementById('diagModal')) {
     document.getElementById('diagModal').classList.add('open');
   } else {
-    location.href = 'index.html';
+    location.href = 'index.html?open=diag';
   }
+}
+
+function closeHtModal(id) {
+  var modal = document.getElementById(id);
+  if (modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); }
+}
+
+function openHtModal(id) {
+  var modal = document.getElementById(id);
+  if (modal) { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); }
+}
+
+function openAuthModal(mode) {
+  var nameField = document.getElementById('authNameField');
+  var title = document.getElementById('authTitle');
+  var description = document.getElementById('authDescription');
+  var submit = document.getElementById('authSubmit');
+  var switcher = document.getElementById('authSwitch');
+  if (!nameField || !title || !description || !submit || !switcher) { location.href = 'index.html?open=auth'; return; }
+  window.htAuthMode = mode === 'register' ? 'register' : 'login';
+  var register = window.htAuthMode === 'register';
+  nameField.hidden = !register;
+  nameField.querySelector('input').required = register;
+  title.textContent = register ? '회원가입' : '로그인';
+  description.textContent = register ? '닉네임과 이메일을 등록하면 후기와 Q&A를 이용할 수 있어요.' : '영수증 후기와 Q&A를 이용하려면 로그인해주세요.';
+  submit.textContent = register ? '회원가입' : '로그인';
+  switcher.textContent = register ? '이미 계정이 있나요? 로그인' : '처음이신가요? 회원가입';
+  openHtModal('authModal');
+}
+
+function switchAuthMode() { openAuthModal(window.htAuthMode === 'register' ? 'login' : 'register'); }
+
+function submitAuth(event) {
+  event.preventDefault();
+  var email = document.getElementById('authEmail').value.trim().toLowerCase();
+  var password = document.getElementById('authPassword').value;
+  var name = document.getElementById('authName').value.trim();
+  var users = getUsers();
+  if (window.htAuthMode === 'register') {
+    if (!name) { alert('닉네임을 입력해주세요.'); return; }
+    if (users.some(function(u){ return u.email === email; })) { alert('이미 가입된 이메일입니다.'); return; }
+    var user = { id: Date.now(), name: name, email: email, password: hashPw(password) };
+    users.push(user); localStorage.setItem(USERS_KEY, JSON.stringify(users)); setSession({id:user.id,name:user.name,email:user.email});
+    closeHtModal('authModal'); alert('회원가입이 완료됐어요!');
+  } else {
+    var found = users.find(function(u){ return u.email === email && u.password === hashPw(password); });
+    if (!found) { alert('이메일 또는 비밀번호를 확인해주세요.'); return; }
+    setSession({id:found.id,name:found.name,email:found.email}); closeHtModal('authModal'); alert(found.name + '님, 로그인됐어요!');
+  }
+}
+
+function submitReview(event) {
+  event.preventDefault();
+  var user = getCurrentUser();
+  if (!user) { openAuthModal('login'); return; }
+  var file = document.getElementById('reviewReceipt').files[0];
+  if (!file) { alert('영수증 이미지를 첨부해주세요.'); return; }
+  var reader = new FileReader();
+  reader.onload = function(){
+    var reviews = getReviews();
+    reviews.unshift({id:Date.now(),nickname:user.name,region:'',gender:'',hospitalName:document.getElementById('reviewHospital').value.trim(),treatment:document.getElementById('reviewTreatment').value.trim(),amount:Number(document.getElementById('reviewAmount').value),rating:Number(document.getElementById('reviewRating').value),content:document.getElementById('reviewContent').value.trim(),receiptImg:reader.result,status:'pending',date:new Date().toLocaleDateString('ko-KR')});
+    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); closeHtModal('reviewModal'); event.target.reset(); alert('후기 검토 요청이 등록됐어요. 인증 확인 후 공개됩니다.');
+  };
+  reader.readAsDataURL(file);
+}
+
+function runDiagnosis(event) {
+  event.preventDefault();
+  var score = Number(document.getElementById('diagDuration').value) + Number(document.getElementById('diagShedding').value) + Number(document.getElementById('diagFamily').value);
+  var message = score >= 4 ? '최근 변화가 있거나 가족력이 있어 피부과·탈모 전문의 상담을 권장해요.' : score >= 2 ? '생활 습관과 두피 상태를 관찰하면서 필요하면 전문가와 상담해보세요.' : '현재 답변 기준으로 급한 신호는 적어 보여요. 변화가 지속되면 상담을 권장해요.';
+  var result = document.getElementById('diagResult');
+  result.hidden = false; result.innerHTML = '<strong>참고 결과</strong><br>' + message + '<br><small>이 결과는 의료 진단이 아니며 참고용입니다.</small>';
+}
+
+function handleDeepLink() {
+  var open = new URLSearchParams(location.search).get('open');
+  if (open === 'auth') openAuthModal('login');
+  if (open === 'review') openReviewModal();
+  if (open === 'diag') openDiag();
 }
 
 // 모바일 메뉴
 document.addEventListener('DOMContentLoaded', function() {
   updateNavUI();
+  handleDeepLink();
   // 모바일 메뉴 닫기
   document.querySelectorAll('.mobile-nav a').forEach(function(a) {
     a.addEventListener('click', function() {

@@ -464,6 +464,21 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   🧾 후기 남기기
 </div>
 <script>
+var rankTabLabels = ['전체', '모발이식', 'PRP·주사', '약물치료'];
+function switchRankTab(button, index) {
+  document.querySelectorAll('.rank-tab').forEach(function(tab){ tab.classList.remove('active'); });
+  if (button) button.classList.add('active');
+  var empty = document.getElementById('rankEmptyState');
+  var body = document.getElementById('rankTableBody');
+  if (body) body.innerHTML = '';
+  if (empty) {
+    empty.style.display = 'block';
+    empty.querySelector('div:nth-child(2)').textContent = rankTabLabels[index] + ' 랭킹 데이터가 아직 없어요';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){ switchRankTab(document.querySelector('.rank-tab.active'), 0); });
+</script>
+<script>
 window.addEventListener('scroll',function(){
   var b=document.getElementById('floatingBtn');
   if(b) b.style.display=window.scrollY>300?'flex':'none';

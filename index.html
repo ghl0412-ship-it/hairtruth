@@ -203,6 +203,62 @@ footer{background:#111;padding:48px 5% 32px;color:#555;}
   </div>
 </footer>
 
+<!-- 기능 모달: 기존 색상 변수와 레이아웃을 사용하며, 데이터 입력·로그인 흐름을 담당합니다. -->
+<div id="authModal" class="ht-modal" aria-hidden="true">
+  <div class="ht-modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="ht-modal-close" type="button" onclick="closeHtModal('authModal')" aria-label="닫기">×</button>
+    <div class="section-label">HAIRTRUTH ACCOUNT</div>
+    <h2 id="authTitle">로그인</h2>
+    <p id="authDescription">영수증 후기와 Q&A를 이용하려면 로그인해주세요.</p>
+    <form onsubmit="submitAuth(event)">
+      <label id="authNameField" hidden>닉네임<input id="authName" autocomplete="name"></label>
+      <label>이메일<input id="authEmail" type="email" autocomplete="email" required></label>
+      <label>비밀번호<input id="authPassword" type="password" autocomplete="current-password" minlength="4" required></label>
+      <button class="btn-primary" type="submit" id="authSubmit">로그인</button>
+    </form>
+    <button class="ht-link-button" type="button" onclick="switchAuthMode()" id="authSwitch">처음이신가요? 회원가입</button>
+  </div>
+</div>
+
+<div id="reviewModal" class="ht-modal" aria-hidden="true">
+  <div class="ht-modal-card ht-modal-wide" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+    <button class="ht-modal-close" type="button" onclick="closeHtModal('reviewModal')" aria-label="닫기">×</button>
+    <div class="section-label">VERIFIED REVIEW</div>
+    <h2 id="reviewTitle">영수증 후기 남기기</h2>
+    <p>영수증을 함께 제출하면 검토 후 후기가 공개됩니다.</p>
+    <form onsubmit="submitReview(event)">
+      <label>병원명<input id="reviewHospital" required></label>
+      <label>시술명<input id="reviewTreatment" required></label>
+      <div class="ht-form-row"><label>실제 결제 금액<input id="reviewAmount" type="number" min="0" required></label><label>평점<select id="reviewRating" required><option value="5">5점</option><option value="4">4점</option><option value="3">3점</option><option value="2">2점</option><option value="1">1점</option></select></label></div>
+      <label>후기 내용<textarea id="reviewContent" rows="4" maxlength="1000" required></textarea></label>
+      <label>영수증 이미지<input id="reviewReceipt" type="file" accept="image/*" required></label>
+      <button class="btn-primary" type="submit">검토 요청하기</button>
+    </form>
+  </div>
+</div>
+
+<div id="diagModal" class="ht-modal" aria-hidden="true">
+  <div class="ht-modal-card" role="dialog" aria-modal="true" aria-labelledby="diagTitle">
+    <button class="ht-modal-close" type="button" onclick="closeHtModal('diagModal')" aria-label="닫기">×</button>
+    <div class="section-label">SELF CHECK</div>
+    <h2 id="diagTitle">탈모 자가 체크</h2>
+    <p>의료 진단이 아닌 참고용 체크입니다. 정확한 판단은 의료진과 상담하세요.</p>
+    <form onsubmit="runDiagnosis(event)">
+      <label>탈모가 신경 쓰인 기간<select id="diagDuration" required><option value="1">1개월 이내</option><option value="2">1~6개월</option><option value="3">6개월 이상</option></select></label>
+      <label>최근 빠지는 양이 늘었나요?<select id="diagShedding" required><option value="0">비슷해요</option><option value="1">조금 늘었어요</option><option value="2">확실히 늘었어요</option></select></label>
+      <label>가족 중 탈모 경험자가 있나요?<select id="diagFamily" required><option value="0">없어요</option><option value="1">있어요</option></select></label>
+      <button class="btn-primary" type="submit">결과 확인</button>
+    </form>
+    <div id="diagResult" class="ht-result" hidden></div>
+  </div>
+</div>
+
+<style>
+.ht-modal{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.58)}
+.ht-modal.open{display:flex}.ht-modal-card{position:relative;width:min(440px,100%);max-height:90vh;overflow:auto;background:var(--white);color:var(--ink);padding:30px;border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.25)}
+.ht-modal-wide{width:min(600px,100%)}.ht-modal-card h2{margin:4px 0 8px}.ht-modal-card p{color:var(--mid);font-size:.88rem;line-height:1.6}.ht-modal-card form{display:grid;gap:13px;margin-top:18px}.ht-modal-card label{display:grid;gap:6px;font-size:.8rem;font-weight:700}.ht-modal-card input,.ht-modal-card textarea,.ht-modal-card select{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;background:var(--white);color:var(--ink);font:inherit;font-weight:400}.ht-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ht-modal-close{position:absolute;right:15px;top:10px;border:0;background:none;color:var(--mid);font-size:26px;cursor:pointer}.ht-link-button{display:block;margin:16px auto 0;border:0;background:none;color:var(--accent);cursor:pointer;font-size:.82rem}.ht-result{margin-top:16px;padding:14px;border-radius:8px;background:var(--warm);line-height:1.7;font-size:.84rem}@media(max-width:520px){.ht-form-row{grid-template-columns:1fr}}
+</style>
+
 <script>
 function goSearch() {
   var q = document.getElementById('mainSearchInput').value;
@@ -213,6 +269,7 @@ function goSearch() {
   }
 }
 </script>
+<script src="shared.js"></script>
 
 </body>
 </html>
