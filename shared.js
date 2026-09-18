@@ -335,3 +335,18 @@ document.addEventListener('DOMContentLoaded', function () {
   replaceExactText('.price-section .section-sub', '영수증 인증 데이터를 집계한 실제 비급여 진료비와 최근 6개월 가격 변동입니다.', '현재는 공개 자료와 이용자 제보를 분리해 확인하고 있습니다. 실제 결제 데이터가 충분히 쌓인 뒤 표본 수·지역·시점과 함께 공개합니다.');
   replaceExactText('.section-sub', '탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 영수증 후기 데이터를 기반으로 정리했습니다.', '탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 아래 내용은 일반적인 참고 정보이며, 치료 선택은 의료진과 상담하세요.');
 });
+
+
+// ── 공식 블로그 링크 통일 ──
+document.addEventListener('DOMContentLoaded', function () {
+  var blogUrl = 'https://blog.naver.com/hair_truth';
+  document.querySelectorAll('a').forEach(function (link) {
+    var label = link.textContent.trim();
+    var href = link.getAttribute('href');
+    if (href === 'https://blog.naver.com/ghl0412' || label === '네이버 블로그') {
+      link.href = blogUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  });
+});
