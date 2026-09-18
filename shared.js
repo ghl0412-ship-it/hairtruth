@@ -289,3 +289,49 @@ function removeItem(id) {
 
 // 기존 shared.js의 DOMContentLoaded와 통합하거나 아래와 같이 추가
 document.addEventListener('DOMContentLoaded', updateCompareUI);
+
+
+// ── 공개 데이터 상태 안내 ──
+// 실제 영수증 검증 데이터가 축적되기 전에는 예상·예시 수치를 노출하지 않습니다.
+document.addEventListener('DOMContentLoaded', function () {
+  function replaceExactText(selector, from, to) {
+    document.querySelectorAll(selector).forEach(function (el) {
+      if (el.textContent.trim() === from) el.textContent = to;
+    });
+  }
+
+  replaceExactText('.hero-badge', '100% 영수증 검증 기반', '영수증 후기 데이터 수집 중');
+  replaceExactText('.hero p', '수많은 광고성 후기 속에서 진짜 영수증으로 검증된 병원 가격과 치료 후기를 공개합니다.', '광고성 정보 대신 공개 자료와 이용자 영수증 제보를 구분해, 검토가 끝난 정보부터 공개합니다.');
+  replaceExactText('.section-sub', '헤어트루스는 과장된 광고 대신 실제 방문 고객의 데이터를 기반으로 정직한 정보를 안내합니다.', '헤어트루스는 공개 자료와 이용자 제보를 출처별로 구분해, 확인된 정보부터 투명하게 안내합니다.');
+
+  replaceExactText('.how-section .section-sub', '영수증 기반 3단계 검증 프로세스로 광고성 후기를 완전히 차단합니다.', '영수증 제보는 개인정보를 가린 뒤 운영자 검토를 거쳐 공개합니다.');
+  replaceExactText('.how-section .step:nth-child(2) h3', 'AI 진위 검증', '운영자 검토');
+  replaceExactText('.how-section .step:nth-child(2) p', 'AI가 영수증의 병원명, 진료일, 금액 등을 자동 분석해 위조 여부를 판별합니다.', '병원명·진료일·결제 정보의 일치 여부와 개인정보 가림 상태를 확인합니다.');
+  replaceExactText('.how-section .step:nth-child(3) h3', '투명한 정보 공개', '출처와 함께 공개');
+  replaceExactText('.how-section .step:nth-child(3) p', '검증된 후기와 실제 지불 금액이 병원 프로필에 정확히 반영됩니다.', '검토를 마친 제보만 등록하며, 데이터가 쌓이면 병원별 정보로 반영합니다.');
+  replaceExactText('.hospitals-section .section-title', '인증 후기 많은 탈모 기관', '탈모 치료 기관 찾기');
+  replaceExactText('.hospitals-section .section-sub', '병원·한의원까지, 영수증으로 검증된 실제 방문자 후기 기반 정보입니다.', '영수증 인증 후기 데이터는 현재 수집 중입니다. 검토 완료된 정보부터 순차적으로 공개합니다.');
+
+  document.querySelectorAll('.eff-row').forEach(function (row) {
+    if (row.textContent.indexOf('만족도 (후기 기반)') !== -1) row.remove();
+  });
+  document.querySelectorAll('.gstat-row').forEach(function (row) {
+    if (row.textContent.indexOf('영수증 인증 후기') !== -1) row.remove();
+  });
+
+  var price = document.querySelector('.price-section');
+  if (price) {
+    var title = price.querySelector('.section-title');
+    var sub = price.querySelector('.section-sub');
+    if (title) title.textContent = '영수증 기반 가격 데이터 준비 중';
+    if (sub) sub.textContent = '현재는 공개 자료와 이용자 제보를 분리해 확인하고 있습니다. 실제 결제 데이터가 충분히 쌓인 뒤 표본 수·지역·시점과 함께 공개합니다.';
+    var charts = price.querySelector('.chart-row');
+    var table = price.querySelector('.price-table-wrap');
+    if (charts) charts.style.display = 'none';
+    if (table) table.style.display = 'none';
+  }
+
+  replaceExactText('.price-section .section-title', '실제 지불 금액 & 가격 변동 추이', '영수증 기반 가격 데이터 준비 중');
+  replaceExactText('.price-section .section-sub', '영수증 인증 데이터를 집계한 실제 비급여 진료비와 최근 6개월 가격 변동입니다.', '현재는 공개 자료와 이용자 제보를 분리해 확인하고 있습니다. 실제 결제 데이터가 충분히 쌓인 뒤 표본 수·지역·시점과 함께 공개합니다.');
+  replaceExactText('.section-sub', '탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 영수증 후기 데이터를 기반으로 정리했습니다.', '탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 아래 내용은 일반적인 참고 정보이며, 치료 선택은 의료진과 상담하세요.');
+});
