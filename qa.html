@@ -461,7 +461,6 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
 
 <script>
 var QA_KEY   = 'hairtruth_qa';
-var ADMIN_ID = 'ghl0412';
 var selectedQaCat = '';
 var currentQaId = null;
 
@@ -479,6 +478,8 @@ function selectQaCat(btn, cat) {
 }
 
 function submitQa() {
+  alert('베타 데이터 수집 준비 중입니다. 안전한 서버 기반 기능이 준비되면 안내드리겠습니다.');
+  return;
   var user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
   if (!user) { alert('로그인 후 질문을 작성할 수 있어요!'); if(document.getElementById('authModal')) openAuthModal('login'); return; }
   var title = document.getElementById('qaTitle').value.trim();
@@ -488,7 +489,7 @@ function submitQa() {
   if (!body)  { alert('질문 내용을 입력해주세요!'); return; }
 
   var qas = getQas();
-  qas.unshift({ id: Date.now(), cat: selectedQaCat, title: title, body: body, author: user.name, isAdmin: user.name === ADMIN_ID, date: new Date().toLocaleDateString('ko-KR'), votes: 0, replies: [] });
+  qas.unshift({ id: Date.now(), cat: selectedQaCat, title: title, body: body, author: user.name, isAdmin: false, date: new Date().toLocaleDateString('ko-KR'), votes: 0, replies: [] });
   saveQas(qas);
 
   document.getElementById('qaTitle').value = '';
@@ -503,6 +504,8 @@ function submitQa() {
 }
 
 function submitReply() {
+  alert('베타 데이터 수집 준비 중입니다. 안전한 서버 기반 기능이 준비되면 안내드리겠습니다.');
+  return;
   var user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
   if (!user) { alert('로그인 후 답변을 작성할 수 있어요!'); if(document.getElementById('authModal')) openAuthModal('login'); return; }
   var body = document.getElementById('replyBody').value.trim();
@@ -512,7 +515,7 @@ function submitReply() {
   var qa = qas.find(function(q){ return q.id === currentQaId; });
   if (!qa) return;
   if (!qa.replies) qa.replies = [];
-  qa.replies.push({ id: Date.now(), body: body, author: user.name, isAdmin: user.name === ADMIN_ID, date: new Date().toLocaleDateString('ko-KR') });
+  qa.replies.push({ id: Date.now(), body: body, author: user.name, isAdmin: false, date: new Date().toLocaleDateString('ko-KR') });
   saveQas(qas);
 
   document.getElementById('replyBody').value = '';
@@ -541,7 +544,7 @@ function openQaDetail(id) {
   var repliesHtml = replies.length === 0
     ? '<div style="text-align:center;padding:28px;color:#555;font-size:0.84rem;">아직 답변이 없어요.<br>첫 번째 답변을 남겨주세요!</div>'
     : replies.map(function(r){
-        var isAdm = r.isAdmin || r.author === ADMIN_ID;
+        var isAdm = false;
         return '<div style="background:'+(isAdm?'rgba(42,107,110,0.12)':'rgba(255,255,255,0.03)')+';border:1px solid '+(isAdm?'rgba(42,107,110,0.35)':'#2a2a2a')+';border-radius:12px;padding:18px;margin-bottom:10px;">'
           + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">'
           + (isAdm ? '<span style="background:var(--teal);color:white;padding:2px 10px;border-radius:10px;font-size:0.7rem;font-weight:700;">헤어트루스</span>' : '<span style="background:rgba(255,255,255,0.08);color:#aaa;padding:2px 10px;border-radius:10px;font-size:0.7rem;">경험자</span>')
@@ -583,7 +586,7 @@ function renderQaList() {
   }
   el.innerHTML = qas.map(function(q){
     var rCnt = (q.replies||[]).length;
-    var hasAdminReply = (q.replies||[]).some(function(r){ return r.isAdmin || r.author === ADMIN_ID; });
+    var hasAdminReply = false;
     return '<div onclick="openQaDetail('+q.id+')" style="background:rgba(255,255,255,0.04);border:1px solid #2a2a2a;border-radius:12px;padding:18px 20px;margin-bottom:10px;cursor:pointer;transition:border-color 0.2s;" onmouseover="this.style.borderColor=\'#444\'" onmouseout="this.style.borderColor=\'#2a2a2a\'">'
       + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">'
       + '<span style="background:var(--teal);color:white;padding:2px 10px;border-radius:10px;font-size:0.7rem;font-weight:700;">'+q.cat+'</span>'

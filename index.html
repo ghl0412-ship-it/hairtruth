@@ -1804,11 +1804,11 @@ document.addEventListener('DOMContentLoaded', renderQaList);
             <div style="height:1px;background:var(--line);"></div>
             <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
               <input type="checkbox" id="agreeTerms" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
-              <span>[필수] <a href="#" style="color:var(--teal)">이용약관</a> 동의</span>
+              <span>[필수] <a href="terms.html" style="color:var(--teal)">이용약관</a> 동의</span>
             </label>
             <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
               <input type="checkbox" id="agreePrivacy" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
-              <span>[필수] <a href="#" style="color:var(--teal)">개인정보 처리방침</a> 동의</span>
+              <span>[필수] <a href="privacy.html" style="color:var(--teal)">개인정보 처리방침</a> 동의</span>
             </label>
             <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.8rem;color:var(--mid);">
               <input type="checkbox" id="agreeMarketing" onchange="checkAllAgree()" style="margin-top:2px;accent-color:var(--teal);width:16px;height:16px;flex-shrink:0;">
@@ -2279,28 +2279,19 @@ function showConfirm(msg, onYes, onNo) {
 }
 
 /* ── AUTH SYSTEM ── */
-const USERS_KEY = 'hairtruth_users';
-const SESSION_KEY = 'hairtruth_session';
+const BETA_COLLECTION_NOTICE = '베타 데이터 수집 준비 중입니다. 안전한 서버 기반 기능이 준비되면 안내드리겠습니다.';
 
 function getUsers() {
-  try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
-  catch(e) { return []; }
+  return [];
 }
 
 function getCurrentUser() {
-  try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
-  catch(e) { return null; }
+  return null;
 }
 
-function setSession(user) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-  setTimeout(() => renderTimeline(), 100);
-}
+function setSession() {}
 
-function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
-  setTimeout(() => renderTimeline(), 100);
-}
+function clearSession() {}
 
 function hashPw(pw) {
   // 간단한 해시 (실제 서비스에서는 서버 사이드 처리 필요)
@@ -2318,7 +2309,7 @@ function showAuthMsg(type, msg) {
   if (type === 'success') { suc.textContent = msg; suc.style.display = 'block'; }
 }
 
-function openAuth(mode) { switchAuthTab(mode); openModal('authModal'); }
+function openAuth() { showToast(BETA_COLLECTION_NOTICE, 'info', 5000); }
 
 /* ── GPS 위치 기반 병원 찾기 ── */
 function requestLocation() {
@@ -2358,22 +2349,10 @@ function requestLocation() {
 }
 
 /* ── 관리자 시스템 ── */
-const ADMIN_KEY = 'hairtruth_admin_session';
-
-function isAdmin() {
-  try { return localStorage.getItem(ADMIN_KEY) === 'true'; }
-  catch(e) { return false; }
-}
+function isAdmin() { return false; }
 
 function openAdminPanel() {
-  const user = getCurrentUser();
-  if (!user || user.email !== ADMIN_EMAIL) {
-    showToast('관리자 계정으로 로그인해주세요.', 'error');
-    openAuth('login');
-    return;
-  }
-  renderAdminPanel();
-  openModal('adminModal');
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function renderAdminPanel() {
@@ -2465,13 +2444,13 @@ function switchAdminTab(idx) {
 }
 
 /* ── 병원 관리 ── */
-const HOSPITALS_KEY = 'ht_admin_hospitals';
-
 function getAdminHospitals() {
-  try { return JSON.parse(localStorage.getItem(HOSPITALS_KEY) || '[]'); } catch(e) { return []; }
+  return [];
 }
 
 function openHospitalForm(id) {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   document.getElementById('hospitalForm').style.display = 'block';
   document.getElementById('hosp_editId').value = '';
   document.getElementById('hospitalFormTitle').textContent = '🏥 병원 추가';
@@ -2499,6 +2478,8 @@ function closeHospitalForm() {
 }
 
 function saveHospital() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const name = document.getElementById('hosp_name').value.trim();
   if(!name){ showToast('병원명을 입력해주세요.', 'warning'); return; }
   const hospitals = getAdminHospitals();
@@ -2518,15 +2499,17 @@ function saveHospital() {
   } else {
     hospitals.push({...data, id: Date.now(), createdAt: new Date().toISOString().split('T')[0]});
   }
-  localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+  void hospitals;
   closeHospitalForm();
   renderHospitalList();
 }
 
 function deleteHospital(id) {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   showConfirm('이 병원을 삭제할까요?', function() {
     const hospitals = getAdminHospitals().filter(h=>h.id!==id);
-    localStorage.setItem(HOSPITALS_KEY, JSON.stringify(hospitals));
+    void hospitals;
     renderHospitalList();
     showToast('병원이 삭제됐어요.', 'success');
   });
@@ -2647,45 +2630,24 @@ function renderVisitorStats() {
 }
 
 function approveReview(id) {
-  const reviews = getReviews();
-  const idx = reviews.findIndex(r => r.id === id);
-  if (idx > -1) { reviews[idx].status = 'approved'; localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); }
-  renderAdminPanel();
-  renderReviews();
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function rejectReview(id) {
-  const reviews = getReviews();
-  const idx = reviews.findIndex(r => r.id === id);
-  if (idx > -1) { reviews[idx].status = 'rejected'; localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); }
-  renderAdminPanel();
-  renderReviews();
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function exportData() {
-  const data = {
-    reviews: getReviews(),
-    users: getUsers().map(u => ({...u, pw: '[hidden]'})),
-    exportDate: new Date().toLocaleString('ko-KR')
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `hairtruth_data_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function clearAllData() {
-  showConfirm('⚠️ 모든 후기와 회원 데이터가 삭제됩니다.\n정말 초기화 하시겠어요?', function() {
-    localStorage.removeItem(REVIEWS_KEY);
-    localStorage.removeItem(USERS_KEY);
-    renderAdminPanel();
-    renderReviews();
-    showToast('초기화 완료!', 'success');
-  });
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function handleNavAuth() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const user = getCurrentUser();
   if (user) {
     showConfirm(user.name + '님으로 로그인 중입니다.\n로그아웃 하시겠어요?', function() {
@@ -2725,6 +2687,8 @@ function initKakao() {
 }
 
 function kakaoLogin() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   if (!window.Kakao) {
     showToast('카카오 SDK를 불러오는 중이에요. 잠시 후 다시 눌러주세요!', 'info');
     return;
@@ -2740,6 +2704,8 @@ function kakaoLogin() {
 }
 
 function doLogin() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const input = document.getElementById('login_email').value.trim();
   const pw = document.getElementById('login_pw').value;
 
@@ -2751,15 +2717,6 @@ function doLogin() {
   const pwHash = hashPw(pw);
 
   // 관리자 직접 체크 (DB에 없어도 로그인 가능)
-  if (input === ADMIN_EMAIL && pwHash === hashPw('rich0412!@#')) {
-    const adminUser = { id: 0, name: '관리자', email: ADMIN_EMAIL, gender: '', region: '' };
-    setSession(adminUser);
-    localStorage.setItem(ADMIN_KEY, 'true');
-    showAuthMsg('success', '✅ 관리자로 로그인되었습니다!');
-    setTimeout(() => { closeModal('authModal'); updateAuthUI(); }, 1200);
-    return;
-  }
-
   const users = getUsers();
   // 아이디(name) 또는 이메일(email) 둘 다 검색
   const user = users.find(u =>
@@ -3164,6 +3121,8 @@ function checkAllAgree() {
 }
 
 function doRegister() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const name = document.getElementById('reg_name').value.trim();
   const email = document.getElementById('reg_email').value.trim();
   const pw = document.getElementById('reg_pw').value;
@@ -3238,17 +3197,11 @@ function doRegister() {
     joinDate: new Date().toLocaleDateString('ko-KR')
   };
   users.push(newUser);
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  setSession({ id: newUser.id, name, email, gender, region });
-
-  showAuthMsg('success', `🎉 ${name}님, 가입을 환영합니다!`);
-  setTimeout(() => { closeModal('authModal'); updateAuthUI(); }, 1200);
+  void newUser;
 }
 
 function doLogout() {
-  clearSession();
-  updateAuthUI();
-  showToast('로그아웃 되었습니다.', 'info');
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function showForgotPw() {
@@ -3272,6 +3225,8 @@ function showForgotPw() {
 }
 
 function processForgotPw() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   var email = document.getElementById('forgotpwEmail') ? document.getElementById('forgotpwEmail').value.trim() : '';
   if (!email) { showToast('이메일을 입력해주세요.', 'warning'); return; }
   var overlay = document.getElementById('ht-forgotpw');
@@ -3283,6 +3238,13 @@ function processForgotPw() {
 }
 
 function updateAuthUI() {
+  const betaNavBtn = document.getElementById('navAuthBtn');
+  const betaMobileBtn = document.getElementById('mobileAuthBtn');
+  const betaAdminBtn = document.getElementById('navAdminBtn');
+  if (betaNavBtn) betaNavBtn.textContent = '베타 준비 중';
+  if (betaMobileBtn) betaMobileBtn.textContent = '베타 데이터 수집 준비 중';
+  if (betaAdminBtn) betaAdminBtn.remove();
+  return;
   const user = getCurrentUser();
   const navBtn = document.getElementById('navAuthBtn');
   const mobileBtn = document.getElementById('mobileAuthBtn');
@@ -3295,7 +3257,7 @@ function updateAuthUI() {
     if (mobileBtn) mobileBtn.textContent = `👤 ${user.name} (로그아웃)`;
 
     // 관리자 버튼 추가
-    if (user.email === ADMIN_EMAIL && !adminBtn) {
+    if (false && !adminBtn) {
       const nav = document.querySelector('nav');
       if (nav) {
         const btn = document.createElement('a');
@@ -3311,7 +3273,6 @@ function updateAuthUI() {
     if (navBtn) { navBtn.textContent = '로그인'; navBtn.style.color = '#aaa'; navBtn.style.borderColor = '#444'; }
     if (mobileBtn) mobileBtn.textContent = '로그인 / 회원가입';
     if (adminBtn) adminBtn.remove();
-    localStorage.removeItem(ADMIN_KEY);
   }
 }
 
@@ -3447,6 +3408,8 @@ function restartDiag(){
 }
 
 function handleReceiptUpload(input) {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const file = input.files[0];
   if (!file) return;
   if (file.size > 10 * 1024 * 1024) {
@@ -3469,13 +3432,8 @@ function clearReceipt() {
 }
 
 /* ── REVIEW SYSTEM ── */
-const REVIEWS_KEY = 'hairtruth_reviews';
-const ADMIN_EMAIL = 'ghl0412@gmail.com';
-const ADMIN_PW_HASH = hashPw('rich0412!@#');
-
 function getReviews() {
-  try { return JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]'); }
-  catch(e) { return []; }
+  return [];
 }
 
 function getApprovedReviews() {
@@ -3618,6 +3576,7 @@ function aiVerify(review) {
 }
 
 function saveReview(review) {
+  return null;
   const reviews = getReviews();
   review.id = Date.now();
   review.date = new Date().toLocaleDateString('ko-KR');
@@ -3632,7 +3591,6 @@ function saveReview(review) {
   review.aiVerdict = aiResult.verdict;
 
   reviews.unshift(review);
-  localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
   return review;
 }
 
@@ -3742,8 +3700,7 @@ function renderRanking(hospitals) {
 }
 
 function openReviewModal() {
-  document.getElementById('reviewModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
 }
 
 function closeReviewModal() {
@@ -3752,6 +3709,8 @@ function closeReviewModal() {
 }
 
 function submitReview() {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   const hospitalName = document.getElementById('rv_hospital').value.trim();
   const hospitalType = document.getElementById('rv_type').value;
   const treatment = document.getElementById('rv_treatment').value.trim();
@@ -4307,6 +4266,8 @@ document.addEventListener('DOMContentLoaded', function() { renderTimeline(); });
 
 // ── 카카오 로그인 리다이렉트 처리 ──
 document.addEventListener('DOMContentLoaded', function() {
+  // P0: OAuth code exchange requires a server-side callback and is disabled in beta.
+  return;
   initKakao();
   var params = new URLSearchParams(location.search);
   var code = params.get('code');
@@ -4348,6 +4309,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function processKakaoUser(res) {
+  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  return;
   var kakaoId    = res.id;
   var nickname   = res.kakao_account && res.kakao_account.profile
                    ? res.kakao_account.profile.nickname : '카카오유저';
@@ -4373,9 +4336,7 @@ function processKakaoUser(res) {
       joinDate: new Date().toLocaleDateString('ko-KR'), loginType: 'kakao'
     };
     users.push(newUser);
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    setSession({ id: newUser.id, name: nickname, email: email,
-                 gender: '', region: '', profileImg: profileImg });
+    void newUser;
   }
   updateNavUI();
   showToast('🎉 카카오 로그인 완료! 환영해요, ' + nickname + '님!', 'success', 4000);

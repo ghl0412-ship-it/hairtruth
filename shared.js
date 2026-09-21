@@ -1,27 +1,17 @@
 
 // ── 헤어트루스 공통 JS ──
-const USERS_KEY   = 'hairtruth_users';
-const SESSION_KEY  = 'hairtruth_session';
-const REVIEWS_KEY  = 'hairtruth_reviews';
-const ADMIN_EMAIL  = 'ghl0412';
-const ADMIN_KEY    = 'hairtruth_admin_session';
+const BETA_COLLECTION_NOTICE = '베타 데이터 수집 준비 중입니다. 안전한 서버 기반 기능이 준비되면 안내드리겠습니다.';
 
 function getUsers() {
-  try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); } catch(e) { return []; }
+  return [];
 }
 function getCurrentUser() {
-  try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; }
+  return null;
 }
-function setSession(user) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-  updateNavUI();
-}
-function clearSession() {
-  localStorage.removeItem(SESSION_KEY);
-  updateNavUI();
-}
+function setSession() {}
+function clearSession() {}
 function getReviews() {
-  try { return JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]'); } catch(e) { return []; }
+  return [];
 }
 function hashPw(pw) {
   var h = 0;
@@ -34,6 +24,13 @@ function hashPw(pw) {
 
 // 네비 UI 업데이트
 function updateNavUI() {
+  var betaAuthBtn = document.getElementById('navAuthBtn');
+  var betaMobileAuthBtn = document.getElementById('mobileAuthBtn');
+  var betaAdminBtn = document.getElementById('navAdminBtn');
+  if (betaAuthBtn) betaAuthBtn.textContent = '베타 준비 중';
+  if (betaMobileAuthBtn) betaMobileAuthBtn.textContent = '베타 데이터 수집 준비 중';
+  if (betaAdminBtn) betaAdminBtn.remove();
+  return;
   var user = getCurrentUser();
   var authBtn = document.getElementById('navAuthBtn');
   var mobileAuthBtn = document.getElementById('mobileAuthBtn');
@@ -49,7 +46,7 @@ function updateNavUI() {
   }
   // 관리자 버튼
   var adminBtn = document.getElementById('navAdminBtn');
-  if (user && user.email === ADMIN_EMAIL) {
+  if (false) {
     if (!adminBtn) {
       var btn = document.createElement('a');
       btn.id = 'navAdminBtn';
@@ -64,6 +61,8 @@ function updateNavUI() {
 }
 
 function handleNavAuth() {
+  alert(BETA_COLLECTION_NOTICE);
+  return;
   var user = getCurrentUser();
   if (user) {
     if (confirm(user.name + '님, 로그아웃 하시겠어요?')) {
@@ -81,6 +80,8 @@ function handleNavAuth() {
 
 // 후기 모달 열기
 function openReviewModal() {
+  alert(BETA_COLLECTION_NOTICE);
+  return;
   var user = getCurrentUser();
   if (!user) {
     alert('로그인 후 후기를 작성할 수 있어요!');
@@ -118,6 +119,8 @@ function openHtModal(id) {
 }
 
 function openAuthModal(mode) {
+  alert(BETA_COLLECTION_NOTICE);
+  return;
   var nameField = document.getElementById('authNameField');
   var title = document.getElementById('authTitle');
   var description = document.getElementById('authDescription');
@@ -139,6 +142,9 @@ function switchAuthMode() { openAuthModal(window.htAuthMode === 'register' ? 'lo
 
 function submitAuth(event) {
   event.preventDefault();
+  alert(BETA_COLLECTION_NOTICE);
+  return;
+  event.preventDefault();
   var email = document.getElementById('authEmail').value.trim().toLowerCase();
   var password = document.getElementById('authPassword').value;
   var name = document.getElementById('authName').value.trim();
@@ -147,7 +153,7 @@ function submitAuth(event) {
     if (!name) { alert('닉네임을 입력해주세요.'); return; }
     if (users.some(function(u){ return u.email === email; })) { alert('이미 가입된 이메일입니다.'); return; }
     var user = { id: Date.now(), name: name, email: email, password: hashPw(password) };
-    users.push(user); localStorage.setItem(USERS_KEY, JSON.stringify(users)); setSession({id:user.id,name:user.name,email:user.email});
+    void user;
     closeHtModal('authModal'); alert('회원가입이 완료됐어요!');
   } else {
     var found = users.find(function(u){ return u.email === email && u.password === hashPw(password); });
@@ -158,6 +164,9 @@ function submitAuth(event) {
 
 function submitReview(event) {
   event.preventDefault();
+  alert(BETA_COLLECTION_NOTICE);
+  return;
+  event.preventDefault();
   var user = getCurrentUser();
   if (!user) { openAuthModal('login'); return; }
   var file = document.getElementById('reviewReceipt').files[0];
@@ -166,7 +175,7 @@ function submitReview(event) {
   reader.onload = function(){
     var reviews = getReviews();
     reviews.unshift({id:Date.now(),nickname:user.name,region:'',gender:'',hospitalName:document.getElementById('reviewHospital').value.trim(),treatment:document.getElementById('reviewTreatment').value.trim(),amount:Number(document.getElementById('reviewAmount').value),rating:Number(document.getElementById('reviewRating').value),content:document.getElementById('reviewContent').value.trim(),receiptImg:reader.result,status:'pending',date:new Date().toLocaleDateString('ko-KR')});
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews)); closeHtModal('reviewModal'); event.target.reset(); alert('후기 검토 요청이 등록됐어요. 인증 확인 후 공개됩니다.');
+    void reviews; closeHtModal('reviewModal'); event.target.reset(); alert(BETA_COLLECTION_NOTICE);
   };
   reader.readAsDataURL(file);
 }
