@@ -4,7 +4,8 @@ import vm from 'node:vm';
 
 const root = process.cwd();
 const htmlFiles = readdirSync(root).filter((file) => file.endsWith('.html'));
-const sourceFiles = [...htmlFiles, 'shared.js'];
+const analyticsFile = 'analytics-events.js';
+const sourceFiles = [...htmlFiles, 'shared.js', analyticsFile];
 const failures = [];
 
 function source(name) {
@@ -15,7 +16,7 @@ function assert(condition, message) {
   if (!condition) failures.push(message);
 }
 
-for (const required of ['terms.html', 'privacy.html', 'XSS_RISK_REGISTER.md']) {
+for (const required of ['terms.html', 'privacy.html', 'XSS_RISK_REGISTER.md', analyticsFile]) {
   assert(existsSync(join(root, required)), `required P0 artifact is missing: ${required}`);
 }
 
@@ -48,6 +49,22 @@ for (const [name, pattern] of [
 const index = source('index.html');
 assert(index.includes('href="terms.html"'), 'terms link is not connected');
 assert(index.includes('href="privacy.html"'), 'privacy link is not connected');
+
+const analytics = source(analyticsFile);
+for (const eventName of ['blog_click', 'survey_click', 'openchat_click']) {
+  assert(analytics.includes(eventName), `analytics event is missing: ${eventName}`);
+}
+for (const parameter of ['link_url', 'link_text', 'page_path']) {
+  assert(analytics.includes(parameter), `analytics parameter is missing: ${parameter}`);
+}
+for (const page of ['index.html', 'guide.html', 'hospitals.html', 'price.html', 'qa.html', 'ranking.html', 'reviews.html']) {
+  assert(source(page).includes('src="analytics-events.js"'), `analytics script is not loaded by ${page}`);
+}
+try {
+  new vm.Script(analytics, { filename: analyticsFile });
+} catch (error) {
+  failures.push(`JavaScript syntax error in ${analyticsFile}: ${error.message}`);
+}
 
 for (const file of htmlFiles) {
   const html = source(file);
