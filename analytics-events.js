@@ -3,6 +3,7 @@
 
   var trackedLinks = {
     'https://blog.naver.com/hair_truth': 'blog_click',
+    'https://blog.naver.com/ghl0412': 'blog_click',
     'https://docs.google.com/forms/d/e/1FAIpQLSfzLDILyNgFxTaTLzO3Gt4l86FhPUPzcrwuTO4UfRlKgAgMlQ/viewform': 'survey_click',
     'https://open.kakao.com/o/gSX50zki': 'openchat_click'
   };

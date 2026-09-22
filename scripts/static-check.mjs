@@ -54,6 +54,10 @@ const analytics = source(analyticsFile);
 for (const eventName of ['blog_click', 'survey_click', 'openchat_click']) {
   assert(analytics.includes(eventName), `analytics event is missing: ${eventName}`);
 }
+for (const blogUrl of ['https://blog.naver.com/hair_truth', 'https://blog.naver.com/ghl0412']) {
+  assert(analytics.includes(blogUrl), `official blog URL is missing from analytics: ${blogUrl}`);
+}
+assert(analytics.includes("'blog_click'"), 'blog click event mapping is missing');
 for (const parameter of ['link_url', 'link_text', 'page_path']) {
   assert(analytics.includes(parameter), `analytics parameter is missing: ${parameter}`);
 }
