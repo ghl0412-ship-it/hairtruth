@@ -3744,7 +3744,7 @@ function submitReview() {
 
   fetch(SCRIPT_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
+    mode: 'no-cors',
     body: JSON.stringify(payload)
   })
   .then(() => {
