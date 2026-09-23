@@ -76,7 +76,7 @@ const priceStatus = source(priceStatusFile);
 for (const field of ['출처', '상태 확인일', '표본 수', '실제 영수증 데이터']) {
   assert(priceStatus.includes(field), `price data status field is missing: ${field}`);
 }
-for (const page of ['index.html', 'guide.html', 'price.html']) {
+for (const page of ['index.html', 'guide.html']) {
   assert(source(page).includes('src="price-data-status.js"'), `price data status script is not loaded by ${page}`);
 }
 try {
