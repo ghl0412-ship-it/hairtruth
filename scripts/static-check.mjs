@@ -5,7 +5,8 @@ import vm from 'node:vm';
 const root = process.cwd();
 const htmlFiles = readdirSync(root).filter((file) => file.endsWith('.html'));
 const analyticsFile = 'analytics-events.js';
-const sourceFiles = [...htmlFiles, 'shared.js', analyticsFile];
+const priceStatusFile = 'price-data-status.js';
+const sourceFiles = [...htmlFiles, 'shared.js', analyticsFile, priceStatusFile];
 const failures = [];
 
 function source(name) {
@@ -16,7 +17,7 @@ function assert(condition, message) {
   if (!condition) failures.push(message);
 }
 
-for (const required of ['terms.html', 'privacy.html', 'XSS_RISK_REGISTER.md', analyticsFile]) {
+for (const required of ['terms.html', 'privacy.html', 'XSS_RISK_REGISTER.md', analyticsFile, priceStatusFile]) {
   assert(existsSync(join(root, required)), `required P0 artifact is missing: ${required}`);
 }
 
@@ -68,6 +69,20 @@ try {
   new vm.Script(analytics, { filename: analyticsFile });
 } catch (error) {
   failures.push(`JavaScript syntax error in ${analyticsFile}: ${error.message}`);
+}
+
+
+const priceStatus = source(priceStatusFile);
+for (const field of ['출처', '상태 확인일', '표본 수', '실제 영수증 데이터']) {
+  assert(priceStatus.includes(field), `price data status field is missing: ${field}`);
+}
+for (const page of ['index.html', 'guide.html', 'price.html']) {
+  assert(source(page).includes('src="price-data-status.js"'), `price data status script is not loaded by ${page}`);
+}
+try {
+  new vm.Script(priceStatus, { filename: priceStatusFile });
+} catch (error) {
+  failures.push(`JavaScript syntax error in ${priceStatusFile}: ${error.message}`);
 }
 
 for (const file of htmlFiles) {
