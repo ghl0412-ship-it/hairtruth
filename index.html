@@ -3413,8 +3413,6 @@ function restartDiag(){
 }
 
 function handleReceiptUpload(input) {
-  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
-  return;
   const file = input.files[0];
   if (!file) return;
   if (file.size > 10 * 1024 * 1024) {
@@ -3705,7 +3703,8 @@ function renderRanking(hospitals) {
 }
 
 function openReviewModal() {
-  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
+  document.getElementById('reviewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeReviewModal() {
@@ -3713,9 +3712,9 @@ function closeReviewModal() {
   document.body.style.overflow = '';
 }
 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzZXmyepXSgdWaB_oa8sMUNSCCrtaI0KelZz2MVVFqg0CC5O15q7J_94mWHMSmGagZ/exec';
+
 function submitReview() {
-  showToast(BETA_COLLECTION_NOTICE, 'info', 5000);
-  return;
   const hospitalName = document.getElementById('rv_hospital').value.trim();
   const hospitalType = document.getElementById('rv_type').value;
   const treatment = document.getElementById('rv_treatment').value.trim();
@@ -3726,24 +3725,44 @@ function submitReview() {
     (document.getElementById('rv_sido')?.value ? document.getElementById('rv_sido').value + (document.getElementById('rv_sigungu')?.value ? ' ' + document.getElementById('rv_sigungu').value : '') : '');
   const gender = document.getElementById('rv_gender').value;
   const nickname = document.getElementById('rv_nickname').value.trim() || '익명';
-
   const receiptImg = document.getElementById('rv_preview_img').src;
   const hasReceipt = document.getElementById('rv_preview').style.display !== 'none';
 
+  if (!hasReceipt) {
+    showToast('⚠️ 영수증 사진을 첨부해야 후기를 등록할 수 있어요!', 'warning', 4000);
+    return;
+  }
   if (!hospitalName || !treatment || !amount || !rating || !content) {
     showToast('병원명, 시술명, 금액, 별점, 후기 내용은 필수 입력 항목입니다!', 'warning');
     return;
   }
 
-  saveReview({ hospitalName, hospitalType, treatment, amount, rating: parseInt(rating), content, region, gender, nickname, receiptImg: hasReceipt ? receiptImg : null, hasReceipt });
-  renderReviews();
-  closeReviewModal();
-  document.getElementById('reviewForm').reset();
-  clearReceipt();
+  const submitBtn = document.querySelector('#reviewForm button[onclick="submitReview()"]');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '제출 중...'; }
 
-  setTimeout(() => {
-    showToast('🎉 후기가 등록되었습니다! 감사합니다 😊', 'success', 4000);
-  }, 300);
+  const payload = { nickname, gender, region, hospitalName, hospitalType, treatment, amount, rating, content, hasReceipt };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    closeReviewModal();
+    document.getElementById('reviewForm').reset();
+    clearReceipt();
+    setTimeout(() => { showToast('🎉 영수증 후기가 접수되었습니다! 검토 후 3일 내 공개될 예정이에요 😊', 'success', 5000); }, 300);
+  })
+  .catch(() => {
+    closeReviewModal();
+    document.getElementById('reviewForm').reset();
+    clearReceipt();
+    setTimeout(() => { showToast('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'warning', 4000); }, 300);
+  })
+  .finally(() => {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '후기 등록하기'; }
+  });
 }
 
 // 별점 인터랙션

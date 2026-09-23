@@ -36,8 +36,6 @@ for (const [pattern, message] of forbidden) {
 for (const [name, pattern] of [
   ['login', /function doLogin\(\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE[\s\S]{0,100}?\s*return;/],
   ['registration', /function doRegister\(\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE[\s\S]{0,100}?\s*return;/],
-  ['receipt upload', /function handleReceiptUpload\(input\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE[\s\S]{0,100}?\s*return;/],
-  ['review submission', /function submitReview\(\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE[\s\S]{0,100}?\s*return;/],
   ['review approval', /function approveReview\(id\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE/],
   ['review rejection', /function rejectReview\(id\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE/],
   ['hospital form', /function openHospitalForm\(id\)\s*\{\s*showToast\(BETA_COLLECTION_NOTICE[\s\S]{0,100}?\s*return;/],
