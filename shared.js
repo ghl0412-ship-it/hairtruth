@@ -80,22 +80,14 @@ function handleNavAuth() {
 
 // 후기 모달 열기
 function openReviewModal() {
-  alert(BETA_COLLECTION_NOTICE);
-  return;
-  var user = getCurrentUser();
-  if (!user) {
-    alert('로그인 후 후기를 작성할 수 있어요!');
-    if (document.getElementById('authModal')) {
-      openAuthModal('login');
-    } else {
-      location.href = 'index.html?open=auth';
-    }
-    return;
-  }
-  if (document.getElementById('reviewModal')) {
-    document.getElementById('reviewModal').classList.add('open');
+  // 현재 페이지가 index.html이면 모달 직접 열기
+  const modal = document.getElementById('reviewModal');
+  if (modal) {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
   } else {
-    location.href = 'index.html?open=review';
+    // 다른 페이지면 index.html로 이동하면서 후기 모달 열도록 파라미터 전달
+    window.location.href = '/index.html?open=review';
   }
 }
 

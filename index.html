@@ -3816,6 +3816,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+  // URL 파라미터로 모달 자동 열기
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('open') === 'review') {
+    setTimeout(() => openReviewModal(), 300);
+  }
 });
 
 </script>
