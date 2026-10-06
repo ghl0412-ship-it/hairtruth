@@ -35,5 +35,4 @@
 
 - `index.html` 첫 화면. 그 밖에 `hospitals.html`, `ranking.html`, `price.html`, `guide.html`, `reviews.html`, `qa.html`, `terms.html`, `privacy.html`
 - `shared.js` 여러 페이지가 함께 쓰는 코드
-- `index-redesign.html` 첫 화면 디자인 시안. 배포 대상이 아니다(`.gitignore`에 등록됨). 하람이 "시안 적용해줘"라고 하면 `index.html`을 이 파일 내용으로 바꾸고 `npm.cmd test`를 통과시킨 뒤 `/deploy`로 올린다.
 - `CNAME` 도메인 연결 파일. 건드리지 않는다.
