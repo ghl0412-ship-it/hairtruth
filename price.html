@@ -377,7 +377,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     <a href="qa.html">Q&A</a>
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
-    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">🧾 후기 남기기</a>
+    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">후기 수집 안내</a>
   </nav>
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
@@ -390,72 +390,62 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <a href="qa.html">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
-  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
+  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">후기 수집 안내</a>
 </div>
 
 <!-- PRICE + CHARTS -->
 <section class="price-section" id="price">
   <div class="section-label">비급여 가격 정보</div>
-  <div class="section-title">실제 지불 금액 & 가격 변동 추이</div>
-  <div class="section-sub">영수증 인증 데이터를 집계한 실제 비급여 진료비와 최근 6개월 가격 변동입니다.</div>
-  <div class="chart-row">
-    <div class="chart-card">
-      <div class="chart-title">모발이식 (비절개) 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a6b6e" stop-opacity="0.22"/><stop offset="100%" stop-color="#2a6b6e" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36" fill="none" stroke="#2a6b6e" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36 L300,72 L0,72 Z" fill="url(#g1)"/>
-        <circle cx="300" cy="36" r="4" fill="#2a6b6e"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="264" y="30" font-size="9" fill="#2a6b6e" font-family="monospace">195만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#2a6b6e"></div>서울 평균</div><span style="color:var(--accent);font-family:'DM Mono',monospace;font-size:0.72rem">↑ 3.2% (6개월)</span></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">두피 PRP 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c84b2f" stop-opacity="0.18"/><stop offset="100%" stop-color="#c84b2f" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38" fill="none" stroke="#c84b2f" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38 L300,72 L0,72 Z" fill="url(#g2)"/>
-        <circle cx="300" cy="38" r="4" fill="#c84b2f"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="268" y="32" font-size="9" fill="#c84b2f" font-family="monospace">17만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#c84b2f"></div>서울 평균</div><span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:0.72rem">→ 1.1% (6개월)</span></div>
-    </div>
-  </div>
-  <div class="price-table-wrap">
-    <table class="price-table">
-      <thead><tr><th>시술명</th><th>분류</th><th>평균 가격</th><th>최저 — 최고</th><th>표본 수</th><th>추세</th></tr></thead>
-      <tbody>
-        <tr><td><strong>모발이식 1,000모 (비절개 FUE)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">195만원</td><td class="price-range">160 — 280만원</td><td class="sample-count">🧾 742건</td><td><span class="trend-up">↑ 3.2%</span></td></tr>
-        <tr><td><strong>모발이식 1,000모 (절개 FUT)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">145만원</td><td class="price-range">100 — 200만원</td><td class="sample-count">🧾 318건</td><td><span class="trend-stable">→ 0.5%</span></td></tr>
-        <tr><td><strong>줄기세포 탈모 치료 (1회)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">95만원</td><td class="price-range">60 — 150만원</td><td class="sample-count">🧾 186건</td><td><span class="trend-up">↑ 4.8%</span></td></tr>
-        <tr><td><strong>두피 PRP 주사 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">17만원</td><td class="price-range">8 — 30만원</td><td class="sample-count">🧾 1,204건</td><td><span class="trend-stable">→ 1.1%</span></td></tr>
-        <tr><td><strong>메조테라피 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">13만원</td><td class="price-range">8 — 22만원</td><td class="sample-count">🧾 896건</td><td><span class="trend-up">↑ 2.0%</span></td></tr>
-        <tr><td><strong>LLLT 저출력 레이저 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">10만원</td><td class="price-range">5 — 18만원</td><td class="sample-count">🧾 524건</td><td><span class="trend-up">↑ 1.5%</span></td></tr>
-        <tr><td><strong>두피 앰플 마이크로 니들링</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">12만원</td><td class="price-range">8 — 20만원</td><td class="sample-count">🧾 312건</td><td><span class="trend-up">↑ 2.8%</span></td></tr>
-        <tr><td><strong>두피 스케일링 (1회)</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">6만원</td><td class="price-range">2 — 12만원</td><td class="sample-count">🧾 682건</td><td><span class="trend-stable">→ 0.3%</span></td></tr>
-        <tr><td><strong>한방 약침 시술 (1회)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">10만원</td><td class="price-range">6 — 18만원</td><td class="sample-count">🧾 428건</td><td><span class="trend-stable">→ 0.9%</span></td></tr>
-        <tr><td><strong>한방 탈모 한약 처방 (3개월)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">45만원</td><td class="price-range">30 — 80만원</td><td class="sample-count">🧾 267건</td><td><span class="trend-stable">→ 0.6%</span></td></tr>
-        <tr><td><strong>피나스테리드 처방 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국·의원</span></td><td class="price-range">3만원</td><td class="price-range">1.5 — 6만원</td><td class="sample-count">🧾 1,087건</td><td><span class="trend-stable">→ 0.8%</span></td></tr>
-        <tr><td><strong>미녹시딜 도포제 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국</span></td><td class="price-range">1.5만원</td><td class="price-range">0.8 — 3만원</td><td class="sample-count">🧾 863건</td><td><span class="trend-down">↓ 0.5%</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="section-title">영수증 기반 가격 데이터 준비 중</div>
+  <div class="section-sub">현재는 공개 자료와 이용자 제보를 분리해 확인하고 있습니다. 실제 결제 데이터가 충분히 쌓인 뒤 표본 수·지역·시점과 함께 공개합니다.</div>
 </section>
 
 
+
+<!-- 공식 자료에서 가격 확인하는 방법 -->
+<section style="background:var(--cream);padding:60px 5%;" id="price-compare">
+  <div class="section-label">가격 확인 방법</div>
+  <div class="section-title">공식 자료에서 가격 확인하는 방법</div>
+  <div class="section-sub">헤어트루스가 직접 확인하지 못한 가격 숫자는 보여드리지 않습니다. 아래 공식 자료에서 직접 확인해 보세요.</div>
+
+  <div style="display:grid;gap:14px;margin-top:28px;max-width:860px;">
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;">
+      <div style="font-weight:700;margin-bottom:6px;">1. 건강보험심사평가원 비급여 진료비 정보</div>
+      <p style="font-size:0.88rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">병원이 신고한 비급여 진료비를 항목 이름이나 병원 이름으로 찾아볼 수 있습니다. 찾는 항목이 없을 수 있습니다.</p>
+      <a href="https://www.hira.or.kr/npay/index.do" target="_blank" rel="noopener noreferrer" style="color:var(--teal);font-weight:700;font-size:0.88rem;">심평원 비급여 진료비 정보 열기 →</a>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;">
+      <div style="font-weight:700;margin-bottom:6px;">2. 보건의료빅데이터개방시스템 비급여 진료비용 통계</div>
+      <p style="font-size:0.88rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">심평원이 공개하는 비급여 진료비용 통계 자료입니다.</p>
+      <a href="https://opendata.hira.or.kr/op/opc/selectNonReimburseInfo.do" target="_blank" rel="noopener noreferrer" style="color:var(--teal);font-weight:700;font-size:0.88rem;">비급여 진료비용 통계 열기 →</a>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;">
+      <div style="font-weight:700;margin-bottom:6px;">3. 식품의약품안전처 의약품안전나라</div>
+      <p style="font-size:0.88rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">약의 성분과 허가 정보를 확인하는 곳입니다. 가격은 나오지 않습니다.</p>
+      <a href="https://nedrug.mfds.go.kr/index" target="_blank" rel="noopener noreferrer" style="color:var(--teal);font-weight:700;font-size:0.88rem;">의약품안전나라 열기 →</a>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;">
+      <div style="font-weight:700;margin-bottom:6px;">4. 병원에 직접 물어보기</div>
+      <p style="font-size:0.88rem;color:var(--mid);line-height:1.7;">같은 조건으로 물어야 비교할 수 있습니다. 약 이름과 용량, 몇 개월분인지, 진료비가 포함된 금액인지, 약값은 따로 내는지를 함께 물어보세요.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;font-size:0.75rem;color:var(--mid);">
+    ※ 링크 확인일: 2026.10.07 · 가격은 병원·지역·조건에 따라 다르며, 치료 선택은 의료진과 상담하세요.
+  </div>
+
+  <!-- 출처 확인을 마치면 다시 공개할 가격표 자리 (PRICES.sourceVerified 가 true 일 때만 보인다) -->
+  <div id="priceVerifiedArea" hidden>
+    <div style="display:flex;gap:8px;margin:28px 0 24px;flex-wrap:wrap;" id="priceTabs"></div>
+    <div id="priceTable" style="background:white;border-radius:14px;border:1px solid var(--line);overflow:hidden;"></div>
+  </div>
+</section>
 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <span class="logo">헤어<span style="color:var(--accent-soft)">트루스</span></span>
-      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>모든 후기는 실제 방문자의 영수증으로 검증됩니다.</p>
+      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>후기는 영수증을 확인한 뒤에만 게재합니다.</p>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:#FEE500;color:#3C1E1E;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">💬 카카오 채팅방</a>
         <a href="https://instagram.com/hairtruth_kr" target="_blank" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">📷 @hairtruth_kr</a>
@@ -464,25 +454,21 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     </div>
     <div class="footer-col">
       <h4>서비스</h4>
-      <a href="#search">병원 찾기</a>
-      <a href="#ranking">병원 랭킹</a>
-      <a href="#price">비급여 가격표</a>
-      <a href="#heatmap">지역별 가격 비교</a>
-      <a href="#compare">한방 vs 양방 비교</a>
+      <a href="hospitals.html">병원 찾기</a>
+      <a href="ranking.html">병원 랭킹</a>
+      <a href="price.html">비급여 가격표</a>
     </div>
     <div class="footer-col">
       <h4>정보</h4>
-      <a href="#guide">탈모 치료 가이드</a>
-      <a href="#timeline">치료 타임라인</a>
-      <a href="#qa">Q&A 커뮤니티</a>
+      <a href="guide.html">탈모 치료 가이드</a>
+      <a href="qa.html">Q&A 커뮤니티</a>
       <a href="#" onclick="openDiag();return false;">탈모 자가진단</a>
     </div>
     <div class="footer-col">
       <h4>채널</h4>
       <a href="https://open.kakao.com/o/gSX50zki" target="_blank">카카오 오픈채팅</a>
       <a href="https://instagram.com/hairtruth_kr" target="_blank">인스타그램</a>
-      <a href="#">네이버 블로그</a>
-      <a href="#">제휴·파트너십 문의</a>
+      <a href="https://blog.naver.com/hair_truth" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -491,7 +477,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   </div>
 </footer>
 <div id="floatingBtn" onclick="openReviewModal()" style="position:fixed;bottom:28px;right:28px;z-index:999;display:none;align-items:center;gap:10px;background:var(--accent);color:white;padding:14px 22px;border-radius:50px;cursor:pointer;box-shadow:0 4px 20px rgba(200,75,47,0.45);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;">
-  🧾 후기 남기기
+  후기 수집 안내
 </div>
 <script>
 window.addEventListener('scroll',function(){
@@ -503,28 +489,16 @@ window.addEventListener('scroll',function(){
 
 
 
-<!-- 비급여 가격 비교 섹션 (JSON 기반) -->
-<section style="background:var(--cream);padding:60px 5%;" id="price-compare">
-  <div class="section-label">실제 가격 데이터</div>
-  <div class="section-title">탈모 치료 비급여 가격 비교</div>
-  <div class="section-sub">건강보험심사평가원 비급여진료비 공개자료 기반 · 2025년 기준</div>
 
-  <!-- 카테고리 탭 -->
-  <div style="display:flex;gap:8px;margin:28px 0 24px;flex-wrap:wrap;" id="priceTabs"></div>
-
-  <!-- 가격 테이블 -->
-  <div id="priceTable" style="background:white;border-radius:14px;border:1px solid var(--line);overflow:hidden;"></div>
-
-  <div style="margin-top:14px;font-size:0.75rem;color:#aaa;">
-    ※ 출처: 건강보험심사평가원 비급여진료비정보 공개자료 (2025) · 병원·지역·조건에 따라 실제 가격 상이할 수 있음
-  </div>
-</section>
 
 <script>
 (function() {
   var PRICES = {
     "updated":"2025년 기준",
     "source":"건강보험심사평가원 비급여진료비정보 공개자료",
+    "sourceVerified":false,
+    "sourceUrl":"",
+    "checkedAt":"",
     "categories":[
       {"id":"transplant","name":"모발이식","icon":"✂️","items":[
         {"name":"모발이식 (비절개·FUE)","min":1200000,"max":5000000,"avg":2800000,"unit":"회","tip":"모당 2천~8천원 수준"},
@@ -623,6 +597,12 @@ window.addEventListener('scroll',function(){
   };
 
   document.addEventListener('DOMContentLoaded', function() {
+    // 원자료 링크(sourceUrl)와 확인 날짜(checkedAt, YYYY-MM-DD)가 함께 적혀 있어야 가격 숫자를 보여준다.
+    // sourceVerified만 true로 바꾼다고 확인이 끝난 것이 아니다. 실제로 원자료와 대조한 뒤에 기록한다.
+    if (PRICES.sourceVerified !== true) return;
+    if (!/^https:\/\//.test(PRICES.sourceUrl || '') || !/^\d{4}-\d{2}-\d{2}$/.test(PRICES.checkedAt || '')) return;
+    var area = document.getElementById('priceVerifiedArea');
+    if (area) area.hidden = false;
     renderTabs();
     renderTable();
   });

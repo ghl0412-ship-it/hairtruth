@@ -217,7 +217,7 @@ section{padding:70px 5%;}
 
 /* GUIDE */
 .guide-section{background:var(--white);}
-.guide-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:32px;}
+.guide-tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--line);margin-bottom:32px;}
 .guide-tab{padding:12px 22px;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;font-size:0.85rem;color:var(--mid);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;}
 .guide-tab.active{color:var(--ink);border-bottom-color:var(--accent);font-weight:600;}
 .guide-content{display:none;}
@@ -378,7 +378,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     <a href="qa.html">Q&A</a>
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
-    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">🧾 후기 남기기</a>
+    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">후기 수집 안내</a>
   </nav>
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
@@ -391,14 +391,14 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <a href="qa.html">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
-  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
+  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">후기 수집 안내</a>
 </div>
 
 <!-- TREATMENT GUIDE -->
 <section class="guide-section" id="guide">
   <div class="section-label">탈모 치료 가이드</div>
   <div class="section-title">나에게 맞는 치료법은?</div>
-  <div class="section-sub">탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 영수증 후기 데이터를 기반으로 정리했습니다.</div>
+  <div class="section-sub">탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 아래 내용은 일반적인 참고 정보이며, 치료 선택은 의료진과 상담하세요.</div>
   <div class="guide-tabs">
     <button class="guide-tab active" onclick="switchG(this,'implant')">💆 모발이식</button>
     <button class="guide-tab" onclick="switchG(this,'prp')">💉 PRP·주사</button>
@@ -414,14 +414,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>두피의 건강한 모낭을 탈모 부위에 이식하는 수술적 치료입니다. 비절개(FUE)와 절개(FUT) 방식이 있으며 영구적인 효과를 기대할 수 있습니다.</p>
       <div class="gtags"><span class="gt g">✓ 영구적 효과</span><span class="gt g">✓ M자·정수리 효과적</span><span class="gt c">△ 회복 7~14일</span><span class="gt b">✕ 고비용</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>영구</span></div><div class="eff-track"><div class="eff-fill" style="width:95%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.7 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:94%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1,000모)</span><span class="gstat-val">195만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1,000모)</span><span class="gstat-val">195만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">4~8시간</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">7~14일</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">6~12개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,060건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중증 이상</span></div>
     </div>
   </div>
@@ -431,14 +429,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>자신의 혈액에서 추출한 혈소판 농축 혈장(PRP)을 두피에 주입해 모낭을 자극하는 치료입니다. 수술 없이 모발 성장을 촉진합니다.</p>
       <div class="gtags"><span class="gt g">✓ 비수술적 치료</span><span class="gt g">✓ 회복 기간 없음</span><span class="gt c">△ 3~6회 반복 필요</span><span class="gt b">✕ 효과 개인차 큼</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>6~12개월</span></div><div class="eff-track"><div class="eff-fill" style="width:55%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">17만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">17만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~3개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,204건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
     </div>
   </div>
@@ -448,14 +444,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>두피에 영양물질, 성장인자 등을 미세 주사로 주입해 모발 성장을 촉진하는 치료법입니다. PRP와 병행하면 효과가 높습니다.</p>
       <div class="gtags"><span class="gt g">✓ 짧은 시술 시간</span><span class="gt g">✓ 두피 영양 공급</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 효과 증거 상대적 부족</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>3~6개월</span></div><div class="eff-track"><div class="eff-fill" style="width:45%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">13만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">13만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~40분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">1~2개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">896건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기</span></div>
     </div>
   </div>
@@ -465,14 +459,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>피나스테리드(남성형), 미녹시딜(남녀 공용) 등의 처방약으로 탈모를 억제하고 모발 성장을 돕는 치료입니다. 지속적인 복용이 필요합니다.</p>
       <div class="gtags"><span class="gt g">✓ 가장 낮은 비용</span><span class="gt g">✓ 비수술, 간편</span><span class="gt c">△ 지속 복용 필요</span><span class="gt b">✕ 중단 시 재발</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>복용 기간</span></div><div class="eff-track"><div class="eff-fill" style="width:70%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.3 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:86%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1개월)</span><span class="gstat-val">3만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">처방 소요 시간</span><span class="gstat-val">15~30분</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1개월)</span><span class="gstat-val">3만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">처방 소요 시간</span><span class="gstat-val">15~30분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,087건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
     </div>
   </div>
@@ -484,14 +476,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>한의학적 관점에서 신체 내부의 불균형(혈허, 신허 등)을 개선해 모발 환경을 회복시키는 치료입니다. 약침, 한약 처방, 침 치료 등을 복합적으로 활용합니다.</p>
       <div class="gtags"><span class="gt g">✓ 두피 예민할 때 효과적</span><span class="gt g">✓ 부작용 적음</span><span class="gt g">✓ 전신 건강 개선 병행</span><span class="gt c">△ 효과 느림 (3~6개월)</span><span class="gt b">✕ 장기 복용 필요</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 관리 필요</span></div><div class="eff-track"><div class="eff-fill" style="width:50%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">약침 평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">한약 처방 (3개월)</span><span class="gstat-val">30~80만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">약침 평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">한약 처방 (3개월)</span><span class="gstat-val">30~80만원</span></div>
       <div class="gstat-row"><span class="gstat-label">초진 상담 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">695건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기·양방 부작용 시</span></div>
     </div>
   </div>
@@ -503,14 +493,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>630~670nm 파장의 저출력 적색 레이저를 두피에 조사해 모낭 세포의 에너지 대사를 활성화하고 혈류를 개선하는 비침습적 치료입니다. 병원 기기와 가정용 기기 두 가지 방식이 있습니다.</p>
       <div class="gtags"><span class="gt g">✓ 완전 비침습·통증 없음</span><span class="gt g">✓ 다른 치료와 병행 가능</span><span class="gt g">✓ 가정용 기기 존재</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 중증에는 효과 미미</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 시술 중</span></div><div class="eff-track"><div class="eff-fill" style="width:48%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~30분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">524건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기 (병행 치료)</span></div>
     </div>
   </div>
@@ -522,14 +510,12 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <p>지방 조직 또는 탯줄 유래 줄기세포 성장인자(엑소좀·세포 상층액)를 두피에 주입해 손상된 모낭을 재생시키는 최신 치료입니다. PRP 대비 성장인자 농도가 높아 효과가 더 강력합니다.</p>
       <div class="gtags"><span class="gt g">✓ PRP보다 강력한 재생</span><span class="gt g">✓ 비수술·짧은 회복</span><span class="gt c">△ 아직 임상 데이터 축적 중</span><span class="gt b">✕ 고비용</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>12~18개월</span></div><div class="eff-track"><div class="eff-fill" style="width:68%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.4 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:88%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">95만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">95만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">1~2일 (경미한 붓기)</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">186건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중기 (PRP 효과 부족 시)</span></div>
     </div>
   </div>
@@ -615,8 +601,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
       <iframe id="googleMapIframe" width="100%" height="100%" frameborder="0" style="border:0;display:block;" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div style="margin-top:16px;padding:14px 16px;background:var(--cream);border-radius:8px;font-size:0.82rem;color:var(--mid);">
-      💡 지도에서 <strong>탈모·피부과·한의원</strong> 검색 결과를 확인하세요. 병원 방문 후 영수증 후기를 남겨주시면 헤어트루스에 등록됩니다!
-      <a href="#" onclick="openReviewModal();return false;" style="color:var(--teal);font-weight:600;text-decoration:none;">🧾 후기 남기기 →</a>
+      💡 지도에서 <strong>탈모·피부과·한의원</strong> 검색 결과를 확인하세요. 검색 결과는 Google 지도가 제공하며, 헤어트루스가 확인한 기관 목록이 아닙니다.
     </div>
   </div>
 
@@ -712,7 +697,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <div class="footer-grid">
     <div class="footer-brand">
       <span class="logo">헤어<span style="color:var(--accent-soft)">트루스</span></span>
-      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>모든 후기는 실제 방문자의 영수증으로 검증됩니다.</p>
+      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>후기는 영수증을 확인한 뒤에만 게재합니다.</p>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:#FEE500;color:#3C1E1E;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">💬 카카오 채팅방</a>
         <a href="https://instagram.com/hairtruth_kr" target="_blank" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">📷 @hairtruth_kr</a>
@@ -721,25 +706,21 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     </div>
     <div class="footer-col">
       <h4>서비스</h4>
-      <a href="#search">병원 찾기</a>
-      <a href="#ranking">병원 랭킹</a>
-      <a href="#price">비급여 가격표</a>
-      <a href="#heatmap">지역별 가격 비교</a>
-      <a href="#compare">한방 vs 양방 비교</a>
+      <a href="hospitals.html">병원 찾기</a>
+      <a href="ranking.html">병원 랭킹</a>
+      <a href="price.html">비급여 가격표</a>
     </div>
     <div class="footer-col">
       <h4>정보</h4>
-      <a href="#guide">탈모 치료 가이드</a>
-      <a href="#timeline">치료 타임라인</a>
-      <a href="#qa">Q&A 커뮤니티</a>
+      <a href="guide.html">탈모 치료 가이드</a>
+      <a href="qa.html">Q&A 커뮤니티</a>
       <a href="#" onclick="openDiag();return false;">탈모 자가진단</a>
     </div>
     <div class="footer-col">
       <h4>채널</h4>
       <a href="https://open.kakao.com/o/gSX50zki" target="_blank">카카오 오픈채팅</a>
       <a href="https://instagram.com/hairtruth_kr" target="_blank">인스타그램</a>
-      <a href="#">네이버 블로그</a>
-      <a href="#">제휴·파트너십 문의</a>
+      <a href="https://blog.naver.com/hair_truth" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -748,7 +729,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   </div>
 </footer>
 <div id="floatingBtn" onclick="openReviewModal()" style="position:fixed;bottom:28px;right:28px;z-index:999;display:none;align-items:center;gap:10px;background:var(--accent);color:white;padding:14px 22px;border-radius:50px;cursor:pointer;box-shadow:0 4px 20px rgba(200,75,47,0.45);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;">
-  🧾 후기 남기기
+  후기 수집 안내
 </div>
 <script>
 window.addEventListener('scroll',function(){

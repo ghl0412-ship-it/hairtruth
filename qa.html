@@ -377,7 +377,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
     <a href="qa.html">Q&A</a>
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
-    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">🧾 후기 남기기</a>
+    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">후기 수집 안내</a>
   </nav>
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
@@ -390,7 +390,7 @@ nav a.nav-active { color: var(--accent-soft) !important; border-bottom: 2px soli
   <a href="qa.html">Q&A 커뮤니티</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
-  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
+  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">후기 수집 안내</a>
 </div>
 
 <section class="qa-section" id="qa" style="padding:60px 5%;">
@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', renderQaList);
   <div class="footer-grid">
     <div class="footer-brand">
       <span class="logo">헤어<span style="color:var(--accent-soft)">트루스</span></span>
-      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>모든 후기는 실제 방문자의 영수증으로 검증됩니다.</p>
+      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>후기는 영수증을 확인한 뒤에만 게재합니다.</p>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:#FEE500;color:#3C1E1E;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">💬 카카오 채팅방</a>
         <a href="https://instagram.com/hairtruth_kr" target="_blank" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">📷 @hairtruth_kr</a>
@@ -621,25 +621,21 @@ document.addEventListener('DOMContentLoaded', renderQaList);
     </div>
     <div class="footer-col">
       <h4>서비스</h4>
-      <a href="#search">병원 찾기</a>
-      <a href="#ranking">병원 랭킹</a>
-      <a href="#price">비급여 가격표</a>
-      <a href="#heatmap">지역별 가격 비교</a>
-      <a href="#compare">한방 vs 양방 비교</a>
+      <a href="hospitals.html">병원 찾기</a>
+      <a href="ranking.html">병원 랭킹</a>
+      <a href="price.html">비급여 가격표</a>
     </div>
     <div class="footer-col">
       <h4>정보</h4>
-      <a href="#guide">탈모 치료 가이드</a>
-      <a href="#timeline">치료 타임라인</a>
-      <a href="#qa">Q&A 커뮤니티</a>
+      <a href="guide.html">탈모 치료 가이드</a>
+      <a href="qa.html">Q&A 커뮤니티</a>
       <a href="#" onclick="openDiag();return false;">탈모 자가진단</a>
     </div>
     <div class="footer-col">
       <h4>채널</h4>
       <a href="https://open.kakao.com/o/gSX50zki" target="_blank">카카오 오픈채팅</a>
       <a href="https://instagram.com/hairtruth_kr" target="_blank">인스타그램</a>
-      <a href="#">네이버 블로그</a>
-      <a href="#">제휴·파트너십 문의</a>
+      <a href="https://blog.naver.com/hair_truth" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -648,7 +644,7 @@ document.addEventListener('DOMContentLoaded', renderQaList);
   </div>
 </footer>
 <div id="floatingBtn" onclick="openReviewModal()" style="position:fixed;bottom:28px;right:28px;z-index:999;display:none;align-items:center;gap:10px;background:var(--accent);color:white;padding:14px 22px;border-radius:50px;cursor:pointer;box-shadow:0 4px 20px rgba(200,75,47,0.45);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:0.95rem;">
-  🧾 후기 남기기
+  후기 수집 안내
 </div>
 <script>
 window.addEventListener('scroll',function(){

@@ -79,16 +79,13 @@ function handleNavAuth() {
 }
 
 // 후기 모달 열기
+// 후기 수집은 수집 항목 안내·동의 절차·개인정보 처리방침이 준비될 때까지 닫아 둔다.
+const REVIEW_PAUSED_NOTICE = '후기 수집 준비 중입니다. 수집 항목 안내와 동의 절차를 마련한 뒤 다시 열겠습니다.';
+
 function openReviewModal() {
-  // 현재 페이지가 index.html이면 모달 직접 열기
-  const modal = document.getElementById('reviewModal');
-  if (modal) {
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  } else {
-    // 다른 페이지면 index.html로 이동하면서 후기 모달 열도록 파라미터 전달
-    window.location.href = '/index.html?open=review';
-  }
+  // 안내 버튼 클릭 횟수일 뿐이다. 후기 제출이나 수요가 검증된 것으로 해석하지 않는다.
+  if (typeof window.gtag === 'function') window.gtag('event', 'review_notice_click', { page_path: window.location.pathname });
+  alert(REVIEW_PAUSED_NOTICE);
 }
 
 // 자가진단 모달

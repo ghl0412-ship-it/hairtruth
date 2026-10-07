@@ -447,7 +447,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
 
 <!-- NOTIFICATION BANNER -->
 <div class="notif-banner" id="nb">
-  <span class="notif-badge">후기 모집</span>
+  <span class="notif-badge">알림</span>
   <p>🧾 <strong>영수증 인증</strong> 기반 탈모 병원·한의원·두피샵 후기 플랫폼 — <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="color:var(--accent-soft);text-decoration:underline">채팅방 참여하기 →</a></p>
   <button class="notif-close" onclick="document.getElementById('nb').remove()">✕</button>
 </div>
@@ -465,7 +465,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
     <a href="#" onclick="openDiag();return false;" style="color:var(--accent-soft)!important">🔬 자가진단</a>
     <a href="https://instagram.com/hairtruth_kr" target="_blank" rel="noopener" style="color:#aaa">📷 인스타</a>
     <a href="#" id="navAuthBtn" onclick="handleNavAuth();return false;" style="border:1px solid #444;padding:7px 16px;border-radius:4px;color:#aaa;text-decoration:none;">로그인</a>
-    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">🧾 후기 남기기</a>
+    <a href="#" onclick="openReviewModal();return false;" class="nav-cta">후기 수집 안내</a>
   </nav>
   <button class="mobile-menu-btn" onclick="document.getElementById('mn').classList.toggle('open')">☰</button>
 </header>
@@ -479,7 +479,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzLDILyNgFxTaTLzO3Gt4l86FhPUPzcrwuTO4UfRlKgAgMlQ/viewform" target="_blank" rel="noopener noreferrer" style="color:var(--accent-soft)!important;font-weight:700">📝 베타 설문 참여</a>
   <a href="#" onclick="openDiag();return false;">🔬 탈모 자가진단</a>
   <a href="#" id="mobileAuthBtn" onclick="handleNavAuth();return false;">로그인 / 회원가입</a>
-  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">🧾 영수증 후기 작성</a>
+  <a href="#" onclick="openReviewModal();return false;" style="color:var(--accent-soft)!important;font-weight:500">후기 수집 안내</a>
 </div>
 
 <!-- HOME PAGE -->
@@ -517,7 +517,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
         <p>병원 광고비는 받지 않습니다. 이름과 연락처는 가려서 올립니다.</p>
       </div>
     </div>
-    <a href="#" class="rc-cta" onclick="openReviewModal();return false;">내 영수증으로 후기 남기기</a>
+    <a href="#" class="rc-cta" onclick="openReviewModal();return false;">후기 수집 준비 안내</a>
   </div>
 </div>
 
@@ -534,8 +534,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
 <section class="map-section" id="mapSection" style="padding:60px 5%;">
   <div class="section-label">내 주변 탈모 병원</div>
   <div class="section-title">전국 주요 탈모 병원 지도</div>
-  <div class="section-sub">카카오맵 기반 · 실제 위치 확인 가능 · 영수증 후기 병원 표시</div>
+  <div class="section-sub">주소·전화번호·진료 여부를 확인한 기관부터 순서대로 공개합니다.</div>
 
+  <div id="mapPendingNotice" style="margin-top:20px;padding:40px 20px;text-align:center;background:var(--white);border:2px dashed var(--line);border-radius:16px;">
+    <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:8px;">기관 정보를 확인 중입니다</div>
+    <div style="font-size:0.88rem;color:var(--mid);line-height:1.7;">확인을 마친 기관부터 지도와 목록에 다시 공개합니다.</div>
+  </div>
+
+  <div id="mapVerifiedArea" hidden>
   <!-- 필터 버튼 -->
   <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap;">
     <button onclick="filterMap('all')" id="filterAll" style="padding:8px 18px;border-radius:20px;border:1.5px solid var(--teal);background:var(--teal);color:white;font-family:'Noto Sans KR',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;">전체</button>
@@ -551,7 +557,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
   <div id="mapHospitalList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:20px;"></div>
 
   <div style="margin-top:14px;font-size:0.75rem;color:#aaa;text-align:center;">
-    ※ 지도 데이터: 카카오맵 | 병원 정보는 공개 정보 기반 | 영수증 후기 남기면 인증 마크 표시
+    ※ 지도 데이터: 카카오맵 | 확인을 마친 기관만 표시합니다
+  </div>
   </div>
 </section>
 
@@ -665,11 +672,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
 <section class="how-section">
   <div class="section-label">How It Works</div>
   <div class="section-title">어떻게 신뢰할 수 있나요?</div>
-  <div class="section-sub">영수증 기반 3단계 검증 프로세스로 광고성 후기를 완전히 차단합니다.</div>
+  <div class="section-sub">영수증 제보는 개인정보를 가린 뒤 운영자 검토를 거쳐 공개합니다.</div>
   <div class="steps-grid">
-    <div class="step"><div class="step-num">01</div><div class="step-icon" style="background:#fef3f0">📋</div><h3>영수증 업로드</h3><p>탈모 병원 방문 후 발급받은 진료비 영수증을 사진으로 업로드합니다. 개인정보는 자동으로 블라인드 처리됩니다.</p></div>
-    <div class="step"><div class="step-num">02</div><div class="step-icon" style="background:#e8f5ee">🤖</div><h3>AI 진위 검증</h3><p>AI가 영수증의 병원명, 진료일, 금액 등을 자동 분석해 위조 여부를 판별합니다. 검증 완료 후 후기 작성이 가능합니다.</p></div>
-    <div class="step"><div class="step-num">03</div><div class="step-icon" style="background:#e8f0fe">📊</div><h3>투명한 정보 공개</h3><p>검증된 후기와 실제 지불 금액이 병원 프로필에 반영됩니다. 비급여 가격 통계도 자동으로 업데이트됩니다.</p></div>
+    <div class="step"><div class="step-num">01</div><div class="step-icon" style="background:#fef3f0">📋</div><h3>영수증 업로드</h3><p>탈모 병원 방문 후 발급받은 진료비 영수증을 사진으로 업로드합니다. 이름과 연락처는 가려서 올려주세요.</p></div>
+    <div class="step"><div class="step-num">02</div><div class="step-icon" style="background:#e8f5ee">🔎</div><h3>운영자 검토</h3><p>병원명·진료일·결제 정보의 일치 여부와 개인정보 가림 상태를 확인합니다.</p></div>
+    <div class="step"><div class="step-num">03</div><div class="step-icon" style="background:#e8f0fe">📊</div><h3>출처와 함께 공개</h3><p>검토를 마친 제보만 등록하며, 데이터가 쌓이면 병원별 정보로 반영합니다.</p></div>
   </div>
 </section>
 
@@ -711,7 +718,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
     <div style="font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;">아직 등록된 후기가 없어요</div>
     <div style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:24px;">헤어트루스는 광고 없이 실제 영수증 후기만 모읍니다.<br><strong style="color:var(--accent)">첫 후기 주인공</strong>이 되어주세요!</div>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:12px 28px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">✏️ 사이트에서 후기 작성</button>
+      <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:12px 28px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">후기 수집 안내</button>
       <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:var(--ink);color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;">💬 카카오 채팅방 참여</a>
     </div>
   </div>
@@ -734,13 +741,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
       <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
         <div style="font-size:2rem;margin-bottom:8px;">☕</div>
-        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">영수증 인증 완료</div>
-        <div style="color:#888;font-size:0.78rem;margin-top:4px;">후기 1건 인증 시 즉시 지급</div>
+        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">운영자 검토</div>
+        <div style="color:#888;font-size:0.78rem;margin-top:4px;">확인을 마친 후기만 게재</div>
       </div>
       <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
         <div style="font-size:2rem;margin-bottom:8px;">🔒</div>
-        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">완전 익명 보장</div>
-        <div style="color:#888;font-size:0.78rem;margin-top:4px;">개인정보 일절 수집 없음</div>
+        <div style="color:#f5f0e8;font-weight:700;font-size:0.9rem;">닉네임으로 게재</div>
+        <div style="color:#888;font-size:0.78rem;margin-top:4px;">이름·연락처는 받지 않아요</div>
       </div>
       <div style="background:rgba(255,255,255,0.05);border:1px solid #333;border-radius:12px;padding:20px 28px;text-align:center;">
         <div style="font-size:2rem;margin-bottom:8px;">💰</div>
@@ -950,8 +957,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       </div>
       <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;">
         <div style="font-size:1.1rem;margin-bottom:12px;">🧾</div>
-        <div style="font-size:0.88rem;font-weight:700;margin-bottom:8px;">영수증 인증 방법</div>
-        <div style="font-size:0.8rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">카카오 오픈채팅방에서 영수증 사진 + 간단한 후기를 남겨주시면 됩니다. 완전 익명입니다!</div>
+        <div style="font-size:0.88rem;font-weight:700;margin-bottom:8px;">후기 수집 준비 중입니다</div>
+        <div style="font-size:0.8rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">수집 항목 안내와 동의 절차를 마련한 뒤 다시 열겠습니다. 채팅방에는 영수증 사진을 올리지 말아 주세요.</div>
         <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="display:block;background:var(--teal);color:white;padding:10px;border-radius:8px;text-align:center;font-size:0.82rem;text-decoration:none;font-weight:600;">채팅방 바로가기 →</a>
       </div>
       <div style="background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;">
@@ -992,7 +999,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
     <div style="font-size:2rem;margin-bottom:12px;">🏆</div>
     <div style="font-weight:700;margin-bottom:8px;">아직 랭킹 데이터가 없어요</div>
     <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;">영수증 후기가 쌓이면 자동으로 랭킹이 생성됩니다!</div>
-    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:0.85rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">🧾 첫 후기 남기기</button>
+    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:10px 24px;border-radius:8px;border:none;cursor:pointer;font-size:0.85rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">후기 수집 안내</button>
   </div>
 </section>
 
@@ -1004,57 +1011,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
 <!-- PRICE + CHARTS -->
 <section class="price-section" id="price">
   <div class="section-label">비급여 가격 정보</div>
-  <div class="section-title">실제 지불 금액 & 가격 변동 추이</div>
-  <div class="section-sub">영수증 인증 데이터를 집계한 실제 비급여 진료비와 최근 6개월 가격 변동입니다.</div>
-  <div class="chart-row">
-    <div class="chart-card">
-      <div class="chart-title">모발이식 (비절개) 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a6b6e" stop-opacity="0.22"/><stop offset="100%" stop-color="#2a6b6e" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36" fill="none" stroke="#2a6b6e" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,55 L50,50 L100,47 L150,43 L200,46 L250,40 L300,36 L300,72 L0,72 Z" fill="url(#g1)"/>
-        <circle cx="300" cy="36" r="4" fill="#2a6b6e"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="264" y="30" font-size="9" fill="#2a6b6e" font-family="monospace">195만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#2a6b6e"></div>서울 평균</div><span style="color:var(--accent);font-family:'DM Mono',monospace;font-size:0.72rem">↑ 3.2% (6개월)</span></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">두피 PRP 가격 추이</div>
-      <div class="chart-sub">최근 6개월 · 서울 평균</div>
-      <svg class="chart-svg" viewBox="0 0 300 72">
-        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c84b2f" stop-opacity="0.18"/><stop offset="100%" stop-color="#c84b2f" stop-opacity="0"/></linearGradient></defs>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38" fill="none" stroke="#c84b2f" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0,42 L50,38 L100,43 L150,39 L200,37 L250,40 L300,38 L300,72 L0,72 Z" fill="url(#g2)"/>
-        <circle cx="300" cy="38" r="4" fill="#c84b2f"/>
-        <text x="0" y="68" font-size="8" fill="#aaa" font-family="monospace">9월</text>
-        <text x="240" y="68" font-size="8" fill="#aaa" font-family="monospace">2월</text>
-        <text x="268" y="32" font-size="9" fill="#c84b2f" font-family="monospace">17만원</text>
-      </svg>
-      <div class="chart-leg"><div class="leg-left"><div class="leg-dot" style="background:#c84b2f"></div>서울 평균</div><span style="color:var(--teal);font-family:'DM Mono',monospace;font-size:0.72rem">→ 1.1% (6개월)</span></div>
-    </div>
-  </div>
-  <div class="price-table-wrap">
-    <table class="price-table">
-      <thead><tr><th>시술명</th><th>분류</th><th>평균 가격</th><th>최저 — 최고</th><th>표본 수</th><th>추세</th></tr></thead>
-      <tbody>
-        <tr><td><strong>모발이식 1,000모 (비절개 FUE)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">195만원</td><td class="price-range">160 — 280만원</td><td class="sample-count">🧾 742건</td><td><span class="trend-up">↑ 3.2%</span></td></tr>
-        <tr><td><strong>모발이식 1,000모 (절개 FUT)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">145만원</td><td class="price-range">100 — 200만원</td><td class="sample-count">🧾 318건</td><td><span class="trend-stable">→ 0.5%</span></td></tr>
-        <tr><td><strong>줄기세포 탈모 치료 (1회)</strong></td><td><span class="pt-tag pt-clinic">클리닉</span></td><td class="price-range">95만원</td><td class="price-range">60 — 150만원</td><td class="sample-count">🧾 186건</td><td><span class="trend-up">↑ 4.8%</span></td></tr>
-        <tr><td><strong>두피 PRP 주사 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">17만원</td><td class="price-range">8 — 30만원</td><td class="sample-count">🧾 1,204건</td><td><span class="trend-stable">→ 1.1%</span></td></tr>
-        <tr><td><strong>메조테라피 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">13만원</td><td class="price-range">8 — 22만원</td><td class="sample-count">🧾 896건</td><td><span class="trend-up">↑ 2.0%</span></td></tr>
-        <tr><td><strong>LLLT 저출력 레이저 (1회)</strong></td><td><span class="pt-tag pt-derm">피부과</span></td><td class="price-range">10만원</td><td class="price-range">5 — 18만원</td><td class="sample-count">🧾 524건</td><td><span class="trend-up">↑ 1.5%</span></td></tr>
-        <tr><td><strong>두피 앰플 마이크로 니들링</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">12만원</td><td class="price-range">8 — 20만원</td><td class="sample-count">🧾 312건</td><td><span class="trend-up">↑ 2.8%</span></td></tr>
-        <tr><td><strong>두피 스케일링 (1회)</strong></td><td><span class="pt-tag pt-scalp">두피샵</span></td><td class="price-range">6만원</td><td class="price-range">2 — 12만원</td><td class="sample-count">🧾 682건</td><td><span class="trend-stable">→ 0.3%</span></td></tr>
-        <tr><td><strong>한방 약침 시술 (1회)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">10만원</td><td class="price-range">6 — 18만원</td><td class="sample-count">🧾 428건</td><td><span class="trend-stable">→ 0.9%</span></td></tr>
-        <tr><td><strong>한방 탈모 한약 처방 (3개월)</strong></td><td><span class="pt-tag pt-hanbang">한의원</span></td><td class="price-range">45만원</td><td class="price-range">30 — 80만원</td><td class="sample-count">🧾 267건</td><td><span class="trend-stable">→ 0.6%</span></td></tr>
-        <tr><td><strong>피나스테리드 처방 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국·의원</span></td><td class="price-range">3만원</td><td class="price-range">1.5 — 6만원</td><td class="sample-count">🧾 1,087건</td><td><span class="trend-stable">→ 0.8%</span></td></tr>
-        <tr><td><strong>미녹시딜 도포제 (1개월)</strong></td><td><span class="pt-tag pt-pharm">약국</span></td><td class="price-range">1.5만원</td><td class="price-range">0.8 — 3만원</td><td class="sample-count">🧾 863건</td><td><span class="trend-down">↓ 0.5%</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="section-title">영수증 기반 가격 데이터 준비 중</div>
+  <div class="section-sub">현재는 공개 자료와 이용자 제보를 분리해 확인하고 있습니다. 실제 결제 데이터가 충분히 쌓인 뒤 표본 수·지역·시점과 함께 공개합니다.</div>
 </section>
 
 </div><!-- /page-price -->
@@ -1066,7 +1024,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
 <section class="guide-section" id="guide">
   <div class="section-label">탈모 치료 가이드</div>
   <div class="section-title">나에게 맞는 치료법은?</div>
-  <div class="section-sub">탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 영수증 후기 데이터를 기반으로 정리했습니다.</div>
+  <div class="section-sub">탈모 유형과 진행 단계에 따라 적합한 치료법이 다릅니다. 아래 내용은 일반적인 참고 정보이며, 치료 선택은 의료진과 상담하세요.</div>
   <div class="guide-tabs">
     <button class="guide-tab active" onclick="switchG(this,'implant')">💆 모발이식</button>
     <button class="guide-tab" onclick="switchG(this,'prp')">💉 PRP·주사</button>
@@ -1082,14 +1040,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>두피의 건강한 모낭을 탈모 부위에 이식하는 수술적 치료입니다. 비절개(FUE)와 절개(FUT) 방식이 있으며 영구적인 효과를 기대할 수 있습니다.</p>
       <div class="gtags"><span class="gt g">✓ 영구적 효과</span><span class="gt g">✓ M자·정수리 효과적</span><span class="gt c">△ 회복 7~14일</span><span class="gt b">✕ 고비용</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>영구</span></div><div class="eff-track"><div class="eff-fill" style="width:95%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.7 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:94%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1,000모)</span><span class="gstat-val">195만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1,000모)</span><span class="gstat-val">195만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">4~8시간</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">7~14일</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">6~12개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,060건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중증 이상</span></div>
     </div>
   </div>
@@ -1099,14 +1055,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>자신의 혈액에서 추출한 혈소판 농축 혈장(PRP)을 두피에 주입해 모낭을 자극하는 치료입니다. 수술 없이 모발 성장을 촉진합니다.</p>
       <div class="gtags"><span class="gt g">✓ 비수술적 치료</span><span class="gt g">✓ 회복 기간 없음</span><span class="gt c">△ 3~6회 반복 필요</span><span class="gt b">✕ 효과 개인차 큼</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>6~12개월</span></div><div class="eff-track"><div class="eff-fill" style="width:55%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">17만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">17만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~3개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,204건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
     </div>
   </div>
@@ -1116,14 +1070,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>두피에 영양물질, 성장인자 등을 미세 주사로 주입해 모발 성장을 촉진하는 치료법입니다. PRP와 병행하면 효과가 높습니다.</p>
       <div class="gtags"><span class="gt g">✓ 짧은 시술 시간</span><span class="gt g">✓ 두피 영양 공급</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 효과 증거 상대적 부족</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>3~6개월</span></div><div class="eff-track"><div class="eff-fill" style="width:45%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">13만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">13만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~40분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">1~2개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">896건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기</span></div>
     </div>
   </div>
@@ -1133,14 +1085,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>피나스테리드(남성형), 미녹시딜(남녀 공용) 등의 처방약으로 탈모를 억제하고 모발 성장을 돕는 치료입니다. 지속적인 복용이 필요합니다.</p>
       <div class="gtags"><span class="gt g">✓ 가장 낮은 비용</span><span class="gt g">✓ 비수술, 간편</span><span class="gt c">△ 지속 복용 필요</span><span class="gt b">✕ 중단 시 재발</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>복용 기간</span></div><div class="eff-track"><div class="eff-fill" style="width:70%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.3 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:86%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1개월)</span><span class="gstat-val">3만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">처방 소요 시간</span><span class="gstat-val">15~30분</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1개월)</span><span class="gstat-val">3만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">처방 소요 시간</span><span class="gstat-val">15~30분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">1,087건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기~중기</span></div>
     </div>
   </div>
@@ -1152,14 +1102,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>한의학적 관점에서 신체 내부의 불균형(혈허, 신허 등)을 개선해 모발 환경을 회복시키는 치료입니다. 약침, 한약 처방, 침 치료 등을 복합적으로 활용합니다.</p>
       <div class="gtags"><span class="gt g">✓ 두피 예민할 때 효과적</span><span class="gt g">✓ 부작용 적음</span><span class="gt g">✓ 전신 건강 개선 병행</span><span class="gt c">△ 효과 느림 (3~6개월)</span><span class="gt b">✕ 장기 복용 필요</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 관리 필요</span></div><div class="eff-track"><div class="eff-fill" style="width:50%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.2 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:84%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">약침 평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
-      <div class="gstat-row"><span class="gstat-label">한약 처방 (3개월)</span><span class="gstat-val">30~80만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">약침 평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">한약 처방 (3개월)</span><span class="gstat-val">30~80만원</span></div>
       <div class="gstat-row"><span class="gstat-label">초진 상담 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~6개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">695건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기·양방 부작용 시</span></div>
     </div>
   </div>
@@ -1171,14 +1119,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>630~670nm 파장의 저출력 적색 레이저를 두피에 조사해 모낭 세포의 에너지 대사를 활성화하고 혈류를 개선하는 비침습적 치료입니다. 병원 기기와 가정용 기기 두 가지 방식이 있습니다.</p>
       <div class="gtags"><span class="gt g">✓ 완전 비침습·통증 없음</span><span class="gt g">✓ 다른 치료와 병행 가능</span><span class="gt g">✓ 가정용 기기 존재</span><span class="gt c">△ 정기적 시술 필요</span><span class="gt b">✕ 중증에는 효과 미미</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>지속 시술 중</span></div><div class="eff-track"><div class="eff-fill" style="width:48%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.0 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:80%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">10만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">20~30분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">없음</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">3~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">524건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">초기 (병행 치료)</span></div>
     </div>
   </div>
@@ -1190,14 +1136,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
       <p>지방 조직 또는 탯줄 유래 줄기세포 성장인자(엑소좀·세포 상층액)를 두피에 주입해 손상된 모낭을 재생시키는 최신 치료입니다. PRP 대비 성장인자 농도가 높아 효과가 더 강력합니다.</p>
       <div class="gtags"><span class="gt g">✓ PRP보다 강력한 재생</span><span class="gt g">✓ 비수술·짧은 회복</span><span class="gt c">△ 아직 임상 데이터 축적 중</span><span class="gt b">✕ 고비용</span></div>
       <div class="eff-row"><div class="eff-label"><span>효과 지속성</span><span>12~18개월</span></div><div class="eff-track"><div class="eff-fill" style="width:68%"></div></div></div>
-      <div class="eff-row" style="margin-top:12px"><div class="eff-label"><span>만족도 (후기 기반)</span><span>4.4 / 5.0</span></div><div class="eff-track"><div class="eff-fill" style="width:88%"></div></div></div>
     </div>
     <div class="gstat">
-      <div class="gstat-row"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">95만원</span></div>
+      <div class="gstat-row" style="display:none"><span class="gstat-label">평균 비용 (1회)</span><span class="gstat-val">95만원</span></div>
       <div class="gstat-row"><span class="gstat-label">시술 시간</span><span class="gstat-val">30~60분</span></div>
       <div class="gstat-row"><span class="gstat-label">회복 기간</span><span class="gstat-val">1~2일 (경미한 붓기)</span></div>
       <div class="gstat-row"><span class="gstat-label">효과 발현</span><span class="gstat-val">2~4개월</span></div>
-      <div class="gstat-row"><span class="gstat-label">영수증 인증 후기</span><span class="gstat-val">186건</span></div>
       <div class="gstat-row"><span class="gstat-label">추천 탈모 단계</span><span class="gstat-val">중기 (PRP 효과 부족 시)</span></div>
     </div>
   </div>
@@ -1346,11 +1290,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent-soft);outlin
     <div style="font-size:2.5rem;margin-bottom:12px;">✏️</div>
     <div style="font-size:1rem;font-weight:700;margin-bottom:8px;">아직 등록된 후기가 없어요</div>
     <div style="font-size:0.85rem;color:var(--mid);margin-bottom:20px;">첫 영수증 후기를 남겨주세요! 함께 투명한 탈모 정보를 만들어가요.</div>
-    <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:11px 26px;border-radius:8px;border:none;cursor:pointer;font-size:0.88rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">✏️ 첫 후기 작성하기</button>
+    <button onclick="openReviewModal()" style="background:var(--accent);color:white;padding:11px 26px;border-radius:8px;border:none;cursor:pointer;font-size:0.88rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">후기 수집 안내</button>
   </div>
 
   <div style="margin-top:24px;text-align:center;">
-    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">🧾 영수증 후기 작성하기</button>
+    <button onclick="openReviewModal()" style="background:var(--teal);color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">후기 수집 안내</button>
   </div>
 </section>
 
@@ -1473,14 +1417,8 @@ document.addEventListener('DOMContentLoaded', renderQaList);
   <div>
     <div class="upload-box">
       <div class="upload-icon">🧾</div>
-      <h3>후기 남기는 방법</h3>
-      <p>카카오 오픈채팅방에서<br>영수증 사진 + 간단한 후기를 남겨주세요.<br>완전 익명으로 처리됩니다!</p>
-      <a href="https://open.kakao.com/o/gSX50zki" target="_blank" class="btn-primary">카카오 채팅방 바로가기</a>
-    </div>
-    <div class="upload-steps">
-      <div class="upload-step"><div class="step-dot">1</div><span>채팅방 입장</span></div>
-      <div class="upload-step"><div class="step-dot">2</div><span>영수증 사진 전송</span></div>
-      <div class="upload-step"><div class="step-dot">3</div><span>후기 등록 완료</span></div>
+      <h3>후기 수집 준비 중입니다</h3>
+      <p>수집 항목 안내와 동의 절차를<br>마련한 뒤 다시 열겠습니다.<br>채팅방에는 영수증 사진을 올리지 말아 주세요.</p>
     </div>
   </div>
 </div>
@@ -1490,7 +1428,7 @@ document.addEventListener('DOMContentLoaded', renderQaList);
   <div class="footer-grid">
     <div class="footer-brand">
       <span class="logo">헤어<span style="color:var(--accent-soft)">트루스</span></span>
-      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>모든 후기는 실제 방문자의 영수증으로 검증됩니다.</p>
+      <p>영수증 인증 기반 탈모 병원 정보 플랫폼.<br>광고 없는 투명한 탈모 정보를 제공합니다.<br>후기는 영수증을 확인한 뒤에만 게재합니다.</p>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="background:#FEE500;color:#3C1E1E;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">💬 카카오 채팅방</a>
         <a href="https://instagram.com/hairtruth_kr" target="_blank" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:white;padding:8px 16px;border-radius:6px;font-size:0.78rem;text-decoration:none;font-weight:600;">📷 @hairtruth_kr</a>
@@ -1499,25 +1437,21 @@ document.addEventListener('DOMContentLoaded', renderQaList);
     </div>
     <div class="footer-col">
       <h4>서비스</h4>
-      <a href="#search">병원 찾기</a>
-      <a href="#ranking">병원 랭킹</a>
-      <a href="#price">비급여 가격표</a>
-      <a href="#heatmap">지역별 가격 비교</a>
-      <a href="#compare">한방 vs 양방 비교</a>
+      <a href="hospitals.html">병원 찾기</a>
+      <a href="ranking.html">병원 랭킹</a>
+      <a href="price.html">비급여 가격표</a>
     </div>
     <div class="footer-col">
       <h4>정보</h4>
-      <a href="#guide">탈모 치료 가이드</a>
-      <a href="#timeline">치료 타임라인</a>
-      <a href="#qa">Q&A 커뮤니티</a>
+      <a href="guide.html">탈모 치료 가이드</a>
+      <a href="qa.html">Q&A 커뮤니티</a>
       <a href="#" onclick="openDiag();return false;">탈모 자가진단</a>
     </div>
     <div class="footer-col">
       <h4>채널</h4>
       <a href="https://open.kakao.com/o/gSX50zki" target="_blank">카카오 오픈채팅</a>
       <a href="https://instagram.com/hairtruth_kr" target="_blank">인스타그램</a>
-      <a href="#">네이버 블로그</a>
-      <a href="#">제휴·파트너십 문의</a>
+      <a href="https://blog.naver.com/hair_truth" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -2001,15 +1935,9 @@ document.addEventListener('DOMContentLoaded', renderQaList);
         <div class="result-desc" id="resultDesc"></div>
         <h4 style="font-size:0.88rem;font-weight:700;margin-bottom:12px;color:var(--mid)">🎯 추천 치료법 (우선순위 순)</h4>
         <div class="result-recs" id="resultRecs"></div>
-        <div class="result-hospitals">
-          <h4>📍 맞춤 추천 병원</h4>
-          <div class="rh-item"><span class="rh-name">모어헤어 클리닉 강남점</span><span class="rh-score">★ 4.8 · 186건</span></div>
-          <div class="rh-item"><span class="rh-name">탈모전문 닥터모 의원</span><span class="rh-score">★ 4.7 · 98건</span></div>
-          <div class="rh-item"><span class="rh-name">헤어젠 피부과 신촌점</span><span class="rh-score">★ 4.5 · 124건</span></div>
-        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
           <button class="btn-outline" onclick="restartDiag()">↺ 다시 진단하기</button>
-          <button class="btn-teal" onclick="closeModal('diagModal');document.getElementById('search').scrollIntoView({behavior:'smooth'})">병원 찾아보기 →</button>
+          <button class="btn-teal" onclick="location.href='hospitals.html'">병원 찾아보기 →</button>
         </div>
       </div>
 
@@ -3746,9 +3674,28 @@ function renderRanking(hospitals) {
   }
 }
 
+function trackEvent(name) {
+  if (typeof window.gtag === 'function') window.gtag('event', name, { page_path: window.location.pathname });
+}
+
+// 후기 수집은 수집 항목 안내·동의 절차·개인정보 처리방침이 준비될 때까지 닫아 둔다.
+const REVIEW_PAUSED_NOTICE = '후기 수집 준비 중입니다. 수집 항목 안내와 동의 절차를 마련한 뒤 다시 열겠습니다.';
+
 function openReviewModal() {
-  document.getElementById('reviewModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // 안내 버튼 클릭 횟수일 뿐이다. 후기 제출이나 수요가 검증된 것으로 해석하지 않는다.
+  trackEvent('review_notice_click');
+  showToast(REVIEW_PAUSED_NOTICE, 'info', 5000);
+}
+
+function resetReviewForm() {
+  document.querySelectorAll('#reviewForm input[type="text"], #reviewForm textarea').forEach(function(el) { el.value = ''; });
+  document.querySelectorAll('#reviewForm select').forEach(function(el) { el.selectedIndex = 0; });
+  document.querySelectorAll('#reviewForm input[name="rv_rating"]').forEach(function(el) { el.checked = false; });
+  document.querySelectorAll('#reviewForm .rv-star').forEach(function(el) { el.style.color = '#ddd'; });
+  var region = document.getElementById('rv_region');
+  if (region) region.value = '';
+  var quality = document.getElementById('contentQualityMsg');
+  if (quality) quality.textContent = '';
 }
 
 function closeReviewModal() {
@@ -3759,6 +3706,8 @@ function closeReviewModal() {
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzZXmyepXSgdWaB_oa8sMUNSCCrtaI0KelZz2MVVFqg0CC5O15q7J_94mWHMSmGagZ/exec';
 
 function submitReview() {
+  showToast(REVIEW_PAUSED_NOTICE, 'info', 5000);
+  return;
   const hospitalName = document.getElementById('rv_hospital').value.trim();
   const hospitalType = document.getElementById('rv_type').value;
   const treatment = document.getElementById('rv_treatment').value.trim();
@@ -3792,19 +3741,17 @@ function submitReview() {
     body: JSON.stringify(payload)
   })
   .then(() => {
+    trackEvent('review_submit_attempt');
     closeReviewModal();
-    document.getElementById('reviewForm').reset();
+    resetReviewForm();
     clearReceipt();
-    setTimeout(() => { showToast('🎉 영수증 후기가 접수되었습니다! 검토 후 3일 내 공개될 예정이에요 😊', 'success', 5000); }, 300);
+    setTimeout(() => { showToast('후기 전송을 요청했어요. 운영자가 확인한 뒤 게재 여부를 결정합니다.', 'success', 5000); }, 300);
   })
   .catch(() => {
-    closeReviewModal();
-    document.getElementById('reviewForm').reset();
-    clearReceipt();
-    setTimeout(() => { showToast('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'warning', 4000); }, 300);
+    showToast('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'warning', 4000);
   })
   .finally(() => {
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '후기 등록하기'; }
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '🧾 후기 등록하기'; }
   });
 }
 
@@ -4089,7 +4036,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- 실시간 품질 안내 -->
         <div id="contentQualityMsg" style="margin-top:6px;font-size:0.72rem;"></div>
         <div style="margin-top:6px;background:#f0f7ff;border-radius:6px;padding:8px 10px;font-size:0.72rem;color:#555;line-height:1.6;">
-          💡 <strong>이런 내용을 포함하면 AI 검증 점수가 높아져요</strong><br>
+          💡 <strong>이런 내용을 적어주시면 다른 분들께 도움이 돼요</strong><br>
           ✔ 탈모약 이름 (피나스테리드, 미녹시딜 등) · 시술명 (PRP, 메조 등)<br>
           ✔ 효과가 어떠했는지 (좋았다/별로였다) · 가격이 합리적이었는지<br>
           ✔ 병원 환경, 의사 설명, 대기 시간 등 구체적 경험
@@ -4098,7 +4045,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- 영수증 사진 업로드 -->
       <div style="margin-bottom:18px;">
-        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">영수증 사진 첨부 <span style="color:var(--teal);font-size:0.72rem">(권장 — 신뢰도 인증)</span></label>
+        <label style="font-size:0.78rem;color:var(--mid);font-weight:500;display:block;margin-bottom:6px;">영수증 사진 첨부 <span style="color:var(--accent)">*</span></label>
         <div id="rv_upload_area" onclick="document.getElementById('rv_receipt').click()" style="border:2px dashed var(--line);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);" onmouseover="this.style.borderColor='var(--teal)';this.style.background='var(--teal-light)'" onmouseout="this.style.borderColor='var(--line)';this.style.background='var(--cream)'">
           <div style="font-size:2rem;margin-bottom:8px;">🧾</div>
           <div style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:4px;">영수증 사진을 클릭해서 올려주세요</div>
@@ -4109,7 +4056,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div id="rv_preview" style="display:none;margin-top:10px;position:relative;">
           <img id="rv_preview_img" style="width:100%;max-height:200px;object-fit:contain;border-radius:8px;border:1px solid var(--line);background:#f5f5f5;">
           <button onclick="clearReceipt()" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:white;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;">✕</button>
-          <div style="background:var(--verified-bg);color:var(--verified);padding:6px 10px;border-radius:6px;font-size:0.75rem;font-weight:600;margin-top:6px;text-align:center;">✅ 영수증 사진 첨부 완료 — 인증된 후기로 등록됩니다!</div>
+          <div style="background:var(--verified-bg);color:var(--verified);padding:6px 10px;border-radius:6px;font-size:0.75rem;font-weight:600;margin-top:6px;text-align:center;">✅ 영수증 사진 첨부 완료</div>
         </div>
         <div style="font-size:0.72rem;color:var(--mid);margin-top:6px;">💡 영수증의 병원명·금액만 보이면 됩니다. 개인정보(이름·주민번호)는 가려주세요.</div>
       </div>
@@ -4142,15 +4089,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- 안내 문구 -->
       <div style="background:var(--teal-light);border-radius:8px;padding:12px 14px;font-size:0.76rem;color:var(--teal);line-height:1.7;margin-bottom:20px;">
-        🔒 <strong>개인정보 안내:</strong> 입력하신 정보는 이 기기에만 저장됩니다. 서버로 전송되지 않습니다.<br>
-        🧾 영수증 인증 후기는 검토 후 플랫폼에 게재됩니다.
+        🔒 <strong>후기 수집 준비 중입니다.</strong> 지금은 입력하신 내용과 영수증 사진이 어디로도 전송되지 않습니다.<br>
+        수집 항목 안내와 동의 절차를 마련한 뒤 다시 열겠습니다.
       </div>
 
-      <button onclick="submitReview()" style="width:100%;background:var(--teal);color:white;padding:14px;border-radius:8px;border:none;cursor:pointer;font-size:0.95rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;transition:background 0.2s;">🧾 후기 등록하기</button>
+      <button onclick="submitReview()" disabled style="width:100%;background:var(--mid);color:white;padding:14px;border-radius:8px;border:none;cursor:not-allowed;font-size:0.95rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;">후기 수집 준비 중입니다</button>
 
-      <div style="text-align:center;margin-top:12px;">
-        <a href="https://open.kakao.com/o/gSX50zki" target="_blank" style="font-size:0.78rem;color:var(--mid);text-decoration:none;">또는 카카오 채팅방으로 영수증 인증하기 →</a>
-      </div>
 
     </div>
   </div>
@@ -4607,6 +4551,17 @@ var kakaoMapObj = null;
 var allMarkers = [];
 var currentFilter = 'all';
 
+// 주소·전화번호·진료 여부를 직접 확인한 기관만 공개한다.
+// 다시 공개하려면 HAIR_HOSPITALS의 해당 항목에 아래 세 가지를 모두 적는다. 하나라도 없으면 공개되지 않는다.
+//   verified:true, source:'확인한 출처(공식 누리집 주소 또는 "전화 확인")', checkedAt:'YYYY-MM-DD'(확인한 날짜)
+// verified만 바꾼다고 확인이 끝난 것이 아니다. 실제로 확인한 뒤에 출처와 날짜를 함께 기록한다.
+function isVerifiedRecord(h) {
+  return h.verified === true
+    && typeof h.source === 'string' && h.source.trim() !== ''
+    && /^\d{4}-\d{2}-\d{2}$/.test(h.checkedAt || '');
+}
+var VERIFIED_HOSPITALS = HAIR_HOSPITALS.filter(isVerifiedRecord);
+
 var markerColors = {
   hair:     '#c84b2f',
   clinic:   '#2a6b6e',
@@ -4622,6 +4577,11 @@ var typeLabel = {
 function initKakaoMap() {
   var container = document.getElementById('kakaoMap');
   if (!container || !window.kakao || !kakao.maps) return;
+  if (VERIFIED_HOSPITALS.length === 0) return;
+  var pendingNotice = document.getElementById('mapPendingNotice');
+  var verifiedArea = document.getElementById('mapVerifiedArea');
+  if (pendingNotice) pendingNotice.style.display = 'none';
+  if (verifiedArea) verifiedArea.hidden = false;
 
   var options = {
     center: new kakao.maps.LatLng(36.5, 127.5),
@@ -4630,7 +4590,7 @@ function initKakaoMap() {
   kakaoMapObj = new kakao.maps.Map(container, options);
 
   // 마커 생성
-  HAIR_HOSPITALS.forEach(function(h, i) {
+  VERIFIED_HOSPITALS.forEach(function(h, i) {
     var pos = new kakao.maps.LatLng(h.lat, h.lng);
 
     // 커스텀 마커 이미지
@@ -4652,7 +4612,7 @@ function initKakaoMap() {
     allMarkers.push(customOverlay);
   });
 
-  renderMapHospitalList(HAIR_HOSPITALS);
+  renderMapHospitalList(VERIFIED_HOSPITALS);
 }
 
 function showHospitalInfo(h) {
@@ -4690,8 +4650,8 @@ function filterMap(type) {
     btn.style.fontWeight = active ? '700' : '400';
   });
 
-  var filtered = type === 'all' ? HAIR_HOSPITALS
-    : HAIR_HOSPITALS.filter(function(h){ return h.type === type; });
+  var filtered = type === 'all' ? VERIFIED_HOSPITALS
+    : VERIFIED_HOSPITALS.filter(function(h){ return h.type === type; });
 
   renderMapHospitalList(filtered);
 
@@ -4749,8 +4709,7 @@ document.addEventListener('DOMContentLoaded', function() {
   user-select: none;
 " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 28px rgba(200,75,47,0.55)'"
    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(200,75,47,0.45)'">
-  <span style="font-size:1.2rem;">🧾</span>
-  <span>후기 남기기</span>
+  <span>후기 수집 안내</span>
 </div>
 
 <script>

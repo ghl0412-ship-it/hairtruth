@@ -41,7 +41,7 @@
     document.querySelectorAll('.gstat').forEach(function (stats) {
       stats.querySelectorAll('.gstat-row').forEach(function (row) {
         var label = row.querySelector('.gstat-label');
-        if (label && /(비용|처방)/.test(label.textContent)) row.hidden = true;
+        if (label && /(비용|처방)/.test(label.textContent)) row.style.display = 'none';
       });
       addCard(stats);
     });
